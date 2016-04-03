@@ -611,6 +611,12 @@ data/grautec8000/fonts/Makefile
 data/vfd128/Makefile
 data/vfd140/Makefile
 data/vfd255/Makefile
+data/mb_wizard/Makefile
+data/mb_wizard/mini/Makefile
+data/mb_wizard/miniplus/Makefile
+data/mb_wizard/micro/Makefile
+data/mb_wizard/twin/Makefile
+data/mb_wizard/ultra/Makefile
 include/Makefile
 lib/Makefile
 lib/base/eenv.cpp

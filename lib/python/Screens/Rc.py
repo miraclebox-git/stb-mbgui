@@ -10,6 +10,10 @@ config.misc.rcused = ConfigInteger(default = 1)
 class Rc:
 	def __init__(self):
 		self["rc"] = MultiPixmap()
+		self['tunera'] = MovingPixmap()
+		self['tunerb'] = MovingPixmap()
+		self['tunerc'] = MovingPixmap()
+		self['tunerd'] = MovingPixmap()
 		self["arrowdown"] = MovingPixmap()
 		self["arrowdown2"] = MovingPixmap()
 		self["arrowup"] = MovingPixmap()

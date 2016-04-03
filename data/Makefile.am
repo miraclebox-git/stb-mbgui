@@ -1,4 +1,4 @@
-SUBDIRS = fonts keymaps
+SUBDIRS = fonts keymaps mb_wizard
 
 dist_pkgdata_DATA = \
 	encoding.conf \
@@ -7,8 +7,10 @@ dist_pkgdata_DATA = \
 	keymap.u80 \
 	menu.xml \
 	black.mvi \
+	splashbox.bin box.mvi \
 	rcpositions.xml \
 	setup.xml \
+	skin_mb.xml \
 	skin_subtitles.xml \
 	startwizard.xml \
 	userinterfacepositionerwizard.xml \

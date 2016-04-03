@@ -292,6 +292,54 @@ int main(int argc, char **argv)
 	dsk.setRedrawTask(main);
 	dsk_lcd.setRedrawTask(main);
 
+	eDebug("Checking box...");
+	
+	FILE *infile;
+	char line[100];
+	char command[64];
+
+	if((infile = fopen("/proc/stb/info/boxtype", "r")) != NULL)
+	{
+		fgets(line, sizeof(line), infile);
+
+		if(strcmp(line, "ini-5000sv\n") == 0) 
+		{
+			eDebug("Miraclebox Premium Twin detected");
+		}
+		else if(strcmp(line, "ini-1000sv\n") == 0) 
+		{
+			eDebug("Miraclebox Premium Mini detected");
+		}
+		else if(strcmp(line, "ini-2000sv\n") == 0) 
+		{
+			eDebug("Miraclebox Premium Mini+ detected");
+		}		
+		else if(strcmp(line, "ini-8000sv\n") == 0) 
+		{
+			eDebug("Miraclebox Premium Ultra detected");
+		}
+		else if(strcmp(line, "7000S\n") == 0) 
+		{
+			eDebug("Miraclebox Premium Ultra detected");
+		}
+		else if(strcmp(line, "g300\n") == 0) 
+		{
+			eDebug("Miraclebox Premium Twin+ detected");
+		}
+		else
+		{
+			eDebug("Wrong HW, this image can be only run on Miraclbox Premium Series");
+			sprintf(command, "showiframe /usr/share/enigma2/box.mvi > /dev/null");
+			system(command);
+			//sprintf(command, "flash_erase /dev/mtd/2 0 0");
+			//system(command);
+			//sprintf(command, "flash_erase /dev/mtd/4 0 0");
+			//system(command);
+			sprintf(command, "sleep 5;reboot -f");
+		}
+		fclose(infile);
+	}
+	
 	std::string active_skin = getConfigCurrentSpinner("config.skin.primary_skin");
 
 	eDebug("Loading spinners...");

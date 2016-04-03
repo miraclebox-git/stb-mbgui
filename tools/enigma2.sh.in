@@ -28,6 +28,8 @@ if [ -x @bindir@/showiframe ]; then
 	fi
 fi
 
+killall -9 gst-launch-1.0
+
 # hook to execute scripts always before enigma2 start
 if [ -x @bindir@/enigma2_pre_start.sh ]; then
 	@bindir@/enigma2_pre_start.sh

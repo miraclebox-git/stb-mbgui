@@ -18,6 +18,15 @@
 <menu text="Mainmenu" title="Main menu">
 	<id val="mainmenu" />
 
+	<!-- Weather -->
+	<item weight="2" entryID="weather" text="Weather">
+<code>
+from Plugins.Extensions.WeatherPlugin.plugin import MSNWeatherPlugin
+self.session.open(MSNWeatherPlugin)
+</code>
+		</item>
+	<item weight="2" level="1" text="Plugins" entryID="plugin_selection"><screen module="PluginBrowser" screen="PluginBrowser" /></item>
+
 	<!-- Menu / Information -->
 	<menu weight="5" level="0" text="Information" entryID="info_screen">
 		<id val="information" />
@@ -36,11 +45,10 @@
 		<item weight="10" level="0" text="CronTimers" entryID="crontimer_edit"><screen module="CronTimer" screen="CronTimers" /></item>
 	</menu>
 
-	<item weight="10" level="1" text="Plugins" entryID="plugin_selection"><screen module="PluginBrowser" screen="PluginBrowser" /></item>
 	<item weight="15" level="1" text="VCR scart" entryID="scart_switch" configcondition="config.usage.show_vcr_scart" requires="ScartSwitch"><code>self.session.scart.VCRSbChanged(3)</code></item>
 
 	<!-- Menu / Settings -->
-	<menu weight="20" level="0" text="Setup" flushConfigOnClose="1" entryID="setup_selection" >
+	<menu weight="3" level="0" text="Setup" flushConfigOnClose="1" entryID="setup_selection" >
 		<id val="setup" />
 
 		<!-- Menu / Settings / Video Menu -->
@@ -73,14 +81,14 @@
 			<item weight="5" level="0" entryID="remote_setup"><setup id="remotesetup"/></item>
 			<item weight="10" level="0" entryID="channelselection_setup"><setup id="channelselection" /></item>
 			<item weight="15" level="0" entryID="usage_setup"><setup id="usage" /></item>
-			<item weight="20" level="0" entryID="specialfeatures_menu"><setup id="specialfeatures" /></item>
+			<!--<item weight="20" level="0" entryID="specialfeatures_menu"><setup id="specialfeatures" /></item>-->
 			<item weight="25" level="0" text="Skin Setup" entryID="skin_setup"><screen module="SkinSelector" screen="SkinSelector"/></item>
 			<menu weight="30" level="0" text="Display" entryID="display_selection" requires="Display">
 				<id val="display" />
 				<item weight="0" level="0" entryID="display_setup"><setup id="display" /></item>
 				<item weight="5" level="0" text="Skin setup" entryID="lcd_skin_setup" requires="LCDSKINSetup"><screen module="SkinSelector" screen="LcdSkinSelector"/></item>
 			</menu>
-			<item weight="35" level="2" text="Hotkey Setup" entryID="buttonsetup_setup"><screen module="ButtonSetup" screen="ButtonSetup"/></item>
+			<!--<item weight="35" level="2" text="Hotkey Setup" entryID="buttonsetup_setup"><screen module="ButtonSetup" screen="ButtonSetup"/></item>-->
 			<!-- Menu / Settings / System / Extended System / OSD settings -->
 			<menu weight="40" level="1" text="Extended GUI" entryID="osd_setup">
 				<id val="osd_menu" />
@@ -141,6 +149,7 @@ self.session.openWithCallback(msgClosed, EpgSaveMsg)
 			<item weight="0" level="0" text="Tuner configuration" entryID="tuner_setup"><screen module="Satconfig" screen="NimSelection" /></item>
 			<item weight="5" level="0" text="Automatic scan" entryID="auto_scan"><screen module="ScanSetup" screen="ScanSimple" /></item>
 			<item weight="10" level="0" text="Manual scan" entryID="manual_scan"><screen module="ScanSetup" /></item>
+			<item weight="15" level="0" text="Download Channel list" entryID="channel_list"><screen module="AddonManager" screen="AddonsViewer" /></item>
 		</menu>
 
 		<!-- Menu / Settings / Common interface -->
@@ -164,7 +173,7 @@ self.session.openWithCallback(msgClosed, EpgSaveMsg)
 				<item weight="0" level="1" entryID="harddisk_setup"><setup id="harddisk"/></item>
 				<item weight="5" level="0" text="Initialization" entryID="harddisk_init"><screen module="HarddiskSetup" screen="HarddiskSelection"/></item>
 				<item weight="10" level="0" text="Filesystem Check" entryID="harddisk_check"><screen module="HarddiskSetup" screen="HarddiskFsckSelection"/></item>
-				<item weight="15" level="0" text="Convert ext3 filesystem to ext4" entryID="harddisk_convert" requires="ext4"><screen module="HarddiskSetup" screen="HarddiskConvertExt4Selection"/></item>
+				<!--<item weight="15" level="0" text="Convert ext3 filesystem to ext4" entryID="harddisk_convert" requires="ext4"><screen module="HarddiskSetup" screen="HarddiskConvertExt4Selection"/></item>-->
 			</menu>
 
 			<!-- Menu / Settings / System / Network -->
@@ -191,8 +200,9 @@ self.session.open(HdmiCECSetupScreen)
 </code>
 			</item>
 			<item weight="60" level="0" entryID="time_setup"><setup id="time"/></item>
-			<item weight="70" level="0" entryID="logs_setup"><setup id="logs" /></item>
+			<!--<item weight="70" level="0" entryID="logs_setup"><setup id="logs" /></item>-->
 			<item weight="80" level="1" entryID="rfmod_setup" requires="RfModulator"><setup id="RFmod"/></item>
+			<item weight="98" level="0" text="Installation Wizard" entryID="startwizzard"><screen module="StartWizard" screen="StartWizard" /></item>
 			<item weight="99" level="0" text="Factory reset" entryID="factory_reset">
 				<code>
 from Screens.FactoryReset import FactoryReset

@@ -3638,7 +3638,8 @@ class InfoBarInstantRecord:
 	def __init__(self):
 		self["InstantRecordActions"] = HelpableActionMap(self, "InfobarInstantRecord",
 			{
-				"instantRecord": (self.instantRecord, _("Instant recording...")),
+				"instantRecord": (self.instantRecord, _("Start a Recording")),
+				"stopRecord": (self.stopRecord, _("Stop a Recording")),
 			})
 		self.SelectedInstantServiceRef = None
 		if isStandardInfoBar(self):
@@ -3799,6 +3800,20 @@ class InfoBarInstantRecord:
 
 		if answer[1] != "savetimeshiftEvent":
 			self.saveTimeshiftEventPopupActive = False
+
+	def stopRecord(self):
+		if self.isInstantRecordRunning():
+			list = []
+			recording = self.recording[:]
+			for x in recording:
+				if not x in self.session.nav.RecordTimer.timer_list:
+					self.recording.remove(x)
+				elif x.dontSave and x.isRunning():
+					list.append((x, False))
+
+			self.session.openWithCallback(self.stopCurrentRecording, TimerSelection, list)
+		else:
+			print "no recording nothing to stop"
 
 	def setEndtime(self, entry):
 		if entry is not None and entry >= 0:

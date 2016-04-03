@@ -80,7 +80,7 @@ def InitUsageConfig():
 	config.usage.show_infobar_do_dimming = ConfigYesNo(default = False)
 	config.usage.show_infobar_dimming_speed = ConfigSelectionNumber(min = 1, max = 40, stepwidth = 1, default = 10, wraparound = True)
 	config.usage.show_infobar_channel_number = ConfigYesNo(default = False)
-	config.usage.show_second_infobar = ConfigSelection(default = "1", choices = [("0", _("Off")), ("1", _("Event Info")), ("2", _("2nd Infobar INFO")), ("3", _("2nd Infobar ECM"))])
+	config.usage.show_second_infobar = ConfigSelection(default = "2", choices = [("0", _("Off")), ("1", _("Event Info")), ("2", _("2nd Infobar INFO")), ("3", _("2nd Infobar ECM"))])
 	config.usage.second_infobar_timeout = ConfigSelection(default = "5", choices = [("0", _("No timeout"))] + choicelist)
 	def showsecondinfobarChanged(configElement):
 		if config.usage.show_second_infobar.value != "INFOBAREPG":
@@ -785,7 +785,7 @@ def InitUsageConfig():
 	config.plisettings = ConfigSubsection()
 	config.plisettings.Subservice = ConfigYesNo(default = True)
 	config.plisettings.ColouredButtons = ConfigYesNo(default = False)
-	config.plisettings.InfoBarEpg_mode = ConfigSelection(default="3", choices = [
+	config.plisettings.InfoBarEpg_mode = ConfigSelection(default="0", choices = [
 					("0", _("as plugin in extended bar")),
 					("1", _("with long OK press")),
 					("2", _("with exit button")),
@@ -916,6 +916,21 @@ def InitUsageConfig():
 	config.pluginbrowser.po = ConfigYesNo(default = False)
 	config.pluginbrowser.src = ConfigYesNo(default = False)
 
+	#workaround
+	config.plugins.infopanel_redpanel = ConfigSubsection()
+	redSelection = [('0',_("Default (Instant Record)")), ('1',_("Infopanel")),('2',_("Timer List")),('3',_("Show Movies"))]
+	config.plugins.infopanel_redpanel.selection = ConfigSelection(redSelection, default='0')
+	config.plugins.infopanel_redpanel.selectionLong = ConfigSelection(redSelection, default='2')
+
+	choicelist = [('0',_("Audio Selection")),('1',_("Default (Timeshift)")), ('2',_("Toggle Pillarbox <> Pan&Scan")),('3',_("Teletext"))]
+	config.plugins.infopanel_yellowkey = ConfigSubsection()
+	config.plugins.infopanel_yellowkey.list = ConfigSelection(default='0', choices = choicelist)
+	config.plugins.infopanel_yellowkey.listLong = ConfigSelection(default='0', choices = choicelist)
+
+	config.plugins.showinfopanelextensions = ConfigYesNo(default=False)
+	config.plugins.infopanel_frozencheck = ConfigSubsection()
+	config.plugins.infopanel_frozencheck.list = ConfigSelection([('0',_("Off")),('1',_("1 min.")), ('5',_("5 min.")),('10',_("10 min.")),('15',_("15 min.")),('30',_("30 min."))])
+	
 def updateChoices(sel, choices):
 	if choices:
 		defval = None

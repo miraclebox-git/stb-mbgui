@@ -79,10 +79,14 @@ class InfoBar(InfoBarBase, InfoBarShowHide,
 				"showBoxPortal": (self.showBoxPortal, _("Show Box Portal...")),
 			}, prio=2)
 
-		self["key_red"] = Label()
-		self["key_yellow"] = Label()
-		self["key_blue"] = Label()
-		self["key_green"] = Label()
+		self["key_red"] = Label(_("HbbTV"))
+		self["key_red"].hide()
+	
+		self["key_green"] = Label(_("Subservices"))
+		self["key_green"].hide()
+		
+		self["key_yellow"] = Label(_("Audio"))
+		self["key_blue"] = Label(_("Extensions"))
 
 		self.allowPiP = True
 		self.radioTV = 0
@@ -144,7 +148,19 @@ class InfoBar(InfoBarBase, InfoBarShowHide,
 	def __eventInfoChanged(self):
 		if self.execing:
 			service = self.session.nav.getCurrentService()
-			old_begin_time = self.current_begin_time
+			info = service and service.info()
+			subservices = service and service.subServices()
+			
+			if subservices and subservices.getNumberOfSubservices() > 0:
+				self["key_green"].show()
+			else:
+				self["key_green"].hide()
+			
+			if info.getInfoString(iServiceInformation.sHBBTVUrl):
+			      self["key_red"].show()
+		      
+			else:
+			       self["key_red"].hide()
 			info = service and service.info()
 			ptr = info and info.getEvent(0)
 			self.current_begin_time = ptr and ptr.getBeginTime() or 0

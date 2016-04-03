@@ -11,6 +11,7 @@ from Components.Language_cache import LANG_TEXT
 from enigma import eTimer
 
 from Screens.Rc import Rc
+from Screens.Setup import Setup
 
 from Tools.Directories import resolveFilename, SCOPE_ACTIVE_SKIN
 from Tools.LoadPixmap import LoadPixmap
@@ -51,7 +52,7 @@ class LanguageSelection(Screen):
 
 		self["key_red"] = Label(_("Cancel"))
 		self["key_green"] = Label(_("Save"))
-		self["key_yellow"] = Label(_("Update Cache"))
+		self["key_yellow"] = Label(_("Auto language selection"))
 		self["key_blue"] = Label(_("Delete Language"))
 
 		self["actions"] = ActionMap(["SetupActions", "ColorActions"],
@@ -60,9 +61,12 @@ class LanguageSelection(Screen):
 			"cancel": self.cancel,
 			"red": self.cancel,
 			"green": self.save,
-			"yellow": self.updateCache,
+			"yellow": self.AutoAudioSelection,
 			"blue": self.delLang,
 		}, -1)
+
+	def AutoAudioSelection(self):
+		self.session.open(Setup, "autolanguagesetup")
 
 	def updateCache(self):
 		print"updateCache"
