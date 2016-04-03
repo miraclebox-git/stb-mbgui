@@ -19,7 +19,6 @@ class InstallWizard(Screen, ConfigListScreen):
 
 	STATE_UPDATE = 0
 	STATE_CHOISE_CHANNELLIST = 1
-	STATE_CHOISE_SOFTCAM = 2
 	STATE_CHOISE_IMAGE_UPGRADE = 3
 	
 	def __init__(self, session, args = None):
@@ -45,14 +44,6 @@ class InstallWizard(Screen, ConfigListScreen):
 					else:
 						iNetwork.restartNetwork(self.checkNetworkLinkCB)
 					break
-				elif x[1] == 'wlan000':
-					if iNetwork.getAdapterAttribute(x[1], 'up'):
-						self.ipConfigEntry = ConfigIP(default = iNetwork.getAdapterAttribute(x[1], "ip"))
-						iNetwork.checkNetworkState(self.checkNetworkCB)
-						if_found = True
-					else:
-						iNetwork.restartNetwork(self.checkNetworkLinkCB)
-					break
 			if is_found is False:
 				self.createMenu()
 		elif self.index == self.STATE_CHOISE_CHANNELLIST:
@@ -62,8 +53,8 @@ class InstallWizard(Screen, ConfigListScreen):
 		elif self.index == self.STATE_CHOISE_IMAGE_UPGRADE:
 			modes = {"yes": _(" "), "no": _(" ")}
 			modes2 = {"yes": _(" "), "no": _(" ")}
-			self.enabled = ConfigSelection(choices = modes, default = "yes")#ConfigYesNo(default = True)
-			self.enabled2 = ConfigSelection(choices = modes2, default = "no")#ConfigYesNo(default = False)
+			self.enabled = ConfigSelection(choices = modes, default = "yes")
+			self.enabled2 = ConfigSelection(choices = modes2, default = "no")
 			self.createMenu()
 
 	def checkNetworkCB(self, data):
