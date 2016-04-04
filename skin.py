@@ -286,6 +286,8 @@ def morphRcImagePath(value):
 	if rc_model.rcIsDefault() is False:
 		if value == '/usr/share/enigma2/skin_default/rc.png' or value == '/usr/share/enigma2/skin_default/rcold.png':
 			value = rc_model.getRcLocation() + 'rc.png'
+		elif value == '/usr/share/enigma2/YouViX-Blue/rc.png' or value == '/usr/share/enigma2/YouViX-Blue/rcold.png':
+			value = rc_model.getRcLocation() + 'rc.png'
 		elif value == '/usr/share/enigma2/skin_default/rc0.png' or value == '/usr/share/enigma2/skin_default/rc1.png' or value == '/usr/share/enigma2/skin_default/rc2.png':
 			value = rc_model.getRcLocation() + 'rc.png'
 	return value

@@ -588,7 +588,7 @@ def InitUsageConfig():
 
 	crashlogheader = _("We are really sorry. Your receiver encountered " \
 					 "a software problem, and needs to be restarted.\n" \
-					 "Please send the logfile %senigma2_crash_xxxxxx.log to www.opena.tv.\n" \
+					 "Please send the logfile %senigma2_crash_xxxxxx.log to dev@miraclebox.se.\n" \
 					 "Your receiver restarts in 10 seconds!\n" \
 					 "Component: enigma2") % config.crash.debug_path.value
 	config.crash.debug_text = ConfigText(default=crashlogheader, fixed_size=False)
