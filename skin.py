@@ -113,6 +113,10 @@ if name:
 if not name or not res:
 	addSkin('skin_user.xml', SCOPE_CONFIG)
 
+# mb skin
+if config.skin.primary_skin.value == "YouViX-Blue/skin.xml":
+	addSkin('skin_mb.xml')
+
 # some boxes lie about their dimensions
 addSkin('skin_box.xml')
 # add optional discrete second infobar
