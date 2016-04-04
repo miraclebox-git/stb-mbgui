@@ -2974,11 +2974,11 @@ class InfoBarExtensions:
 					"showMediaPlayer": (self.showMediaPlayer, _("Show the media player...")),
 				}, 1) # lower priority
 
-		self.addExtension(extension = self.getLogManager, type = InfoBarExtensions.EXTENSION_LIST)
+		#self.addExtension(extension = self.getLogManager, type = InfoBarExtensions.EXTENSION_LIST)
 		self.addExtension(extension = self.getOsd3DSetup, type = InfoBarExtensions.EXTENSION_LIST)
 		self.addExtension(extension = self.getCCcamInfo, type = InfoBarExtensions.EXTENSION_LIST)
 		self.addExtension(extension = self.getOScamInfo, type = InfoBarExtensions.EXTENSION_LIST)
-		self.addExtension(extension = self.getSoftcamPanel, type = InfoBarExtensions.EXTENSION_LIST)
+		#self.addExtension(extension = self.getSoftcamPanel, type = InfoBarExtensions.EXTENSION_LIST)
 		if config.usage.show_restart_network_extensionslist.getValue() is True:
 			self.addExtension(extension = self.getRestartNetwork, type = InfoBarExtensions.EXTENSION_LIST)
 
@@ -3000,14 +3000,12 @@ class InfoBarExtensions:
 	def quickmenuStart(self):
 		try:
 			if not self.session.pipshown:
-				from Plugins.Extensions.Infopanel.QuickMenu import QuickMenu
-				self.session.open(QuickMenu)
+				self.showExtensionSelection()
 			else:
 				self.showExtensionSelection()
 		except:
 			print "[INFOBARGENERICS] QuickMenu: error pipshow, starting Quick Menu"
-			from Plugins.Extensions.Infopanel.QuickMenu import QuickMenu
-			self.session.open(QuickMenu)
+			self.showExtensionSelection()
 
 	def SelectopenEventView(self):
 		try:
