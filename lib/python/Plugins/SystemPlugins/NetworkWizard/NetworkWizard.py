@@ -1,4 +1,4 @@
-from boxbranding import getMachineBrand, getMachineName, getBoxType
+from boxbranding import getMachineBrand, getMachineName
 from os import system
 
 from enigma import eTimer
@@ -6,11 +6,16 @@ from enigma import eTimer
 from Screens.WizardLanguage import WizardLanguage
 from Screens.Rc import Rc
 from Screens.MessageBox import MessageBox
-from Screens.Screen import Screen
+from Components.About import about
 from Components.Pixmap import Pixmap
 from Components.Sources.Boolean import Boolean
 from Components.Network import iNetwork
+from Components.config import config, ConfigSubsection, ConfigBoolean
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS
+
+
+config.misc.networkwizard = ConfigSubsection()
+config.misc.networkwizard.hasnetwork = ConfigBoolean(default = False)
 
 class NetworkWizard(WizardLanguage, Rc):
 	skin = """
@@ -37,11 +42,9 @@ class NetworkWizard(WizardLanguage, Rc):
 		self.xmlfile = resolveFilename(SCOPE_PLUGINS, "SystemPlugins/NetworkWizard/networkwizard.xml")
 		WizardLanguage.__init__(self, session, showSteps = False, showStepSlider = False)
 		Rc.__init__(self)
-		Screen.setTitle(self, _("NetworkWizard"))
 		self.session = session
 		self["wizard"] = Pixmap()
-		self["HelpWindow"] = Pixmap()
-		self["HelpWindow"].hide()
+
 		self["VKeyIcon"] = Boolean(False)
 
 		self.InstalledInterfaceCount = None
@@ -80,7 +83,6 @@ class NetworkWizard(WizardLanguage, Rc):
 		self.stopScan()
 		del self.rescanTimer
 		self.checkOldInterfaceState()
-		self.exit()
 		pass
 
 	def back(self):
@@ -149,8 +151,6 @@ class NetworkWizard(WizardLanguage, Rc):
 		if index == 'end':
 			self.NextStep = 'end'
 		elif index == 'eth0':
-			self.NextStep = 'nwconfig'
-		elif index == 'eth1' and getBoxType() == "et10000":
 			self.NextStep = 'nwconfig'
 		else:
 			self.NextStep = 'asknetworktype'
@@ -225,28 +225,45 @@ class NetworkWizard(WizardLanguage, Rc):
 					self.afterAsyncCode()
 			else:
 				self.currStep = self.getStepWithID("checklanstatusend")
+				self.Text = self.getLanStatusMsg()
 				self.afterAsyncCode()
 
 	def AdapterSetupEndFinished(self,data):
 		if data <= 2:
 			self.InterfaceState = True
+			config.misc.networkwizard.hasnetwork.value = True
+			config.misc.networkwizard.save()
 		else:
 			self.InterfaceState = False
+			config.misc.networkwizard.hasnetwork.value = False
+			config.misc.networkwizard.save()
 		self.AdapterRef.close(True)
 
 	def checkWlanStateCB(self,data,status):
 		if data is not None:
 			if data is True:
 				if status is not None:
+					wlan0 = about.getIfConfig('wlan0')
+					if wlan0.has_key('addr'):
+						text11 = _("Your IP:") + "\t" + wlan0['addr'] + "\n\n"
+						if wlan0.has_key('netmask'):
+							text11 += _("Netmask:") + "\t" + wlan0['netmask'] + "\n"
+						if wlan0.has_key('brdaddr'):
+							text11 += _("Gateway:") + "\t" + wlan0['brdaddr'] + "\n"
+						if wlan0.has_key('hwaddr'):
+							text11 += _("MAC:") + "\t" + wlan0['hwaddr'] + "\n\n"  
 					text1 = _("Your %s %s is now ready to be used.\n\nYour internet connection is working now.\n\n") % (getMachineBrand(), getMachineName())
 					text2 = _('Accesspoint:') + "\t" + str(status[self.selectedInterface]["accesspoint"]) + "\n"
 					text3 = _('SSID:') + "\t" + str(status[self.selectedInterface]["essid"]) + "\n"
 					text4 = _('Link quality:') + "\t" + str(status[self.selectedInterface]["quality"])+ "\n"
 					text5 = _('Signal strength:') + "\t" + str(status[self.selectedInterface]["signal"]) + "\n"
-					text6 = _('Bitrate:') + "\t" + str(status[self.selectedInterface]["bitrate"]) + "\n"
-					text7 = _('Encryption:') + " " + str(status[self.selectedInterface]["encryption"]) + "\n"
+					text6 = _('Bitrate:') + "\t" + str(status[self.selectedInterface]["bitrate"]) + " Mbps\n"
+					text7 = _('Encryption:') + "\t" + str(status[self.selectedInterface]["encryption"]) + "\n"
 					text8 = _("Please press OK to continue.")
-					infotext = text1 + text2 + text3 + text4 + text5 + text7 +"\n" + text8
+					try:
+						infotext = text1 + text11 + text2 + text3 + text4 + text6 + text7 + "\n" + text8
+					except:
+						infotext = text1 + text2 + text3 + text4 + text6 + text7 + "\n" + text8
 					self.currStep = self.getStepWithID("checkWlanstatusend")
 					self.Text = infotext
 					if str(status[self.selectedInterface]["accesspoint"]) == "Not-Associated":
@@ -383,3 +400,23 @@ class NetworkWizard(WizardLanguage, Rc):
 
 	def ChoicesSelectionMoved(self):
 		pass
+	      
+	def getLanStatusMsg(self):      
+		eth0 = about.getIfConfig('eth0')
+		if eth0.has_key('addr'):
+			text11 = _("Your IP:") + "\t" + eth0['addr'] + "\n\n"
+			if eth0.has_key('netmask'):
+				text11 += _("Netmask:") + "\t" + eth0['netmask'] + "\n"
+			if eth0.has_key('brdaddr'):
+				text11 += _("Gateway:") + "\t" + eth0['brdaddr'] + "\n"
+			if eth0.has_key('hwaddr'):
+				text11 += _("MAC:") + "\t" + eth0['hwaddr'] + "\n"  
+		try:
+			text1 = _("Your %s %s is now ready to be used.\n\nYour internet connection is working now.\n\n") % (getMachineBrand(), getMachineName())
+			text2 = _("Please press OK to continue.")
+			return text1 + text11 +"\n" + text2
+		except:
+			text1 = _("Your %s %s is now ready to be used.\n\nYour internet connection is not working now.\n\n") % (getMachineBrand(), getMachineName())
+			text2 = _("Please press OK to continue.")
+			return text1 + "\n" + text2
+		
