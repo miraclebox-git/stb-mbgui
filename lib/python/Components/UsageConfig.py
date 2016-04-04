@@ -265,7 +265,7 @@ def InitUsageConfig():
 	config.usage.servicenum_fontsize = ConfigSelectionNumber(default = 0, stepwidth = 1, min = -8, max = 10, wraparound = True)
 	config.usage.servicename_fontsize = ConfigSelectionNumber(default = 0, stepwidth = 1, min = -8, max = 10, wraparound = True)
 	config.usage.serviceinfo_fontsize = ConfigSelectionNumber(default = 0, stepwidth = 1, min = -8, max = 10, wraparound = True)
-	config.usage.serviceitems_per_page = ConfigSelectionNumber(default = 18, stepwidth = 1, min = 8, max = 40, wraparound = True)
+	config.usage.serviceitems_per_page = ConfigSelectionNumber(default = 15, stepwidth = 1, min = 8, max = 40, wraparound = True)
 	config.usage.show_servicelist = ConfigYesNo(default = True)
 	config.usage.servicelist_mode = ConfigSelection(default = "standard", choices = [
 		("standard", _("Standard")),
@@ -519,7 +519,7 @@ def InitUsageConfig():
 	for i in (60, 120, 300):
 		m = i / 60
 		choicelist.append(("%d" % i, ngettext("%d minute", "%d minutes", m) % m))
-	config.timeshift.startdelay = ConfigSelection(default = "0", choices = choicelist)
+	config.timeshift.startdelay = ConfigSelection(default = "10", choices = choicelist)
 	config.timeshift.showinfobar = ConfigYesNo(default = True)
 	config.timeshift.stopwhilerecording = ConfigYesNo(default = False)
 	config.timeshift.favoriteSaveAction = ConfigSelection([("askuser", _("Ask user")),("savetimeshift", _("Save and stop")),("savetimeshiftandrecord", _("Save and record")),("noSave", _("Don't save"))], "askuser")
