@@ -10,7 +10,6 @@ dist_pkgdata_DATA = \
 	splashbox.bin box.mvi \
 	rcpositions.xml \
 	setup.xml \
-	skin_mb.xml \
 	skin_subtitles.xml \
 	startwizard.xml \
 	userinterfacepositionerwizard.xml \
