@@ -30,7 +30,7 @@ self.session.open(MSNWeatherPlugin)
 	<!-- Menu / Settings -->
 	<menu weight="3" level="0" text="Setup" flushConfigOnClose="1" entryID="setup_selection" >
 		<id val="setup" />
-		<menu weight="5" level="0" text="TV Settings" entryID="tv_selection">
+		<menu weight="5" level="0" text="TV settings" entryID="tv_selection">
 			<id val="tv" />
 
 			<!-- Menu / Settings / TV Settings / Service Searching -->
@@ -43,13 +43,13 @@ self.session.open(MSNWeatherPlugin)
 			</menu>
 			
 			<!-- Menu / Settings / TV Settings / Video Menu -->
-			<menu weight="5" level="0" text="Video Settings" entryID="video_menu">
+			<menu weight="5" level="0" text="Video settings" entryID="video_menu">
 				<id val="video_menu" />
 				<item weight="0" level="0" text="Basic settings" entryID="video_setup"><screen module="VideoMode" screen="VideoSetup" /></item>
 			</menu>
 
 			<!-- Menu / Settings / TV Settings / Audio Menu -->
-			<menu weight="10" level="1" text="Audio Settings" entryID="audio_menu">
+			<menu weight="10" level="1" text="Audio settings" entryID="audio_menu">
 				<id val="audio_menu" />
 				<item weight="0" level="1" text="Basic settings" entryID="audio_setup"><screen module="VideoMode" screen="AudioSetup" /></item>
 				<item weight="10" level="2" entryID="subtitle_setup"><setup id="subtitlesetup" /></item>
@@ -57,7 +57,7 @@ self.session.open(MSNWeatherPlugin)
 			</menu>
 			
 			<!-- Menu / Settings / TV Settings / EPG -->
-			<menu weight="15" level="2" text="EPG Settings" entryID="epg_menu">
+			<menu weight="15" level="2" text="EPG settings" entryID="epg_menu">
 				<id val="epg" />
 				<!-- Menu / Settings / TV Settings / EPG / Load Save-->
 				<item weight="105" level="0" title="General settings" entryID="epg_setup"><setup id="epgsettings" /></item>
@@ -104,7 +104,7 @@ self.session.openWithCallback(msgClosed, EpgSaveMsg)
 
 		<!-- Menu / Settings / GUI -->
 		<!-- was: Menu / Settings / System -->
-		<menu weight="15" level="0" text="System Settings" entryID="system_selection">
+		<menu weight="15" level="0" text="System settings" entryID="system_selection">
 			<id val="system" />
 			<!-- Menu / Settings / GUI / Display-->
 			<item weight="1" level="0" text="Language" entryID="language_setup"><screen module="LanguageSelection" /></item>
@@ -120,7 +120,7 @@ self.session.openWithCallback(msgClosed, EpgSaveMsg)
 				<item weight="5" level="0" text="Skin setup" entryID="lcd_skin_setup" requires="LCDSKINSetup"><screen module="SkinSelector" screen="LcdSkinSelector"/></item>
 			</menu>
 			<!-- Menu / Settings / System / Extended System / OSD settings -->
-			<menu weight="99" level="1" text="Extended Settings" entryID="osd_setup">
+			<menu weight="99" level="1" text="Extended settings" entryID="osd_setup">
 				<id val="osd_menu" />
 				<item weight="5" level="0" entryID="usage_setup"><setup id="usage" /></item>
 				<item weight="10" level="1" text="OSD Position" entryID="osdsetup" requires="CanChangeOsdPosition"><screen module="UserInterfacePositioner" screen="UserInterfacePositioner2"/></item>
