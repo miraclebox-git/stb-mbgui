@@ -156,7 +156,7 @@ class InfoBar(InfoBarBase, InfoBarShowHide,
 			else:
 				self["key_green"].hide()
 			
-			if info.getInfoString(iServiceInformation.sHBBTVUrl):
+			if info.getInfoString(enigma.iServiceInformation.sHBBTVUrl):
 			      self["key_red"].show()
 		      
 			else:
