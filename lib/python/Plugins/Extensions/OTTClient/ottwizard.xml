@@ -1,0 +1,70 @@
+<wizard>
+		<step id="welcome">
+			<text value="Welcome.\n\nThis Wizard will help you to configure your STB." />
+			<list>
+				<listentry caption="Scan for a server" step="scan" />
+				<listentry caption="Abort this Wizard" step="abort" />
+			</list>
+			<code>
+			</code>
+		</step>
+
+		<step id="scan" nextstep="choose">
+			<text value="Please wait while scan is in progress.\nThis operation may take a while." />
+			<code>
+self.scan()
+			</code>
+		</step>
+		
+		<step id="choose">
+			<text value="Choose your main device" />
+			<list type="dynamic" source="getScanList" evaluation="selectionMade" />
+			<code>
+			</code>
+		</step>
+
+		<step id="download" nextstep="end"> 
+			<text value="Please wait while download is in progress.\nNOTE: If you have parental control enabled on remote box, the local settings will be overwritten." />
+			<code>
+self.download()
+			</code>
+		</step>
+		
+		<step id="abort"> 
+			<text value="Your STB is not configured.\nPlease press OK to close this Wizard." />
+			<code>
+			</code>
+			<code pos="after">
+config.ipboxclient.firstconf.value = True
+config.ipboxclient.firstconf.save()
+self.close()
+			</code>
+		</step>
+
+		<step id="nodevices">
+			<text value="No devices found! Sorry, we can't configure your STB right now.\nPlease press OK to close this Wizard." />
+			<list>
+				<listentry caption="Try to scan again" step="scan" />
+				<listentry caption="Abort this Wizard" step="abort" />
+			</list>
+			<code>
+			</code>
+		</step>
+		
+		<step id="nodownload">
+			<text value="Cannot download data! Sorry, we can't configure your STB right now.\nPlease press OK to close this Wizard." />
+			<list>
+				<listentry caption="Try to download again" step="download" />
+				<listentry caption="Abort this Wizard" step="abort" />
+			</list>
+			<code>
+			</code>
+		</step>
+		
+		<step id="end">
+			<text value="Thank you for using the wizard. Your STB is now configured.\nPlease press OK to continue." />
+			<code>
+			</code>
+		</step>
+</wizard>
+
