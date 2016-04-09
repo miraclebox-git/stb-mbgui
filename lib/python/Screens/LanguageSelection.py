@@ -17,8 +17,6 @@ from Tools.Directories import resolveFilename, SCOPE_ACTIVE_SKIN
 from Tools.LoadPixmap import LoadPixmap
 import gettext
 
-inWizzard = False
-
 def LanguageEntryComponent(file, name, index):
 	png = LoadPixmap(resolveFilename(SCOPE_ACTIVE_SKIN, "countries/" + index + ".png"))
 	if png is None:
@@ -92,12 +90,7 @@ class LanguageSelection(Screen):
 
 	def save(self):
 		self.run()
-		global inWizzard
-		if inWizzard:
-			inWizzard = False
-			self.session.openWithCallback(self.deletelanguagesCB, MessageBox, _("Do you want to delete all other languages?"), default = False)
-		else:
-			self.close(self.oldActiveLanguage != config.osd.language.value)
+		self.close(self.oldActiveLanguage != config.osd.language.value)
 
 	def deletelanguagesCB(self, anwser):
 		if anwser:
@@ -173,8 +166,6 @@ class LanguageWizard(LanguageSelection, Rc):
 	def __init__(self, session):
 		LanguageSelection.__init__(self, session)
 		Rc.__init__(self)
-		global inWizzard
-		inWizzard = True
 		self.onLayoutFinish.append(self.selectKeys)
 
 		self["wizard"] = Pixmap()

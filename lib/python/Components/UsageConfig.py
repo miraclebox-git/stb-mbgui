@@ -52,7 +52,7 @@ def InitUsageConfig():
 	config.usage.servicelist_column = ConfigSelection(default="-1", choices=choicelist)
 	config.usage.servicelist_column.addNotifier(refreshServiceList)
 
-	config.usage.service_icon_enable = ConfigYesNo(default = True)
+	config.usage.service_icon_enable = ConfigYesNo(default = False)
 	config.usage.service_icon_enable.addNotifier(refreshServiceList)
 	config.usage.servicelist_picon_downsize = ConfigSelectionNumber(default = -2, stepwidth = 1, min = -8, max = 0, wraparound = True)
 	config.usage.servicelist_cursor_behavior = ConfigSelection(default = "keep", choices = [
@@ -61,7 +61,7 @@ def InitUsageConfig():
 		("reverseB", _("Reverse bouquet buttons")),
 		("keep reverseB", _("Keep service") + " + " + _("Reverse bouquet buttons"))])
 	config.usage.multiepg_ask_bouquet = ConfigYesNo(default = False)
-	config.usage.showpicon = ConfigYesNo(default = True)
+	config.usage.showpicon = ConfigYesNo(default = False)
 
 	config.usage.panicbutton = ConfigYesNo(default = False)
 	config.usage.panicchannel = ConfigInteger(default = 1, limits=(1,5000) )
@@ -306,7 +306,7 @@ def InitUsageConfig():
 		('percleft', _("Percentage left")),
 		('percright', _("Percentage right")),
 		('no', _("No")) ])
-	config.usage.show_channel_numbers_in_servicelist = ConfigYesNo(default = True)
+	config.usage.show_channel_numbers_in_servicelist = ConfigYesNo(default = False)
 	config.usage.show_channel_jump_in_servicelist = ConfigSelection(default="quick", choices = [
 					("quick", _("Quick Actions")),
 					("alpha", _("Alpha")),

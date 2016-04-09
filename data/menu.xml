@@ -18,13 +18,6 @@
 <menu text="Mainmenu" title="Main menu">
 	<id val="mainmenu" />
 
-	<!-- Weather -->
-	<item weight="2" entryID="weather" text="Weather">
-<code>
-from Plugins.Extensions.WeatherPlugin.plugin import MSNWeatherPlugin
-self.session.open(MSNWeatherPlugin)
-</code>
-		</item>
 	<item weight="2" level="1" text="Plugins" entryID="plugin_selection"><screen module="PluginBrowser" screen="PluginBrowser" /></item>
 
 	<!-- Menu / Settings -->
