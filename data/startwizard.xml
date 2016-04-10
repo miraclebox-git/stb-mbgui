@@ -210,12 +210,12 @@ from Components.NimManager import nimmanager
 self.condition = nimmanager.somethingConnected()
 			</condition>
 			<list>
-				<listentry caption="No, scan later manually" step="end" />
+				<listentry caption="No, scan later manually" step="reboot" />
 				<listentry caption="Yes, do an automatic scan now" step="scan" />
 				<listentry caption="Yes, do a manual scan now" step="manualscan" />
 			</list>
 		</step>
-		<step id="scan" nextstep="end">
+		<step id="scan" nextstep="reboot">
 			<condition>
 from Components.NimManager import nimmanager
 self.condition = nimmanager.somethingConnected()
@@ -241,9 +241,28 @@ self.condition = nimmanager.somethingConnected()
 			<text value="Do you want to do another manual service scan?" />
 			<displaytext value="Service scan" />
 			<list>
-				<listentry caption="No, scan later manually" step="end" />
+				<listentry caption="No, scan later manually" step="reboot" />
 				<listentry caption="Yes, do another manual scan now" step="manualscan" />
 			</list>
+		</step>
+		<step id="reboot">
+			<text value="Do you want to restart %s %s to save all settings ?" />
+			<displaytext value="Wizard" />
+			<list>
+				<listentry caption="No, I will do it later." step="end" />
+				<listentry caption="Yes, do it now" step="reboot_now" />
+			</list>
+		</step>
+		<step id="reboot_now" laststep="true">
+			<code>
+from Screens.Standby import TryQuitMainloop
+from Screens.StartWizard import *
+config.misc.firstrun.value = 0
+config.misc.firstrun.save()
+configfile.save()
+
+self.session.open(TryQuitMainloop, 2)
+			</code>
 		</step>
 		<step id="end" laststep="true">
 			<condition>
