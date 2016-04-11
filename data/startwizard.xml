@@ -246,15 +246,9 @@ self.condition = nimmanager.somethingConnected()
 			</list>
 		</step>
 		<step id="reboot">
-			<text value="Do you want to restart %s %s to save all settings ?" />
+			<text value="Your %s %s will now restart to finish the installation.\n\nPress OK to restart." />
 			<displaytext value="Wizard" />
-			<list>
-				<listentry caption="No, I will do it later." step="end" />
-				<listentry caption="Yes, do it now" step="reboot_now" />
-			</list>
-		</step>
-		<step id="reboot_now" laststep="true">
-			<code>
+			<code pos="after">
 from Screens.Standby import TryQuitMainloop
 from Screens.StartWizard import *
 config.misc.firstrun.value = 0
