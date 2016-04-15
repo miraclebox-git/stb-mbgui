@@ -22,9 +22,9 @@ config.ipboxclient.mounthdd = ConfigYesNo(default = False)
 config.ipboxclient.remotetimers = ConfigYesNo(default = False)
 
 #MOD
-from Components.config import config, ConfigBoolean
-
+from Components.config import config, ConfigBoolean, configfile
 config.misc.firstrun = ConfigBoolean(default = True)
+#config.misc.iptvmode = ConfigSelection(default = "normal", choices = [("normal", _("Satellite")), ("iptv", _("IPTV"))])
 
 def ipboxclientRecordTimer():
 	return OTTRemoteTimer()
@@ -62,12 +62,12 @@ def Plugins(**kwargs):
 			fnc = ipboxclientRecordTimer
 		))
 	
-	#if config.misc.firstrun.value:
+	if config.misc.firstrun.value:
 	#if not config.ipboxclient.firstconf.value:
-		#list.append(PluginDescriptor(
-			#name = _("IPTV wizard"),
-			#where = PluginDescriptor.WHERE_WIZARD,
-			#needsRestart = False,
-			#fnc=(30, OTTWizard)
-		#))
+		list.append(PluginDescriptor(
+			name = _("IPTV wizard"),
+			where = PluginDescriptor.WHERE_WIZARD,
+			needsRestart = False,
+			fnc=(3, OTTWizard)
+		))
 	return list

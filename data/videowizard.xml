@@ -41,6 +41,11 @@ self.condition = getBoxType() in ("mbmicro", "mbminiplus")
 		</condition>
 		<text value="Your %s %s offers two configuration options:\n\nSatellite - We suggest this level if this is your first contact with a %s %s.\nIPTV - This level enables you to use Your %s %s as TV and PVR client from other Miraclebox" />
 		<list type="config" configelement="config.misc.iptvmode" />
+		<code pos="after">
+from Components.config import configfile
+config.misc.iptvmode.save()
+configfile.save()
+		</code>
 	</step>
 	<step id="end">
 		<code>

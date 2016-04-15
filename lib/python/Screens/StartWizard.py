@@ -27,6 +27,7 @@ class StartWizard(WizardLanguage, Rc):
 		self["wizard"] = Pixmap()
 		#Screen.setTitle(self, _("Welcome..."))
 		Screen.setTitle(self, _("StartWizard"))
+		
 
 	def markDone(self):
 		# setup remote control, all stb have same settings except dm8000 which uses a different settings
@@ -42,11 +43,4 @@ class StartWizard(WizardLanguage, Rc):
 
 wizardManager.registerWizard(LanguageWizard, config.misc.languageselected.value, priority = 0)
 wizardManager.registerWizard(VideoWizard, config.misc.videowizardenabled.value, priority = 1)
-wizardManager.registerWizard(StartWizard, config.misc.firstrun.value and config.misc.iptvmode.value in ('normal') , priority = 4)
-
-# IPTV Channel List downloader
-if getBoxType() in ("mbmicro", "mbminiplus") and config.misc.iptvmode.value in ('iptv'):
-	from os import path
-	if path.exists("/usr/lib/enigma2/python/Plugins/Extensions/OTTClient"):
-		from Plugins.Extensions.OTTClient.OTTWizard import OTTWizard
-		wizardManager.registerWizard(OTTWizard, config.misc.firstrun.value, priority = 3) # It always should show as last one
+wizardManager.registerWizard(StartWizard, config.misc.firstrun.value, priority = 10)

@@ -129,6 +129,9 @@ class OTTWizard(Wizard):
 		self["HelpWindow"].hide()
 		self["VKeyIcon"] = Boolean(False)
 
+		if config.misc.iptvmode.value in ('normal'):
+			self.close()
+
 	def getTranslation(self, text):
 		return _(text)
 
@@ -136,7 +139,7 @@ class OTTWizard(Wizard):
 		self.timer = eTimer()
 		self.timer.callback.append(self.doscan)
 		self.timer.start(100)
-		
+
 	def doscan(self):
 		self.timer.stop()
 		scanner = OTTScan(self.session)
