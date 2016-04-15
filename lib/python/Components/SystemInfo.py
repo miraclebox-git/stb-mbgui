@@ -20,7 +20,6 @@ SystemInfo["NumVideoDecoders"] = getNumVideoDecoders()
 SystemInfo["PIPAvailable"] = SystemInfo["NumVideoDecoders"] > 1
 SystemInfo["CanMeasureFrontendInputPower"] = eDVBResourceManager.getInstance().canMeasureFrontendInputPower()
 
-
 def countFrontpanelLEDs():
 	leds = 0
 	if fileExists("/proc/stb/fp/led_set_pattern"):

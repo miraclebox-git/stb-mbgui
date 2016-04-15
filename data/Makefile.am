@@ -11,7 +11,7 @@ dist_pkgdata_DATA = \
 	rcpositions.xml \
 	setup.xml \
 	skin_subtitles.xml \
-	startwizard.xml \
+	startwizard.xml startwizard_iptv.xml \
 	userinterfacepositionerwizard.xml \
 	videowizard.xml \
 	freesat.t1 \

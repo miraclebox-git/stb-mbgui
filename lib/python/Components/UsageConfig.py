@@ -934,6 +934,13 @@ def InitUsageConfig():
 	config.plugins.infopanel_frozencheck = ConfigSubsection()
 	config.plugins.infopanel_frozencheck.list = ConfigSelection([('0',_("Off")),('1',_("1 min.")), ('5',_("5 min.")),('10',_("10 min.")),('15',_("15 min.")),('30',_("30 min."))])
 	
+	#Miraclebox
+	config.misc.iptvmode = ConfigSelection(default = "normal", choices = [("normal", _("Satellite")), ("iptv", _("IPTV"))])
+	if config.misc.iptvmode.value in ('iptv'):
+		SystemInfo["IPTVMODE"] = True
+	else:
+		SystemInfo["IPTVMODE"] = False
+	
 def updateChoices(sel, choices):
 	if choices:
 		defval = None

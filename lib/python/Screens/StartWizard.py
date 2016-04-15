@@ -7,17 +7,21 @@ from Screens.Screen import Screen
 from boxbranding import getBoxType
 
 from Components.Pixmap import Pixmap
-from Components.config import config, ConfigBoolean, configfile
+from Components.config import config, ConfigBoolean, configfile, ConfigSelection
 
 from LanguageSelection import LanguageWizard
 
 config.misc.firstrun = ConfigBoolean(default = True)
 config.misc.languageselected = ConfigBoolean(default = True)
 config.misc.videowizardenabled = ConfigBoolean(default = True)
+config.misc.iptvmode = ConfigSelection(default = "normal", choices = [("normal", _("Satellite")), ("iptv", _("IPTV"))])
 
 class StartWizard(WizardLanguage, Rc):
 	def __init__(self, session, silent = True, showSteps = False, neededTag = None):
-		self.xmlfile = ["startwizard.xml"]
+		if config.misc.iptvmode.value in ('normal'):
+			self.xmlfile = ["startwizard.xml"]
+		else:
+			self.xmlfile = ["startwizard_iptv.xml"]
 		WizardLanguage.__init__(self, session, showSteps = False)
 		Rc.__init__(self)
 		self["wizard"] = Pixmap()
@@ -36,6 +40,13 @@ class StartWizard(WizardLanguage, Rc):
 		config.misc.firstrun.save()
 		configfile.save()
 
-wizardManager.registerWizard(VideoWizard, config.misc.videowizardenabled.value, priority = 2)
 wizardManager.registerWizard(LanguageWizard, config.misc.languageselected.value, priority = 0)
-wizardManager.registerWizard(StartWizard, config.misc.firstrun.value, priority = 20)
+wizardManager.registerWizard(VideoWizard, config.misc.videowizardenabled.value, priority = 1)
+wizardManager.registerWizard(StartWizard, config.misc.firstrun.value and config.misc.iptvmode.value in ('normal') , priority = 4)
+
+# IPTV Channel List downloader
+if getBoxType() in ("mbmicro", "mbminiplus", "mbtwinplus") and config.misc.iptvmode.value in ('iptv'):
+	from os import path
+	if path.exists("/usr/lib/enigma2/python/Plugins/Extensions/OTTClient"):
+		from Plugins.Extensions.OTTClient.OTTWizard import OTTWizard
+		wizardManager.registerWizard(OTTWizard, config.misc.firstrun.value, priority = 3) # It always should show as last one
