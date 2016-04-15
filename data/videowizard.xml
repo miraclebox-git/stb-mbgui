@@ -10,7 +10,7 @@ self.clearSelectedKeys()
 self.selectKey("OK")
 		</code>
 	</step>
-	<step id="modeselection" nextstep="end" timeout="10" timeoutaction="selectnext">
+	<step id="modeselection" nextstep="tvmode" timeout="10" timeoutaction="selectnext">
 		<text value="Video mode selection." />
 		<displaytext value="Video resolution" />
 		<list type="dynamic" source="listModes" evaluation="modeSelectionMade" onselect="modeSelectionMoved" />
@@ -34,6 +34,14 @@ self.selectKey("UP")
 self.selectKey("DOWN")
 		</code>
 	</step>-->
+	<step id="tvmode" nextstep="end">
+		<condition>
+from boxbranding import getBoxType
+self.condition = getBoxType() in ("mbmicro", "mbminiplus")
+		</condition>
+		<text value="Your %s %s offers two configuration options:\n\nSatellite - We suggest this level if this is your first contact with a %s %s.\nIPTV - This level enables you to use Your %s %s as TV and PVR client from other Miraclebox" />
+		<list type="config" configelement="config.misc.iptvmode" />
+	</step>
 	<step id="end">
 		<code>
 self.hw.saveMode(self.port, self.mode, self.rate)

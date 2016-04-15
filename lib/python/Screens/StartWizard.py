@@ -45,7 +45,7 @@ wizardManager.registerWizard(VideoWizard, config.misc.videowizardenabled.value, 
 wizardManager.registerWizard(StartWizard, config.misc.firstrun.value and config.misc.iptvmode.value in ('normal') , priority = 4)
 
 # IPTV Channel List downloader
-if getBoxType() in ("mbmicro", "mbminiplus", "mbtwinplus") and config.misc.iptvmode.value in ('iptv'):
+if getBoxType() in ("mbmicro", "mbminiplus") and config.misc.iptvmode.value in ('iptv'):
 	from os import path
 	if path.exists("/usr/lib/enigma2/python/Plugins/Extensions/OTTClient"):
 		from Plugins.Extensions.OTTClient.OTTWizard import OTTWizard
