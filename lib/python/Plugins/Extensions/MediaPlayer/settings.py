@@ -14,7 +14,7 @@ def Load_defaults():
 	config.mediaplayer.repeat = ConfigYesNo(default=False)
 	config.mediaplayer.savePlaylistOnExit = ConfigYesNo(default=True)
 	config.mediaplayer.saveDirOnExit = ConfigYesNo(default=False)
-	config.mediaplayer.defaultDir = ConfigDirectory()
+	config.mediaplayer.defaultDir = ConfigDirectory(default="/media/")
 	config.mediaplayer.sortPlaylists = ConfigYesNo(default=False)
 	config.mediaplayer.alwaysHideInfoBar = ConfigYesNo(default=True)
 	config.mediaplayer.onMainMenu = ConfigYesNo(default=True)

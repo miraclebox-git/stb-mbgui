@@ -1,6 +1,6 @@
 <wizard>
 		<!--<step id="welcome">
-			<text value="Welcome.\n\nThis Wizard will help you to configure your %s %s." />
+			<text value="Welcome.\n\nThis Wizard will help you to configure your Miraclebox." />
 			<list>
 				<listentry caption="Scan for a IPTV server" step="scan" />
 				<listentry caption="Abort this Wizard" step="abort" />
@@ -31,7 +31,7 @@ self.download()
 		</step>
 		
 		<step id="abort"> 
-			<text value="Your %s %s is not configured.\nPlease press OK to close this Wizard." />
+			<text value="Your Miraclebox is not configured.\nPlease press OK to close this Wizard." />
 			<code>
 			</code>
 			<code pos="after">
@@ -42,7 +42,7 @@ self.close()
 		</step>
 
 		<step id="nodevices">
-			<text value="No devices found! Sorry, we can't configure your %s %s right now.\nPlease press OK to close this Wizard." />
+			<text value="No devices found! Sorry, we can't configure your Miraclebox right now.\nPlease press OK to close this Wizard." />
 			<list>
 				<listentry caption="Try to scan again" step="scan" />
 				<listentry caption="Abort this Wizard" step="abort" />
@@ -52,7 +52,7 @@ self.close()
 		</step>
 		
 		<step id="nodownload">
-			<text value="Cannot download data! Sorry, we can't configure your %s %s right now.\nPlease press OK to close this Wizard." />
+			<text value="Cannot download data! Sorry, we can't configure your Miraclebox right now.\nPlease press OK to close this Wizard." />
 			<list>
 				<listentry caption="Try to download again" step="download" />
 				<listentry caption="Abort this Wizard" step="abort" />
@@ -62,7 +62,7 @@ self.close()
 		</step>
 		
 		<step id="end">
-			<text value="Thank you for using the wizard. Your %s %s is now configured.\nPlease press OK to continue." />
+			<text value="Thank you for using the wizard. Your Miraclebox is now configured.\nPlease press OK to continue." />
 			<code>
 			</code>
 		</step>

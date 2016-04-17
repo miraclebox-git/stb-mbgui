@@ -121,7 +121,7 @@ class OTTWizard(Wizard):
 
 		Wizard.__init__(self, session)
 
-		self.setTitle(_('OTT Client'))
+		self.setTitle(_('IPTV Client'))
 
 		self.skinName = ["OTTWizard", "NetworkWizard"]
 		self["wizard"] = Pixmap()
@@ -174,6 +174,8 @@ class OTTWizard(Wizard):
 			config.ipboxclient.streamport.save()
 			config.ipboxclient.auth.value = False
 			config.ipboxclient.auth.save()
+			config.ipboxclient.mounthdd.value = True
+			config.ipboxclient.mounthdd.save()
 			config.ipboxclient.firstconf.value = True
 			config.ipboxclient.firstconf.save()
 			

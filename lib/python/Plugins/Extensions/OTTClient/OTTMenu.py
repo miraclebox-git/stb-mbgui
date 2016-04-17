@@ -114,7 +114,7 @@ class OTTMenu(Screen, ConfigListScreen):
 		Screen.__init__(self, session)
 		ConfigListScreen.__init__(self, self.list)
 		
-		self.setTitle(_('OTT Client'))
+		self.setTitle(_('IPTV Client'))
 		
 		self["VKeyIcon"] = Boolean(False)
 		self["text"] = StaticText(_('NOTE: the remote HDD feature require samba installed on server box.'))
