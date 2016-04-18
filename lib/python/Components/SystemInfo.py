@@ -5,7 +5,7 @@ from enigma import eDVBResourceManager, Misc_Options
 from Tools.Directories import fileExists, fileCheck
 from Tools.HardwareInfo import HardwareInfo
 
-from boxbranding import getBoxType, getMachineBuild
+from boxbranding import getBoxType, getMachineBuild, getImageDistro
 
 SystemInfo = { }
 
@@ -19,7 +19,7 @@ def getNumVideoDecoders():
 SystemInfo["NumVideoDecoders"] = getNumVideoDecoders()
 SystemInfo["PIPAvailable"] = SystemInfo["NumVideoDecoders"] > 1
 SystemInfo["CanMeasureFrontendInputPower"] = eDVBResourceManager.getInstance().canMeasureFrontendInputPower()
-
+SystemInfo["CardReader"] = getImageDistro() in ('miraculous')
 def countFrontpanelLEDs():
 	leds = 0
 	if fileExists("/proc/stb/fp/led_set_pattern"):
