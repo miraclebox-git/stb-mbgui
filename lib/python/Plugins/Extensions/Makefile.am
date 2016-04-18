@@ -12,4 +12,4 @@ endif
 
 install_PYTHON = __init__.py
 
-SUBDIRS += OTTClient
+SUBDIRS += OTTClient MBPanel

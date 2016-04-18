@@ -46,7 +46,7 @@ from Tools import Directories, Notifications
 from Tools.Directories import pathExists, fileExists, getRecordingFilename, copyfile, moveFiles, resolveFilename, SCOPE_TIMESHIFT, SCOPE_CURRENT_SKIN
 from Tools.KeyBindings import getKeyDescription
 from enigma import eTimer, eServiceCenter, eDVBServicePMTHandler, iServiceInformation, iPlayableService, eServiceReference, eEPGCache, eActionMap, eDVBVolumecontrol, getDesktop, quitMainloop
-from boxbranding import getBoxType, getMachineProcModel, getMachineBuild, getMachineBrand, getMachineName
+from boxbranding import getBoxType, getMachineProcModel, getMachineBuild, getMachineBrand, getMachineName, getImageDistro
 
 from time import time, localtime, strftime
 from bisect import insort
@@ -2995,7 +2995,11 @@ class InfoBarExtensions:
 		if config.workaround.blueswitch.value == "1":
 			self.quickmenuStart()
 		else:
-			self.showExtensionSelection()
+			if getImageDistro() == "miraculous":
+				from Plugins.Extensions.MBPanel.plugin import MBMainMenu
+				self.session.open(MBMainMenu)
+			else:
+				self.showExtensionSelection()
 
 	def quickmenuStart(self):
 		try:

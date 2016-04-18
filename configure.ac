@@ -654,6 +654,12 @@ lib/python/Plugins/Extensions/Infopanel/Makefile
 lib/python/Plugins/Extensions/Infopanel/meta/Makefile
 lib/python/Plugins/Extensions/Infopanel/icons/Makefile
 lib/python/Plugins/Extensions/Volume_adjust/Makefile
+lib/python/Plugins/Extensions/MBPanel/Makefile
+lib/python/Plugins/Extensions/MBPanel/bin/Makefile
+lib/python/Plugins/Extensions/MBPanel/icons/Makefile
+lib/python/Plugins/Extensions/MBPanel/icons/weather/Makefile
+lib/python/Plugins/Extensions/MBPanel/icons/weather/small/Makefile
+lib/python/Plugins/Extensions/MBPanel/icons/softcam/Makefile
 lib/python/Plugins/Extensions/OTTClient/Makefile
 lib/python/Plugins/SystemPlugins/Makefile
 lib/python/Plugins/SystemPlugins/AnimationSetup/Makefile
