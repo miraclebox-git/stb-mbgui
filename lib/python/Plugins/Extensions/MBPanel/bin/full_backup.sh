@@ -21,20 +21,32 @@ if [ ! -f /usr/lib/libbz2.so.1.0 ] ; then
 fi
 
 if [ -f /proc/stb/info/boxtype ] ; then
-	if [ "$(cat /proc/stb/info/boxtype)" == 'ini-5000sv' ]; then
+	if [ "$(cat /proc/stb/info/boxtype)" == 'ini-8000sv' ]; then
 		TYPE=miraclebox
-		MODEL=mbtwin
-		MTD=mtd1
-	elif [ "$(cat /proc/stb/info/boxtype)" == 'ini-1000sv' ]; then
-		TYPE=miraclebox
-		MODEL=mbmini
-		MTD=mtd2
-	elif [ "$(cat /proc/stb/info/boxtype)" == 'ini-8000sv' ]; then
-		TYPE=miraclebox
-		MODEL=mbultra
+		MODEL=ultra
 		MTD=mtd2
 		MKUBIFS_ARGS="-m 4096 -e 1040384 -c 1984"
 		UBINIZE_ARGS="-m 4096 -p 1024KiB"
+	elif [ "$(cat /proc/stb/info/boxtype)" == 'ini-5000sv' ]; then
+		TYPE=miraclebox
+		MODEL=twin
+		MTD=mtd2
+	elif [ "$(cat /proc/stb/info/boxtype)" == 'ini-2000sv' ]; then
+		TYPE=miraclebox
+		MODEL=miniplus
+		MTD=mtd2
+	elif [ "$(cat /proc/stb/info/boxtype)" == '7000S' ]; then
+		TYPE=miraclebox
+		MODEL=mbmicro
+		MTD=mtd2
+	elif [ "$(cat /proc/stb/info/boxtype)" == 'g300' ]; then
+		TYPE=miraclebox
+		MODEL=twinplus
+		MTD=mtd1
+	elif [ "$(cat /proc/stb/info/boxtype)" == 'ini-1000sv' ]; then
+		TYPE=miraclebox
+		MODEL=mini
+		MTD=mtd2
 	else
 		echo "No supported receiver found!"
 		exit 0

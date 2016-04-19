@@ -1,4 +1,4 @@
-SUBDIRS = weather softcam
+SUBDIRS = softcam
 
 installdir = $(pkglibdir)/python/Plugins/Extensions/MBPanel/icons
 

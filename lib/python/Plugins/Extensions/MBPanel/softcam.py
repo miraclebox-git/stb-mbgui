@@ -1,6 +1,7 @@
 from Screens.Screen import Screen
 from enigma import iServiceInformation, eTimer
 from Components.ActionMap import ActionMap
+from Components.Button import Button
 from Components.Label import Label
 from Components.ScrollLabel import ScrollLabel
 from Components.MenuList import MenuList
@@ -21,6 +22,27 @@ from Screens.Console import Console
 import urllib
 
 class MBSoftCam(Screen):
+	skin = """
+	<screen name="MBSoftCam" position="center,center" size="1000,720"  title="Miraclebox SoftCam Panel" flags="wfNoBorder">
+        <ePixmap position="339,170" zPosition="3" size="60,40" pixmap="skin_default/buttons/key_ok.png" alphatest="blend" transparent="1" />
+        <eLabel text="Miraclebox SoftCam Panel" position="80,30" size="800,38" font="Regular;34" halign="left" transparent="1"/> 
+        <widget name="lab1" position="129,90" size="230,25" font="Regular;24" zPosition="2"  transparent="1"/>
+        <widget name="list" position="75,126" size="340,38" zPosition="2"  transparent="1"/> 
+        <widget name="lab2" position="139,172" size="190,24" font="Regular;20" halign="center" valign="center" zPosition="2" transparent="1"/>
+    	<widget name="lab3" position="79,201" size="120,28" font="Regular;24" halign="left" zPosition="2" transparent="1"/> 
+        <widget name="activecam" position="79,201" size="350,28" font="Regular;24" halign="left" zPosition="2" transparent="1"/>
+        <widget name="Ilab1" position="79,257" size="350,28" font="Regular;24" zPosition="2" transparent="1"/>
+        <widget name="Ilab2" position="79,290" size="350,28" font="Regular;24" zPosition="2" transparent="1"/>
+        <widget name="Ilab3" position="79,315" size="350,28" font="Regular;24" zPosition="2" transparent="1"/>
+        <widget name="Ilab4" position="79,345" size="350,28" font="Regular;24" zPosition="2" transparent="1"/>
+        <widget name="Ecmtext" position="79,380" size="440,300" font="Regular;20" zPosition="2" transparent="1"/>
+        <ePixmap position="145,650" size="140,40" pixmap="skin_default/buttons/red.png" alphatest="on" zPosition="1" />
+        <ePixmap position="430,650" size="140,40" pixmap="skin_default/buttons/yellow.png" alphatest="on" zPosition="1" />
+        <ePixmap position="715,650" size="140,40" pixmap="skin_default/buttons/blue.png" alphatest="on" zPosition="1" />
+	<widget name="key_red" position="145,650" zPosition="2" size="140,40" font="Regular;24" halign="center" valign="center" backgroundColor="red" transparent="1" />		
+	<widget name="key_yellow" position="430,650" zPosition="2" size="140,40" font="Regular;24" halign="center" valign="center" backgroundColor="yellow" transparent="1" />
+	<widget name="key_blue" position="715,650" zPosition="2" size="140,40" font="Regular;24" halign="center" valign="center" backgroundColor="blue" transparent="1" />
+	</screen>"""
 	def __init__(self, session):
 		Screen.__init__(self, session)
 		
@@ -39,7 +61,7 @@ class MBSoftCam(Screen):
 		self['key_yellow'] = Label(_('Setup'))
 		self['key_blue'] = Label(_('Download'))
         
-		self["actions"] = ActionMap(["ColorActions", "OkCancelActions", "DirectionActions"],
+		self["actions"] = ActionMap(["OkCancelActions", "ColorActions", "CiSelectionActions"],
 		{
 			"ok": self.keyOk,
 			"cancel": self.close,
@@ -47,8 +69,8 @@ class MBSoftCam(Screen):
 			"red": self.keyRed,
 			"yellow": self.keyYellow,
 			"blue": self.keyBlue,
-			"up": self["Ecmtext"].pageUp,
-			"down": self["Ecmtext"].pageDown
+			"left": self.keyLeft,
+			"right": self.keyRight
 		}, -1)
 		
 		self.emlist = []
@@ -56,6 +78,13 @@ class MBSoftCam(Screen):
 		self["list"] = MenuList(self.emlist)
 		self["lab1"].setText(_("%d  CAM(s) Installed") % (len(self.emlist)))
 		self.onShow.append(self.updateBP)
+		
+		self.timer = eTimer()
+		self.timer.callback.append(self.downloadxmlpage)
+		self.timer.start(100, 1)
+		self.addon = 'emu'
+		self.icount = 0
+		self.downloading = False
 
 	def populate_List(self):
 		self.camnames = {}
@@ -123,7 +152,12 @@ class MBSoftCam(Screen):
 		self["activecam"].setText(self.defCamname)
 		self["Ecmtext"].setText(mytext)
 
+	def keyLeft(self):
+		self["list"].up()
 
+	def keyRight(self):
+		self["list"].down()
+		
 	def getServiceInfoValue(self, what, myserviceinfo):
 		v = myserviceinfo.getInfo(what)
 		if v == -2:
@@ -180,10 +214,10 @@ class MBSoftCam(Screen):
 
 	def keyBlue(self):
 		if self.downloading == True:
-			try:
-				self.session.openWithCallback(self.populate_List, IpkgPackages, self.xmlparse, " Cams - BlackHole 2.x.x ")
-			except:
-				self.close()
+			#try:
+			self.session.openWithCallback(self.populate_List, DownloadSoftCams, self.xmlparse, " Cams - BlackHole 2.x.x ")
+			#except:
+			#	self.close()
 		#from Plugins.Extensions.MBPanel.addon_manager import MB_PrzegladaczAddonow
 		#self.session.open(MB_PrzegladaczAddonow, "http://openmb.net/feeds/miraculous/custom/catalog_enigma2.xml")
 		
@@ -209,7 +243,7 @@ class MBSoftCam(Screen):
 
 	def downloadxmlpage(self):
 		from twisted.web.client import getPage
-		url = 'http://panel.vuplus-images.co.uk/addonslist1.5.xml'
+		url = 'http://panel.vuplus-images.co.uk/addonslist1.6.xml'
 		getPage(url).addCallback(self._gotPageLoad).addErrback(self.errorLoad)
 
 	def errorLoad(self, error):
@@ -285,8 +319,12 @@ class startstopCam(Screen):
 	def delTimer(self):
 		del self.activityTimer
 
-class IpkgPackages(Screen):
-	skin = '\n\t<screen position="center,center" size="900,720" title="Download BLACKHOLE SOFTCAMS" >\n\t\t<widget name="countrymenu" position="10,0" size="800,660" scrollbarMode="showOnDemand" />\n\t\t<ePixmap name="red" position="5,780" zPosition="4" size="540,40" pixmap="skin_default/buttons/red.png" transparent="1" alphatest="on" />\n\t\t<widget name="key_red" position="5,660" zPosition="5" size="120,60" valign="center" halign="center" font="Regular;28" transparent="1" foregroundColor="red" shadowColor="black" shadowOffset="-1,-1" />\n\t</screen>'
+class DownloadSoftCams(Screen):
+	skin = '''<screen position="center,center" size="900,720" title="Download Miraculous SOFTCAMS" >
+	<widget name="countrymenu" position="10,0" size="800,660" scrollbarMode="showOnDemand" />
+	<ePixmap name="red" position="5,780" zPosition="4" size="540,40" pixmap="skin_default/buttons/red.png" transparent="1" alphatest="on" />
+	<widget name="key_red" position="5,660" zPosition="5" size="120,60" valign="center" halign="center" font="Regular;28" transparent="1" foregroundColor="red" shadowColor="black" shadowOffset="-1,-1" />
+	</screen>'''
 
 	def __init__(self, session, xmlparse, selection):
 		Screen.__init__(self, session)

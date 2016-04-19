@@ -148,7 +148,7 @@ class MBMainMenu(Screen):
 		desc = (_("Weather informations for your location"))
 		idx = 8
 		res = (name,png,idx,desc)
-		self.list.append(res)
+		#self.list.append(res)
 
 		self["list"].list = self.list
 

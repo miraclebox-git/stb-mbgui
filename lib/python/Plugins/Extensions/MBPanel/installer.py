@@ -80,7 +80,7 @@ class MBPanelAddons(Screen):
 		
 		mypixmap = mypath + "icons/icon_addons.png"
 		png = LoadPixmap(mypixmap)
-		name = _("Manual Install Miraculous packages")
+		name = _("Manual Install packages")
 		desc = (_("Install manual addons tar.gz from /tmp"))
 		idx = 3
 		res = (name,png,idx,desc)

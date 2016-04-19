@@ -154,6 +154,13 @@ class MBTools(Screen):
 		
 
 class FullBackup(Screen, ConfigListScreen):
+	skin = '''	<screen name="FullBackup" position="0,0" size="541,720" flags="wfNoBorder" backgroundColor="transparent">
+		<panel name="MenuPanel" />
+		<panel name="MenuGreen1Panel" />
+		<panel name="MenuRed1Panel" />
+		<widget name="label1" position="10,115" size="503,285" zPosition="1" halign="center" font="Regular;25" foregroundColor="window-fg" backgroundColor="window-bg" transparent="1"/>
+		<widget name="config" position="30,157" size="453,285" itemHeight="30" font="Regular;24" selectionPixmap="MB-Common/buttons/FocusBar_H30x503.png" foregroundColor="window-fg" backgroundColor="window-bg" transparent="0" scrollbarMode="showOnDemand" enableWrapAround="1" />
+	</screen> '''
 	def __init__(self, session):
 		Screen.__init__(self, session)
 		  
@@ -271,8 +278,8 @@ class MBMedia(Screen):
 			ref = self.session.nav.getCurrentlyPlayingServiceOrGroup()
 			self.session.open(MovieSelection, ref)
 		elif (self.sel == 3):
-			from Plugins.Extensions.IniMyTube.ui import MyTubePlayerMainScreen
-			self.session.open(MyTubePlayerMainScreen, "/usr/lib/enigma2/python/Plugins/Extensions/IniMyTube")
+			from Plugins.Extensions.YouTube.YouTubeUi import YouTubeMain
+			self.session.open(YouTubeMain)
 		else:
 			self.noYet()
 

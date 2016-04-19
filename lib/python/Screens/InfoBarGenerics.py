@@ -3004,12 +3004,24 @@ class InfoBarExtensions:
 	def quickmenuStart(self):
 		try:
 			if not self.session.pipshown:
-				self.showExtensionSelection()
+				if getImageDistro() == "miraculous":
+					from Plugins.Extensions.MBPanel.plugin import MBMainMenu
+					self.session.open(MBMainMenu)
+				else:
+					self.showExtensionSelection()
 			else:
-				self.showExtensionSelection()
+				if getImageDistro() == "miraculous":
+					from Plugins.Extensions.MBPanel.plugin import MBMainMenu
+					self.session.open(MBMainMenu)
+				else:
+					self.showExtensionSelection()
 		except:
 			print "[INFOBARGENERICS] QuickMenu: error pipshow, starting Quick Menu"
-			self.showExtensionSelection()
+			if getImageDistro() == "miraculous":
+				from Plugins.Extensions.MBPanel.plugin import MBMainMenu
+				self.session.open(MBMainMenu)
+			else:
+				self.showExtensionSelection()
 
 	def SelectopenEventView(self):
 		try:
