@@ -6,12 +6,14 @@ from os import listdir, remove, rename, system, popen, path
 from enigma import eListboxPythonMultiContent, eTimer, gFont, loadPNG, RT_HALIGN_RIGHT, getDesktop
 
 from Components.ActionMap import ActionMap, NumberActionMap
-from Components.config import config, getConfigListEntry
+from Components.config import *
 from Components.ConfigList import ConfigListScreen
 from Components.Console import Console
 from Components.Label import Label
 from Components.MenuList import MenuList
 from Components.MultiContent import MultiContentEntryText, MultiContentEntryPixmapAlphaTest, MultiContentEntryPixmapAlphaBlend
+from Components.Sources.StaticText import StaticText
+
 from Components.ScrollLabel import ScrollLabel
 from Screens.HelpMenu import HelpableScreen
 
@@ -27,13 +29,231 @@ from urlparse import urlparse, urlunparse
 
 #TOGGLE_SHOW = InfoBar.toggleShow
 
+### Some EGAMI Addition to CCcamInfo
+
+class EGCCcamEditAddLine(ConfigListScreen,Screen):
+    skin = """		    
+	<screen position="c-300,c-210" size="600,420" title="EGAMI CCcam Lines Editor">
+		<widget name="config" position="10,5" size="e-20,e-90" scrollbarMode="showOnDemand" />
+		<ePixmap pixmap="skin_default/buttons/red.png" position="c-300,e-45" size="140,40" alphatest="on" />
+		<ePixmap pixmap="skin_default/buttons/green.png" position="c-150,e-45" size="140,40" alphatest="on" />
+		<widget name="HelpText" position="10,e-90" zPosition="1" size="600,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" />
+		<widget name="key_red" position="c-300,e-45" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" />
+		<widget name="key_green" position="c-150,e-45" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" />
+	</screen>"""
+    def __init__(self, session, def_protocol, def_domain, def_port, def_username, def_password, def_deskey, def_mode):
+	self.skin = EGCCcamEditAddLine.skin
+	Screen.__init__(self, session)
+	
+	self.def_mode = def_mode
+	des = str(def_deskey)
+	des = list(des)
+	# N: 127.0.0.1 10000 dummy dummy 01 02 03 04 05 06 07 08 09 10 11 12 13 14
+	def_des2 = des[0] + des[1] + " " + des[2] + des[3] + " " + des[4] + des[5] + " " + des[6] + des[7] + " " + des[8] + des[9] + " " + des[10] + des[11] + " " + des[12] + des[13] + " " + des[14] + des[15] + " " + des[16] + des[17] + " " + des[18] + des[19] + " " + des[20] + des[21] + " " + des[22] + des[23] + " " + des[24] + des[25] + " " + des[26] + des[27]   
+	if def_protocol == "N:":
+		self.def_line = def_protocol + " " + def_domain + " " + def_port + " " + def_username + " " + def_password + " " + def_des2
+	else:
+		self.def_line = def_protocol + " " + def_domain + " " + def_port + " " + def_username + " " + def_password
+	
+	self.protocol = ConfigSelection(default = def_protocol, choices = [("C:", _("CCcam")), ("N:", _("Newcamd"))])
+	self.domain = ConfigText(default = def_domain, fixed_size=False)
+	self.port = ConfigNumber(default = def_port)
+	self.username = ConfigText(default = def_username, fixed_size=False)
+	self.password = ConfigText(default = def_password, fixed_size=False)
+	self.deskey = ConfigNumber(default = def_deskey)
+
+	self.createSetup()
+		
+	ConfigListScreen.__init__(self, self.list, session = session)
+	
+	self.protocol.addNotifier(self.typeChange)
+	
+	self["actions"] = ActionMap(["OkCancelActions", "ColorActions", "CiSelectionActions", "VirtualKeyboardActions"],
+	{
+		"cancel": self.cancel,
+		"red": self.save,
+		"green": self.cancel,
+		"showVirtualKeyboard": self.KeyText,
+	}, -2)
+		
+	self["key_red"] = Label(_("Save"))
+	self["key_green"] = Label(_("Cancel"))
+	self["HelpText"] = Label(_("Please to press button TXT to open Virtual keyboard"))
+
+
+    def KeyText(self):
+		sel = self['config'].getCurrent()
+		if sel:
+			if sel == self.domain or sel == self.username or sel == self.password:
+				if self["config"].getCurrent()[1].help_window.instance is not None:
+					self["config"].getCurrent()[1].help_window.hide()
+			self.vkvar = sel[0]
+			if self.vkvar == _("Domain") + ':' or self.vkvar == _("Username") + ':' or self.vkvar == _("Password") + ':':
+				from Screens.VirtualKeyBoard import VirtualKeyBoard
+				self.session.openWithCallback(self.VirtualKeyBoardCallback, VirtualKeyBoard, title = self["config"].getCurrent()[0], text = self["config"].getCurrent()[1].getValue())
+    
+    def VirtualKeyBoardCallback(self, callback = None):
+		if callback is not None and len(callback):
+			self["config"].getCurrent()[1].setValue(callback)
+			self["config"].invalidate(self["config"].getCurrent())
+			
+    def typeChange(self, value):
+		self.createSetup()
+		self["config"].l.setList(self.list)
+		
+    def createSetup(self):
+		self.list = []
+		self.list.append(getConfigListEntry(_("Protocol:"), self.protocol))
+        	self.list.append(getConfigListEntry(_("Domain:"), self.domain))
+        	self.list.append(getConfigListEntry(_("Port:"), self.port))
+        	self.list.append(getConfigListEntry(_("Username:"), self.username))
+        	self.list.append(getConfigListEntry(_("Password:"), self.password))
+		if self.protocol.value == "N:":
+        		self.list.append(getConfigListEntry(_("NewCamd DES Key:"), self.deskey))
+		
+    def save(self):
+	if self.protocol.value == "N:":
+		des = str(self.deskey.value)
+		des = "0" + des
+		des = list(des)
+		# N: 127.0.0.1 10000 dummy dummy 01 02 03 04 05 06 07 08 09 10 11 12 13 14
+		des = des[0] + des[1] + " " + des[2] + des[3] + " " + des[4] + des[5] + " " + des[6] + des[7] + " " + des[8] + des[9] + " " + des[10] + des[11] + " " + des[12] + des[13] + " " + des[14] + des[15] + " " + des[16] + des[17] + " " + des[18] + des[19] + " " + des[20] + des[21] + " " + des[22] + des[23] + " " + des[24] + des[25] + " " + des[26] + des[27]
+		line = self.protocol.value + " " + self.domain.value + " " + str(self.port.value) + " " + self.username.value + " " + self.password.value + " " + des
+	else:
+		line = self.protocol.value + " " + self.domain.value + " " + str(self.port.value) + " " + self.username.value + " " + self.password.value
+	
+	if self.def_mode == "EDIT":
+		zrodlo = open(CFG).readlines()
+		cel = open(CFG, 'w')
+		for s in zrodlo:
+			cel.write(s.replace(self.def_line , line))
+		cel.close()
+	else:
+		with open(CFG, "r+") as f:
+			old = f.read() # read everything in the file
+			f.seek(0) # rewind
+			f.write(line + "\n" + old) # write the new line before
+		f.close()
+	self.close()
+		
+    def cancel(self):
+	    self.close()
+	    
+class EGCCcamConfigEdit(Screen):
+	skin = """
+	<screen position="c-550,c-210" size="950,420" title="">
+		<widget name="menu" position="10,5" size="e-20,e-90" scrollbarMode="showOnDemand" />
+		<widget source="statusbar" render="Label" position="c-550,e-80" zPosition="10" size="e-10,40" halign="center" valign="center" font="Regular;22" transparent="1" shadowColor="black" shadowOffset="-1,-1" />
+		<ePixmap pixmap="skin_default/buttons/red.png" position="c-300,e-45" size="140,40" alphatest="on" />
+		<ePixmap pixmap="skin_default/buttons/green.png" position="c-150,e-45" size="140,40" alphatest="on" />
+		<ePixmap pixmap="skin_default/buttons/yellow.png" position="c-0,e-45" size="140,40" alphatest="on" />
+		<ePixmap pixmap="skin_default/buttons/blue.png" position="c+150,e-45" size="140,40" alphatest="on" />
+		<widget source="key_red" render="Label" position="c-300,e-45" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" />
+		<widget source="key_green" render="Label" position="c-150,e-45" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" />
+		<widget source="key_yellow" render="Label" position="c-0,e-45" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" />
+		<widget source="key_blue" render="Label" position="c+150,e-45" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" />
+	</screen>"""
+
+	def __init__(self, session):
+		self.skin = EGCCcamConfigEdit.skin
+		Screen.__init__(self, session)
+		
+		self["key_red"] = StaticText(_("Add"))
+		self["key_green"] = StaticText(_("Edit"))
+		self["key_yellow"] = StaticText(_("Remove"))
+		self["key_blue"] = StaticText(_("Exit"))
+		
+		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
+		{
+			"cancel": self.keyExit,
+			"red": self.keyAdd,
+			"green": self.keyEdit,
+			"yellow": self.keyRemove,
+			"blue": self.keyExit,
+
+		}, -2)
+
+		self["statusbar"] = StaticText(_("Select a line to edit"))
+
+		self.list= []
+		self["menu"] = MenuList(self.list)
+		
+		self.readConfig()
+
+	def readConfig(self):
+		self.setTitle(_("Edit CCcam.cfg Lines"))
+		self.initSelectionList()
+		self.list= []
+		
+		f = open(CFG, 'r')
+		for line in f.readlines():
+			if line.startswith('C:'):
+				line = line.strip()
+				self.list.append(line)
+			elif line.startswith('N:'):
+				line = line.strip()
+				self.list.append(line)
+		f.close()
+  
+		self["menu"].setList(self.list)	
+		
+	def initSelectionList(self):
+		self.list = []
+		self["menu"].setList(self.list)
+
+	def keyAdd(self):
+		def_protocol = "N:"
+		def_domain = "address.dyndns.org"
+		def_username = "username"
+		def_password = "password"
+		def_deskey = "0102030405060708091011121314"
+		def_port = "12000"
+		def_mode = "ADD"
+		self.session.openWithCallback(self.readConfig, EGCCcamEditAddLine, def_protocol, def_domain, def_port, def_username, def_password, def_deskey, def_mode)
+
+	def keyEdit(self):
+		mysel = self['menu'].getCurrent()
+		if mysel:
+			mysel = mysel.split()
+			def_protocol = mysel[0]
+			def_domain = mysel[1]
+			def_port = mysel[2]
+			def_username = mysel[3]
+			def_password = mysel[4]
+			if mysel[0] == "N:":
+				def_deskey = mysel[5]+mysel[6]+mysel[7]+mysel[8]+mysel[9]+mysel[10]+mysel[11]+mysel[12]+mysel[13]+mysel[14]+mysel[15]+mysel[16]+mysel[17]+mysel[18]
+			else:
+				def_deskey = "0102030405060708091011121314"
+			def_mode = "EDIT"
+			self.session.openWithCallback(self.readConfig, EGCCcamEditAddLine, def_protocol, def_domain, def_port, def_username, def_password, def_deskey, def_mode)
+		else:
+			mysel
+	  
+	def keyRemove(self):
+		mysel = self['menu'].getCurrent()
+		if mysel:
+			zrodlo = open(CFG).readlines()
+			cel = open(CFG, 'w')
+			for s in zrodlo:
+				cel.write(s.replace(mysel , "#"))
+			cel.close()
+		else:
+			mysel
+		  
+		self.readConfig()
+    
+	def keyExit(self):
+		self.close()
+	      
+### END EGAMI ADDITION TO CCcamInfo
+
 VERSION = "v2"
-DATE = "21.11.2014"
+DATE = "21.02.2015"
 
 #############################################################
 
 def confPath():
-	search_dirs = [ "/usr", "/var", "/etc" ]
+	search_dirs = [ "/etc", "/usr", "/var" ]
 	sdirs = " ".join(search_dirs)
 	cmd = 'find %s -name "CCcam.cfg" | head -n 1' % sdirs
 	res = popen(cmd).read()
@@ -90,8 +310,12 @@ def getPage(url, contextFactory=None, *args, **kwargs):
 
 def searchConfig():
 	global CFG, CFG_path
-	CFG = confPath()
-	CFG_path = '/var/etc'
+	if fileExists("/etc/CCcam.cfg"):
+		CFG = '/etc/CCcam.cfg'
+		CFG_path = '/etc'
+	else:
+		CFG = confPath()
+		CFG_path = '/var/etc'
 	if CFG:
 		CFG_path =  path.dirname(CFG)
 
@@ -177,6 +401,7 @@ def notBlackListed(entry):
 #############################################################
 
 menu_list = [
+	_("CCcam.cfg Basic Line Editor"),
 	_("General"),
 	_("Clients"),
 	_("Active clients"),
@@ -186,13 +411,14 @@ menu_list = [
 	_("Extended Shares"),
 	_("Providers"),
 	_("Entitlements"),
-	_("ecm.info"),
-	_("Menu config"),
+	#_("ecm.info"),
+	#_("Menu config"),
 	_("Local box"),
 	_("Remote box"),
-	_("Free memory"),
-	_("Switch config"),
-	_("About")]
+	#_("Free memory"),
+	_("Switch config")#,
+	#_("About")
+	]
 
 #############################################################
 
@@ -275,7 +501,7 @@ def CCcamListEntry(name, idx):
 		png = "/usr/share/enigma2/skin_default/buttons/key_%s.png" % str(idx)
 	if screenwidth and screenwidth == 1920:
 		if fileExists(png):
-			res.append(MultiContentEntryPixmapAlphaBlend(pos=(10, 5), size=(67, 48), png=loadPNG(png)))
+			res.append(MultiContentEntryPixmapAlphaBlend(pos=(10, 3), size=(67, 48), png=loadPNG(png)))
 		res.append(MultiContentEntryText(pos=(90, 7), size=(900, 50), font=1, text=name))
 	else:
 		if fileExists(png):
@@ -292,12 +518,12 @@ def CCcamServerListEntry(name, color):
 		png = "/usr/share/enigma2/skin_default/buttons/key_%s.png" % color
 	if screenwidth and screenwidth == 1920:
 		if fileExists(png):
-			res.append(MultiContentEntryPixmapAlphaBlend(pos=(10, 5), size=(67, 48), png=loadPNG(png)))
+			res.append(MultiContentEntryPixmapAlphaBlend(pos=(10, 3), size=(67, 48), png=loadPNG(png)))
 		res.append(MultiContentEntryText(pos=(90, 7), size=(900, 50), font=1, text=name))
 	else:
 		if fileExists(png):
 			res.append(MultiContentEntryPixmapAlphaBlend(pos=(0, 0), size=(35, 25), png=loadPNG(png)))
-		res.append(MultiContentEntryText(pos=(40, 3), size=(500, 25), font=0, text=name))
+		res.append(MultiContentEntryText(pos=(40, 5), size=(500, 35), font=0, text=name))
 	return res
 
 def CCcamShareListEntry(hostname, type, caid, system, uphops, maxdown):
@@ -538,8 +764,14 @@ class CCcamInfoMain(Screen):
 			elif sel == _("Switch config"):
 				self.session.openWithCallback(self.workingFinished, CCcamInfoConfigSwitcher)
 
+			elif sel == _("CCcam.cfg Basic Line Editor"):
+				if fileExists(CFG_path):
+					self.session.openWithCallback(self.workingFinished, EGCCcamConfigEdit)
+				else:
+					self.showInfo(_("Error reading " + CFG_path + " File is missing!"), _("Error"))
+
 			else:
-				self.showInfo(_("CCcam Info %s\nby AliAbdul %s\n\nThis plugin shows you the status of your CCcam.") % (VERSION, DATE), _("About"))
+				self.showInfo(_("CCcam Info %s\nby AliAbdul mod EGAMI %s\n\nThis plugin shows you the status of your CCcam.") % (VERSION, DATE), _("About"))
 
 	def red(self):
 		self.keyNumberGlobal(10)
@@ -1372,7 +1604,7 @@ class CCcamInfoRemoteBoxMenu(Screen):
 
 	def locationCallback(self, callback):
 		if callback:
-			config.cccaminfo.profiles.value = ("%s/CCcamInfo.profiles"%callback).replace("//", "/")
+			config.cccaminfo.profiles.setValue(("%s/CCcamInfo.profiles"%callback).replace("//", "/"))
 			config.cccaminfo.profiles.save()
 		del self.list
 		self.list = []
@@ -1734,5 +1966,5 @@ class CCcamInfoMenuConfig(Screen):
 
 	def locationCallback(self, callback):
 		if callback:
-			config.cccaminfo.blacklist.value = ("%s/CCcamInfo.blacklisted"%callback).replace("//", "/")
+			config.cccaminfo.blacklist.setValue(("%s/CCcamInfo.blacklisted"%callback).replace("//", "/"))
 			config.cccaminfo.blacklist.save()
