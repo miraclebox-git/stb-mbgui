@@ -8,6 +8,7 @@ install_PYTHON =	\
 	BackupRestore.py \
 	ImageWizard.py \
 	SoftwareTools.py \
+	SoftwarePanel.py \
 	ImageBackup.py \
 	Flash_online.py
 
