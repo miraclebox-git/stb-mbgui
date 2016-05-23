@@ -297,7 +297,7 @@ int main(int argc, char **argv)
 	FILE *infile;
 	char line[100];
 	char command[64];
-
+/*
 	if((infile = fopen("/proc/stb/info/boxtype", "r")) != NULL)
 	{
 		fgets(line, sizeof(line), infile);
@@ -339,7 +339,7 @@ int main(int argc, char **argv)
 		}
 		fclose(infile);
 	}
-	
+*/
 	std::string active_skin = getConfigCurrentSpinner("config.skin.primary_skin");
 
 	eDebug("Loading spinners...");
