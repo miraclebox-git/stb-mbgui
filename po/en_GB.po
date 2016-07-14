@@ -3944,9 +3944,8 @@ msgstr "Do you want to update your %s %s ?"
 msgid "Do you want to upgrade the package:\n"
 msgstr "Do you want to upgrade the package:\n"
 
-#, fuzzy
-msgid "Dobly Digital downmix is now"
-msgstr "Dolby Digital / DTS downmix"
+msgid "Dolby Digital downmix is now"
+msgstr ""
 
 msgid "Dolby Digital / DTS downmix"
 msgstr "Dolby Digital / DTS downmix"
@@ -14304,9 +14303,8 @@ msgstr ""
 msgid "any recordings"
 msgstr "Recordings"
 
-#, fuzzy
-msgid "are you sure to cancel all changes"
-msgstr "Are you sure you want to delete all selected logs:\n"
+msgid "Are you sure to cancel all changes"
+msgstr ""
 
 #, fuzzy
 msgid ""
