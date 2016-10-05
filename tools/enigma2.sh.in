@@ -28,6 +28,11 @@ if [ -x @bindir@/showiframe ]; then
 	fi
 fi
 
+#check if factory mode is present
+if [ ! -f /etc/enigma2/pm_timers.xml ]; then
+	cp -a /usr/share/enigma2/defaults/pm_timers.xml /etc/enigma2/pm_timers.xml
+fi
+
 killall -9 gst-launch-1.0
 
 # hook to execute scripts always before enigma2 start
