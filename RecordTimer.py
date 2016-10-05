@@ -179,6 +179,15 @@ class RecordTimerEntry(timer.TimerEntry, object):
 		self.isAutoTimer = isAutoTimer
 		self.wasInStandby = False
 
+		#workaround for vmc crash - only a dummy entry!!!
+		self.justremind = False
+		'''
+		File "/usr/lib/enigma2/python/Plugins/Extensions/VMC/VMC_Classes.py", line 3704, in TimerChange
+		"Filename") and not timer.justplay and not timer.justremind and timer.state == TimerEntry.StateEnded:
+		AttributeError: 'RecordTimerEntry' object has no attribute 'justremind'
+		'''
+		###
+
 		self.log_entries = []
 		self.resetState()
 
@@ -212,7 +221,7 @@ class RecordTimerEntry(timer.TimerEntry, object):
 
 		s = os.statvfs(dirname)
 		if (s.f_bavail * s.f_bsize) / 1000000 < 1024:
-			self.log(0, "Not enough free space to record")
+			self.log(0, _("Not enough free space to record"))
 			return False
 		else:
 			if debug:
@@ -551,7 +560,7 @@ class RecordTimerEntry(timer.TimerEntry, object):
 					#wakeup standby
 					Screens.Standby.inStandby.Power()
 				else:
-					self.log(11, "zapping")
+					self.log(11, _("zapping"))
 					found = False
 					notFound = False
 					NavigationInstance.instance.isMovieplayerActive()
@@ -612,7 +621,7 @@ class RecordTimerEntry(timer.TimerEntry, object):
 						NavigationInstance.instance.playService(self.service_ref.ref)
 				return True
 			else:
-				self.log(11, "start recording")
+				self.log(11, _("start recording"))
 				record_res = self.record_service.start()
 				self.setRecordingPreferredTuner(setdefault=True)
 				if record_res:
@@ -630,9 +639,9 @@ class RecordTimerEntry(timer.TimerEntry, object):
 				self.state -= 1
 				return True
 			if self.justplay:
-				self.log(12, "end zapping")
+				self.log(12, _("end zapping"))
 			else:
-				self.log(12, "stop recording")
+				self.log(12, _("stop recording"))
 			if not self.justplay:
 				if self.record_service:
 					NavigationInstance.instance.stopRecordService(self.record_service)
@@ -940,7 +949,7 @@ class RecordTimerEntry(timer.TimerEntry, object):
 		self.backoff = 0
 
 		if int(old_prepare) > 60 and int(old_prepare) != int(self.start_prepare):
-			self.log(15, "record time changed, start prepare is now: %s" % ctime(self.start_prepare))
+			self.log(15, _("record time changed, start prepare is now: %s") % ctime(self.start_prepare))
 
 	def gotRecordEvent(self, record, event):
 		# TODO: this is not working (never true), please fix. (comparing two swig wrapped ePtrs)
@@ -1216,7 +1225,7 @@ class RecordTimer(timer.Timer):
 			save_act = -1, 0
 			for timer in self.timer_list:
 				next_act = timer.getNextActivation(getNextStbPowerOn)
-				if timer.justplay or next_act < now:
+				if timer.justplay or next_act + 3 < now:
 					continue
 				if debug: print "[recordtimer] next stb power up", strftime("%a, %Y/%m/%d %H:%M", localtime(next_act))
 				if save_act[0] == -1:
@@ -1228,7 +1237,7 @@ class RecordTimer(timer.Timer):
 		else:
 			for timer in self.timer_list:
 				next_act = timer.getNextActivation()
-				if timer.justplay or next_act < now:
+				if timer.justplay or next_act + 3 < now or timer.end == next_act:
 					continue
 				return next_act
 		return -1

@@ -26,6 +26,7 @@
 		<menu weight="5" level="0" text="TV settings" entryID="tv_selection">
 			<id val="tv" />
 
+<<<<<<< HEAD
 			<!-- Menu / Settings / TV Settings / Service Searching -->
 			<menu weight="0" level="0" text="Service searching" entryID="service_searching_selection">
 				<id val="scan" />
@@ -41,6 +42,7 @@
 				<item weight="0" level="0" text="Basic settings" entryID="video_setup"><screen module="VideoMode" screen="VideoSetup" /></item>
 			</menu>
 
+<<<<<<< HEAD
 			<!-- Menu / Settings / TV Settings / Audio Menu -->
 			<menu weight="10" level="1" text="Audio settings" entryID="audio_menu">
 				<id val="audio_menu" />
@@ -59,10 +61,11 @@
 				<item weight="120" level="2" entryID="setup_epginfobar"><setup id="epginfobar" /></item>
 				<item weight="125" level="2" entryID="setup_epginfobargraphical"><setup id="epginfobargraphical" /></item>
 				<item weight="130" level="2" entryID="setup_epggraphical"><setup id="epggraphical" /></item>
-				<menu weight="200" level="2" text="Load/Save" entryID="epgloadsave_menu">
-					<id val="epgloadsave_menu" />
-					<item weight="0" level="0" entryID="loadepgcache" text="Load EPG">
-						<code>
+				<menu weight="200" level="2" text="Load/Save/Delete" entryID="epgloadsave_menu">
+				<id val="epgloadsave_menu" />
+				<item weight="0" level="0" entryID="loadepgcache" text="Load EPG">
+					<code>
+>>>>>>> 0ea2424f8fefedbfb2772733c3ba3153fb11e3c7
 from Components.EpgLoadSave import EpgLoadMsg
 def msgClosed(ret):
 	if ret:
@@ -82,7 +85,22 @@ def msgClosed(ret):
 		epgcache.save()
 self.session.openWithCallback(msgClosed, EpgSaveMsg)
 </code>
-					</item>
+				</item>
+				<item level="0" entryID="deleteepgcache" text="Delete EPG">
+<code>
+from Components.EpgLoadSave import EpgDeleteMsg
+def msgClosed(ret):
+	if ret:
+		import os
+		from Components.config import config
+		if os.path.exists(config.misc.epgcache_filename.value):
+			os.remove(config.misc.epgcache_filename.value)
+		from enigma import eEPGCache
+		epgcache = eEPGCache.getInstance()
+		epgcache.flushEPG()
+self.session.openWithCallback(msgClosed, EpgDeleteMsg)
+</code>
+				</item>
 				</menu>
 			</menu>
 			<item weight="20" level="0" text="Timeshift settings" entryID="timshift_setup"><screen module="Timershift" screen="TimeshiftSettings" /></item>

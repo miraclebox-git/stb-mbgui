@@ -6,6 +6,7 @@ from enigma import eAVSwitch, getDesktop
 from boxbranding import getBoxType, getMachineBuild, getBrandOEM
 from SystemInfo import SystemInfo
 import os
+from time import sleep
 
 config.av = ConfigSubsection()
 
@@ -45,6 +46,9 @@ class AVSwitch:
 	rates["2160p"] =	{ 	"50Hz":		{ 50: "2160p50" },
 							"60Hz":		{ 60: "2160p" },
 							"multi":	{ 50: "2160p50", 60: "2160p" } }
+							
+	rates["2160p30"] =	{ 	"25Hz":		{ 50: "2160p25" },
+							"30Hz":		{ 60: "2160p30"} }
 
 	rates["PC"] = {
 		"1024x768": { 60: "1024x768" }, # not possible on DM7025
@@ -67,10 +71,13 @@ class AVSwitch:
 	
 	if hw_type in ('elite', 'premium', 'premium+', 'ultra', "me", "minime") : config.av.edid_override = True
 	
-	if (about.getChipSetString() in ('7366', '7376', '5272s', '7252', '7251', '7251S')):
+	if (about.getChipSetString() in ('7366', '7376', '5272s')):
 		modes["HDMI"] = ["720p", "1080p", "2160p", "1080i", "576p", "576i", "480p", "480i"]
 		widescreen_modes = {"720p", "1080p", "1080i", "2160p"}
-	elif (about.getChipSetString() in ('7241', '7358', '7362', '73625', '7346', '7356', '73565', '7424', '7425', '7435', '7552', 'pnx8493', '7162', '7111')) or (hw_type in ('elite', 'premium', 'premium+', 'ultra', "me", "minime")):
+	elif (about.getChipSetString() in ('7252', '7251', '7251S')):
+		modes["HDMI"] = ["720p", "1080p", "2160p", "2160p30", "1080i", "576p", "576i", "480p", "480i"]
+		widescreen_modes = {"720p", "1080p", "1080i", "2160p", "2160p30"}
+	elif (about.getChipSetString() in ('7241', '7358', '7362', '73625', '7346', '7356', '73565', '7424', '7425', '7435', '7552', '7581', '7584', '7585', 'pnx8493', '7162', '7111')) or (hw_type in ('elite', 'premium', 'premium+', 'ultra', "me", "minime")):
 		modes["HDMI"] = ["720p", "1080p", "1080i", "576p", "576i", "480p", "480i"]
 		widescreen_modes = {"720p", "1080p", "1080i"}
 	else:
@@ -84,9 +91,9 @@ class AVSwitch:
 	# if modes.has_key("DVI-PC") and not getModeList("DVI-PC"):
 	# 	print "remove DVI-PC because of not existing modes"
 	# 	del modes["DVI-PC"]
-	if modes.has_key("YPbPr") and getBoxType() in ('mbtwin4k', 'megaforce2', 'purehd', 'sf128', 'sf138', 'mutant11', 'xpeedlxpro', 'mbtwinplus', 'mutant51', 'ax51', 'twinboxlcdci', 'singleboxlcd', 'formuler4', 'zgemmah5', 'zgemmai55', 'sf98', 'odinplus', 'zgemmaslc', '9900lx', '9910lx', 'vusolo4k', 'et7x00mini', 'evomini', 'evominiplus', 'zgemmahs', 'zgemmah2s', 'zgemmah2h', 't2cable', 'xpeedlxcs2', 'xpeedlxcc', 'osmini', 'osminiplus', 'gbx1', 'gbx2', 'gbx3', 'sf3038', 'spycat', 'bwidowx', 'bwidowx2', 'fegasusx3', 'fegasusx5s', 'fegasusx5t', 'force2', 'force2plus', 'optimussos', 'tmnanose', 'tmnanosem2', 'tmnanocombo', 'zgemmash1', 'zgemmash2', 'zgemmas2s', 'zgemmass', 'mago', 'enibox', 'sf108', 'x1plus', 'xcombo', 'mutant1100', 'mutant1200', 'mutant1265', 'mutant1500', 'mutant500c', 'et4x00', 'et7500', 'et7000', 'et7100', 'et8500', 'et8500s', 'xp1000mk', 'xp1000max', 'xp1000plus', 'sf8', 'tm2t', 'tmsingle', 'vusolo2', 'tmnano', 'iqonios300hd', 'iqonios300hdv2', 'classm', 'axodin', 'axodinc', 'genius', 'evo', 'galaxym6', 'geniuse3hd', 'evoe3hd', 'axase3', 'axase3c', 'dm500hdv2', 'dm500hd', 'dm800', 'mixosf7', 'mixoslumi', 'mixosf5mini', 'gi9196lite', 'ixusszero', 'optimussos1', 'enfinity', 'marvel1', 'bre2ze', 'sezam1000hd', 'mbmini', 'atemio5x00', 'xpeedlx1', 'xpeedlx2', 'vusolose', 'gbipbox', 'formuler3', 'optimussos3plus', 'force1plus', 'vuzero', 'vizyonvita') or (about.getModelString() == 'ini-3000'):
+	if modes.has_key("YPbPr") and getBoxType() in ('mbtwin4k', 'osmega', 'tmnano3t', 'novaip', 'novacombo', 'novatwin', 'dm520', 'megaforce2', 'purehd', 'sf128', 'sf138', 'mutant11', 'xpeedlxpro', 'mbtwinplus', 'mutant51', 'ax51', 'twinboxlcdci5' , 'twinboxlcdci', 'singleboxlcd', 'formuler4', 'formuler4turbo', 'zgemmah5', 'zgemmai55', 'sf98', 'odinplus', 'zgemmaslc', '9900lx', '9910lx', '9911lx', 'vusolo4k', 'et7x00mini', 'evomini', 'evominiplus', 'zgemmahs', 'zgemmah2s', 'zgemmah2h', 't2cable', 'xpeedlxcs2', 'xpeedlxcc', 'osmini', 'osminiplus', 'gbx1', 'gbx2', 'gbx3', 'sf3038', 'spycat', 'bwidowx', 'bwidowx2', 'fegasusx3', 'fegasusx5s', 'fegasusx5t', 'force2', 'force2plus', 'force2plushv', 'optimussos', 'tmnanose', 'tmnanosem2', 'tmnanosem2plus', 'tmnanocombo', 'zgemmash1', 'zgemmash2', 'zgemmas2s', 'zgemmass', 'mago', 'enibox', 'sf108', 'x1plus', 'xcombo', 'mutant1100', 'mutant1200', 'mutant1265', 'mutant1500', 'mutant500c', 'mutant530c', 'et4x00', 'et7500', 'et7000', 'et7100', 'et8500', 'et8500s', 'xp1000mk', 'xp1000max', 'xp1000plus', 'sf8', 'tm2t', 'tmsingle', 'vusolo2', 'tmnano', 'iqonios300hd', 'iqonios300hdv2', 'classm', 'axodin', 'axodinc', 'genius', 'evo', 'galaxym6', 'geniuse3hd', 'evoe3hd', 'axase3', 'axase3c', 'dm500hdv2', 'dm500hd', 'dm800', 'mixosf7', 'mixoslumi', 'mixosf5mini', 'gi9196lite', 'ixusszero', 'optimussos1', 'enfinity', 'marvel1', 'bre2ze', 'sezam1000hd', 'mbmini', 'atemio5x00', 'xpeedlx1', 'xpeedlx2', 'vusolose', 'gbipbox', 'formuler3', 'optimussos3plus', 'force1plus', 'vuzero', 'vizyonvita') or (about.getModelString() == 'ini-3000'):
 		del modes["YPbPr"]
-	if modes.has_key("Scart") and getBoxType() in ('purehd', 'vusolo4k', 'fusionhdse', 'fusionhd', 'force2', 'force2plus', 'optimussos', 'tmnanose', 'tmnanosecombo', 'gbx1', 'gbx2', 'gbx3', 'zgemmai55', 'mutant1500'):
+	if modes.has_key("Scart") and getBoxType() in ('novaip', 'dm520', 'purehd', 'vusolo4k', 'fusionhdse', 'fusionhd', 'force2', 'force2plus', 'force2plushv', 'optimussos', 'tmnanose', 'tmnanosecombo', 'gbx1', 'gbx2', 'gbx3', 'zgemmai55', 'mutant1500'):
 		del modes["Scart"]
 		
 	if getBoxType() in ('mutant2400'):
@@ -154,6 +161,7 @@ class AVSwitch:
 		self.current_mode = mode
 		self.current_port = port
 		modes = self.rates[mode][rate]
+
 
 		mode_50 = modes.get(50)
 		mode_60 = modes.get(60)
@@ -236,7 +244,15 @@ class AVSwitch:
 		lst = []
 
 		config.av.videomode = ConfigSubDict()
+		config.av.autores_mode_sd = ConfigSubDict()
+		config.av.autores_mode_hd = ConfigSubDict()
+		config.av.autores_mode_fhd = ConfigSubDict()
+		config.av.autores_mode_uhd = ConfigSubDict()
 		config.av.videorate = ConfigSubDict()
+		config.av.autores_rate_sd = ConfigSubDict()
+		config.av.autores_rate_hd = ConfigSubDict()
+		config.av.autores_rate_fhd = ConfigSubDict()
+		config.av.autores_rate_uhd = ConfigSubDict()
 
 		# create list of output ports
 		portlist = self.getPortList()
@@ -250,8 +266,16 @@ class AVSwitch:
 			modes = self.getModeList(port)
 			if len(modes):
 				config.av.videomode[port] = ConfigSelection(choices = [mode for (mode, rates) in modes])
+				config.av.autores_mode_sd[port] = ConfigSelection(choices = [mode for (mode, rates) in modes])
+				config.av.autores_mode_hd[port] = ConfigSelection(choices = [mode for (mode, rates) in modes])
+				config.av.autores_mode_fhd[port] = ConfigSelection(choices = [mode for (mode, rates) in modes])
+				config.av.autores_mode_uhd[port] = ConfigSelection(choices = [mode for (mode, rates) in modes])
 			for (mode, rates) in modes:
 				config.av.videorate[mode] = ConfigSelection(choices = rates)
+				config.av.autores_rate_sd[mode] = ConfigSelection(choices = rates)
+				config.av.autores_rate_hd[mode] = ConfigSelection(choices = rates)
+				config.av.autores_rate_fhd[mode] = ConfigSelection(choices = rates)
+				config.av.autores_rate_uhd[mode] = ConfigSelection(choices = rates)
 		config.av.videoport = ConfigSelection(choices = lst)
 
 	def setInput(self, input):
@@ -347,7 +371,7 @@ class AVSwitch:
 		return aspect[0] * fb_size.height(), aspect[1] * fb_size.width()
 
 	def setAspectRatio(self, value):
-		pass
+		eAVSwitch.getInstance().setAspectRatio(value)
 
 	def getAspectRatioSetting(self):
 		valstr = config.av.aspectratio.value
@@ -380,12 +404,27 @@ def InitAVSwitch():
 	if config.av.yuvenabled.value:
 		colorformat_choices["yuv"] = _("YPbPr")
 
-	config.av.autores = ConfigSelection(choices={"disabled": _("Disabled"), "all": _("All resolutions"), "hd": _("only HD")}, default="disabled")
+	config.av.autores = ConfigSelection(choices={"disabled": _("Disabled"), "simple": _("Simple"), "native": _("Native"), "all": _("All resolutions"), "hd": _("only HD")}, default="disabled")
+	config.av.autores_preview = NoSave(ConfigYesNo(default=False))
+	config.av.autores_1080i_deinterlace = ConfigYesNo(default=False)
+	config.av.autores_24p =  ConfigSelection(choices=
+		{
+		"24,24": _("24p/24p"),
+		"24,50": _("24p/50p"),
+		"24,60": _("24p/60p"),
+		"50,24": _("50p/24p"),
+		"60,24": _("60p/24p"),
+		"50,50": _("50p/50p"),
+		"50,60": _("50p/60p"),
+		"60,50": _("60p/50p"),
+		"60,60": _("60p/60p")
+		}, default="50,24") # first value <=720p , second value > 720p
+	config.av.autores_unknownres =  ConfigSelection(choices={"next": _("next higher Resolution"), "highest": _("highest Resolution")}, default="next")
 	choicelist = []
 	for i in range(5, 16):
 		choicelist.append(("%d" % i, ngettext("%d second", "%d seconds", i) % i))
 	config.av.autores_label_timeout = ConfigSelection(default = "5", choices = [("0", _("Not Shown"))] + choicelist)
-	config.av.autores_delay = ConfigSelectionNumber(min = 50, max = 3000, stepwidth = 50, default = 400, wraparound = True)
+	config.av.autores_delay = ConfigSelectionNumber(min = 0, max = 3000, stepwidth = 50, default = 400, wraparound = True)
 	config.av.autores_deinterlace = ConfigYesNo(default=False)
 	config.av.autores_sd = ConfigSelection(choices={"720p50": _("720p50"), "720p": _("720p"), "1080i50": _("1080i50"), "1080i": _("1080i")}, default="720p50")
 	config.av.autores_480p24 = ConfigSelection(choices={"480p24": _("480p 24Hz"), "720p24": _("720p 24Hz"), "1080p24": _("1080p 24Hz")}, default="1080p24")
@@ -470,13 +509,13 @@ def InitAVSwitch():
 	def setAspectRatio(configElement):
 		map = {"4_3_letterbox": 0, "4_3_panscan": 1, "16_9": 2, "16_9_always": 3, "16_10_letterbox": 4, "16_10_panscan": 5, "16_9_letterbox" : 6}
 		iAVSwitch.setAspectRatio(map[configElement.value])
-	
+
 	iAVSwitch.setInput("ENCODER") # init on startup
 	if (getBoxType() in ('gbquad', 'gbquadplus', 'et5x00', 'ixussone', 'ixusszero', 'axodin', 'axodinc', 'starsatlx', 'galaxym6', 'geniuse3hd', 'evoe3hd', 'axase3', 'axase3c', 'omtimussos1', 'omtimussos2', 'gb800seplus', 'gb800ueplus', 'gbultrase', 'gbultraue' , 'twinboxlcd' )) or about.getModelString() == 'et6000':
 		detected = False
 	else:
 		detected = eAVSwitch.getInstance().haveScartSwitch()
-	
+
 	SystemInfo["ScartSwitch"] = detected
 
 	if os.path.exists("/proc/stb/hdmi/bypass_edid_checking"):
@@ -521,13 +560,50 @@ def InitAVSwitch():
 				f.close()
 			except:
 				pass
-		config.av.hdmicolorspace = ConfigSelection(choices={
-				"Edid(Auto)": _("Auto"),
-				"Hdmi_Rgb": _("RGB")},
-				default = "Edid(Auto)")
+		if getBoxType() in ('vusolo4k'):
+			config.av.hdmicolorspace = ConfigSelection(choices={
+					"Edid(Auto)": _("Auto"),
+					"Hdmi_Rgb": _("RGB")},
+					default = "Edid(Auto)")
+		else:
+			config.av.hdmicolorspace = ConfigSelection(choices={
+					"auto": _("auto"),
+					"rgb": _("rgb"),
+					"420": _("420"),
+					"422": _("422"),
+					"444": _("444")},
+					default = "auto")
 		config.av.hdmicolorspace.addNotifier(setHDMIColorspace)
 	else:
 		config.av.hdmicolorspace = ConfigNothing()
+
+	if os.path.exists("/proc/stb/video/hdmi_colorimetry"):
+		f = open("/proc/stb/video/hdmi_colorimetry", "r")
+		have_colorimetry = f.read().strip().split(" ")
+		f.close()
+	else:
+		have_colorimetry = False
+
+	SystemInfo["havecolorimetry"] = have_colorimetry
+
+	if have_colorimetry:
+		def setHDMIColorimetry(configElement):
+			sleep(0.1) #workaround for "http://www.opena.tv/image-betabereich/28098-menue-leer-nach-bild-grundeinstellungen-speichern-nein.html#post249179"
+			try:
+				f = open("/proc/stb/video/hdmi_colorimetry", "w")
+				f.write(configElement.value)
+				f.close()
+			except:
+				pass
+		config.av.hdmicolorimetry = ConfigSelection(choices={
+				"auto": _("auto"),
+				"bt2020ncl": _("BT 2020 NCL"),
+				"bt2020cl": _("BT 2020 CL"),
+				"bt709": _("BT 709")},
+				default = "auto")
+		config.av.hdmicolorimetry.addNotifier(setHDMIColorimetry)
+	else:
+		config.av.hdmicolorimetry = ConfigNothing()
 
 	if os.path.exists("/proc/stb/hdmi/audio_source"):
 		f = open("/proc/stb/hdmi/audio_source", "r")

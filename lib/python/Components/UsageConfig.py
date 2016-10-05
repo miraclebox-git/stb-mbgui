@@ -49,7 +49,7 @@ def InitUsageConfig():
 
 	# just merge note, config.usage.servicelist_column was allready there
 	choicelist = [("-1", _("Disable")), ("0", _("Eventname only"))]
-	for i in range(100,1300,100):
+	for i in range(100,1325,25):
 		choicelist.append(("%d" % i, ngettext("%d pixel wide", "%d pixels wide", i) % i))
 	config.usage.servicelist_column = ConfigSelection(default="-1", choices=choicelist)
 	config.usage.servicelist_column.addNotifier(refreshServiceList)
@@ -333,7 +333,7 @@ def InitUsageConfig():
 
 	config.usage.blinking_display_clock_during_recording = ConfigYesNo(default = False)
 	
-	if getBoxType() in ('et7000', 'et7500', 'et8000', 'triplex', 'formuler1', 'mutant1200', 'solo2', 'mutant1265', 'mutant1100', 'mutant500c', 'mutant1500'):
+	if getBoxType() in ('et7000', 'et7500', 'et8000', 'triplex', 'formuler1', 'mutant1200', 'solo2', 'mutant1265', 'mutant1100', 'mutant500c', 'mutant530c', 'mutant1500', 'osminiplus', 'ax51', 'mutant51'):
 		config.usage.blinking_rec_symbol_during_recording = ConfigSelection(default = "Channel", choices = [
 						("Rec", _("REC Symbol")), 
 						("RecBlink", _("Blinking REC Symbol")), 
@@ -905,6 +905,21 @@ def InitUsageConfig():
 	config.epgselection.graph_piconwidth = ConfigSelectionNumber(default = 100, stepwidth = 1, min = 70, max = 500, wraparound = True)
 	config.epgselection.graph_infowidth = ConfigSelectionNumber(default = 25, stepwidth = 25, min = 0, max = 150, wraparound = True)
 	config.epgselection.graph_rec_icon_height = ConfigSelection(choices = [("bottom",_("bottom")),("top", _("top")), ("middle", _("middle")),  ("hide", _("hide"))], default = "bottom")
+
+	epg_colorkeys = [('autotimer', _('Auto Timer')),
+					('timer', _('Add/Remove Timer')),
+					('24plus', _('24+ Hours')),
+					('24minus', _('24- Hours')),
+					('imdb', _('IMDB search')),
+					('bouquetlist', _('Bouquet List')),
+					('showmovies', _('Show Movies List')),
+					('record', _('Record - same as record button')),
+					('gotodatetime', _('Goto Date/Timer')),
+					('epgsearch', _('EPG search'))]
+	config.epgselection.graph_red = ConfigSelection(default='imdb', choices=epg_colorkeys)
+	config.epgselection.graph_green = ConfigSelection(default='timer', choices=epg_colorkeys)
+	config.epgselection.graph_yellow = ConfigSelection(default='epgsearch',choices=epg_colorkeys)
+	config.epgselection.graph_blue = ConfigSelection(default='autotimer', choices=epg_colorkeys)
 
 	config.oscaminfo = ConfigSubsection()
 	config.oscaminfo.showInExtensions = ConfigYesNo(default=False)

@@ -14,6 +14,7 @@ from Screens.Console import Console
 from Screens.HelpMenu import HelpableScreen
 from Screens.TaskView import JobView
 from Tools.Downloader import downloadWithProgress
+from enigma import fbClass
 import urllib2
 import os
 import shutil
@@ -173,8 +174,11 @@ class FlashOnline(Screen):
 		if SystemInfo["HaveMultiBoot"]:
 			path = PATH
 			for name in os.listdir(path):
-				if os.path.isfile(os.path.join(path, name)):
-					cmdline = self.read_startup("/boot/" + name).split("=",1)[1].split(" ",1)[0]
+				if name != 'bootname' and os.path.isfile(os.path.join(path, name)):
+					try:
+						cmdline = self.read_startup("/boot/" + name).split("=",1)[1].split(" ",1)[0]
+					except IndexError:
+						continue
 					cmdline_startup = self.read_startup("/boot/STARTUP").split("=",1)[1].split(" ",1)[0]
 					if (cmdline != cmdline_startup) and (name != "STARTUP"):
 						files.append(name)
@@ -234,6 +238,8 @@ class doFlashImage(Screen):
 			self.newfeed = ReadNewfeed()
 
 	def quit(self):
+		if self.simulate or not self.List == "STARTUP":
+			fbClass.getInstance().unlock()
 		self.close()
 		
 	def blue(self):
@@ -488,6 +494,8 @@ class doFlashImage(Screen):
 				message += "'"
 				cmdlist.append(message)
 				self.session.open(Console, title = text, cmdlist = cmdlist, finishedCallback = self.quit, closeOnSuccess = False)
+				if not self.simulate:
+					fbClass.getInstance().lock()
 				if not self.List == "STARTUP":
 					self.close()
 
