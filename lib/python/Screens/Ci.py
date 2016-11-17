@@ -294,7 +294,7 @@ class CiMessageHandler:
 		self.dlgs = { }
 		self.auto_close = False
 		eDVBCI_UI.getInstance().ciStateChanged.get().append(self.ciStateChanged)
-		if getBoxType() in ('vuzero', 'mbmicro'):
+		if getBoxType() in ('vuzero', 'mbmicro', 'mbmicrov2'):
 			SystemInfo["CommonInterface"] = False
 		else:
 			SystemInfo["CommonInterface"] = eDVBCIInterfaces.getInstance().getNumOfSlots() > 0

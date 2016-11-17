@@ -322,7 +322,7 @@ int main(int argc, char **argv)
 	FILE *infile;
 	char line[100];
 	char command[64];
-/*
+
 	if((infile = fopen("/proc/stb/info/boxtype", "r")) != NULL)
 	{
 		fgets(line, sizeof(line), infile);
@@ -345,7 +345,11 @@ int main(int argc, char **argv)
 		}
 		else if(strcmp(line, "7000S\n") == 0) 
 		{
-			eDebug("Miraclebox Premium Ultra detected");
+			eDebug("Miraclebox Premium Micro detected");
+		}
+		else if(strcmp(line, "7005S\n") == 0) 
+		{
+			eDebug("Miraclebox Premium Micro v2 detected");
 		}
 		else if(strcmp(line, "g300\n") == 0) 
 		{
@@ -364,7 +368,7 @@ int main(int argc, char **argv)
 		}
 		fclose(infile);
 	}
-*/
+
 	std::string active_skin = getConfigCurrentSpinner("config.skin.primary_skin");
 
 	eDebug("Loading spinners...");
