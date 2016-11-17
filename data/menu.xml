@@ -108,7 +108,7 @@ self.session.openWithCallback(msgClosed, EpgDeleteMsg)
 				<item weight="10" level="0" text="Timeshift settings" entryID="timshift_setup"><screen module="Timershift" screen="TimeshiftSettings" /></item>
 				<item weight="15" level="0" text="Recording settings" entryID="recording_setup"><screen module="Recordings" screen="RecordingSettings" /></item>
 			</menu>-->
-
+		</menu>
 		<!-- Menu / Settings / GUI -->
 		<!-- was: Menu / Settings / System -->
 		<menu weight="15" level="0" text="System settings" entryID="system_selection">
