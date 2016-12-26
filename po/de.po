@@ -704,6 +704,10 @@ msgstr "AB"
 msgid "AC3 downmix"
 msgstr "AC3-Downmix"
 
+#
+msgid "DTS downmix"
+msgstr "DTS-Downmix"
+
 msgid "AFP Setup"
 msgstr "AFP-Dateiserver"
 
@@ -1118,7 +1122,7 @@ msgstr "Ton-Einstellungen"
 
 #: InfoBarGenerics.py
 msgid "Toggle Digital downmix..."
-msgstr "DD/DTS Downmix An/Aus"
+msgstr "Dolby Digital Downmix An/Aus"
 
 #
 msgid "Red button..."
@@ -1797,6 +1801,12 @@ msgstr "Wählen Sie, ob Mehrkanalton als PCM ausgegeben werden soll"
 
 msgid "Choose whether multi channel sound tracks should be downmixed to stereo."
 msgstr "Wählen Sie, ob Mehrkanalton zu Stereo heruntergerechnet werden soll."
+
+msgid "Choose whether AC3 sound tracks should be downmixed to stereo."
+msgstr "Wählen Sie, ob AC3-Tonspuren ( Dolby Digital ) zu Stereo heruntergerechnet werden soll."
+
+msgid "Choose whether DTS channel sound tracks should be downmixed to stereo."
+msgstr "Wählen Sie, ob DTS-Tonspuren zu Stereo heruntergerechnet werden soll."
 
 msgid "Choose whether AAC sound tracks should be transcoded."
 msgstr "Wählen Sie, ob AAC-Tonspuren transkodiert werden sollen."
@@ -4856,11 +4866,11 @@ msgstr "www lang"
 
 #: ButtonSetup.py
 msgid "Enable digital downmix"
-msgstr "DD/DTS Downmix aktivieren"
+msgstr "Dolby Digital Downmix aktivieren"
 
 #: ButtonSetup.py
 msgid "Disable digital downmix"
-msgstr "DD/DTS Downmix deaktivieren"
+msgstr "Dolby Digital Downmix deaktivieren"
 
 msgid "Menu config"
 msgstr "Menü-Einstellungen"
@@ -6456,7 +6466,7 @@ msgstr "Could not record due to invalid service '%s'"
 
 #: InfoBarGenerics.py
 msgid "Dolby Digital downmix is now"
-msgstr "DD/DTS Downmix ist jetzt"
+msgstr "Dolby Digital Downmix ist jetzt"
 
 #
 msgid "Recorded files..."
@@ -7293,9 +7303,13 @@ msgstr "Kanalsuchlauf"
 msgid "Service searching"
 msgstr "Empfang"
 
-#
-msgid "Service Searching"
-msgstr "Kanalsuchlauf"
+#: QuickMenu.py
+msgid "Automatic Service Searching"
+msgstr "Automatischer Kanalsuchlauf"
+
+#: QuickMenu.py
+msgid "Manual Service Searching"
+msgstr "Manueller Kanalsuchlauf"
 
 #
 msgid "Service has been added to the favourites."
@@ -7680,11 +7694,11 @@ msgid "Show background in Radio Mode"
 msgstr "Hintergrund im Radio-Modus anzeigen"
 
 #
-msgid "Show blinking Clock on Display during recording"
-msgstr "Blinkende Uhr im Display bei Aufnahmen"
+msgid "Show blinking Clock in Standby on Display during recording"
+msgstr "Zeige im Standby blinkende Uhr im Display bei Aufnahmen"
 
-msgid "Enable blinking Clock on the LCD Display"
-msgstr "Hier können Sie die blinkende Uhr in dem Display aktivieren."
+msgid "In the Standby blinking Clock on the LCD Display"
+msgstr "Im Standby blinkende Uhr im LCD-Display "
 
 msgid "Show bouquet on launch"
 msgstr "Zeige Bouquet beim Start"
@@ -10791,6 +10805,10 @@ msgstr "Blau lang"
 msgid "Subtitle long"
 msgstr "Untertitel lang"
 
+#: ButtonSetup.py
+msgid "List/Fav long"
+msgstr "List/Fav lang"
+
 #
 #, python-format
 msgid "burn audio track (%s)"
@@ -13336,6 +13354,9 @@ msgstr "Konfiguration der Netzwerklaufwerke."
 msgid "Setup Videomode"
 msgstr "Konfiguration Bild"
 
+msgid "Setup Video/Audio"
+msgstr "Konfiguration Bild/Ton"
+
 msgid "Setup your Video Mode, Video Output and other Video Settings"
 msgstr "Einstellungen Video Mode, Video Ausgang und andere Video-Einstellungen."
 
@@ -13344,6 +13365,9 @@ msgstr "Ton-Einstellungen"
 
 msgid "Setup Tuner"
 msgstr "Konfiguration Tuner"
+
+msgid "Setup Plugins"
+msgstr "Konfiguration Erweiterungen"
 
 msgid "Setup your Tuner and search for channels"
 msgstr "Einstellungen Tuner und Kanalsuche."
@@ -14675,6 +14699,10 @@ msgid "Customise enigma2 personal settings"
 msgstr "Stellen Sie Enigma2 auf Ihre persönlichen Bedürfnisse ein."
 
 # Quick Menue
+msgid "OSD Setup"
+msgstr "Bedienoberfläche anpassen"
+
+# Quick Menue
 msgid "Setup your OSD"
 msgstr "Stellen Sie die Bedienoberfläche auf Ihre persönlichen Bedürfnisse ein."
 
@@ -14808,6 +14836,14 @@ msgstr "Display-Skinauswahl"
 
 msgid "Skin setup"
 msgstr "LCD-Skinauswahl"
+
+#: QuickMenu.py
+msgid "Select LCD Skin"
+msgstr "LCD Skin auswählen"
+
+#: QuickMenu.py
+msgid "Select Enigma2 Skin"
+msgstr "Enigma2 Skin auswählen"
 
 msgid "LCD scroll speed"
 msgstr "LCD-Scrollgeschwindigkeit"
@@ -16262,6 +16298,10 @@ msgstr "EPG Einstellungen"
 msgid "Switch between Audio-, Subtitlepage"
 msgstr "Umschalten zwischen Audio-, Untertitelauswahl, am Steuerkreuz"
 
+# AudioSelection.py
+msgid "Audio Channel"
+msgstr "Audio-Kanal"
+
 # InfoBar.py
 msgid "Yes, delete this movie and return to movie list"
 msgstr "Ja, diesen Film löschen und zurück zur Filmauswahl"
@@ -16695,7 +16735,7 @@ msgstr "Wenn aktiviert, werden Streamings bei Aufnahmen beendet, falls kein frei
 
 # data/setup.xml
 msgid "Show recording symbol depending on recording type"
-msgstr "Zeige Aufnahmesymbol, abhängig vom Aufnahmetyp"
+msgstr "Zeige Aufnahmesymbol, wenn Aufnahmetyp"
 
 # data/setup.xml
 msgid "Configure whether the 'recording' symbol (in the display skin and LCD skin) is visible for real recordings only or also for streaming and pseuso recordings (e.g. EPGrefresh)."
@@ -16703,7 +16743,7 @@ msgstr "Legt fest, ob das Aufnahme-Symbol (auf Bildschirm und LCD Display) nur b
 
 # data/setup.xml
 msgid "Show warning before box restart based on recording type"
-msgstr "Zeige Warnung bei Neustart, abhängig vom Aufnahmetyp"
+msgstr "Zeige Warnung bei Neustart, wenn Aufnahmetyp"
 
 # data/setup.xml
 msgid "Configure for which types of recordings a warning about active recordings is shown when attempting to restart the box or the GUI."
@@ -17871,3 +17911,12 @@ msgstr "HDMI Farbtiefe"
 
 msgid "This option allows you can config the Colordepth for UHD"
 msgstr "Diese Option erlaubt die Umstellung der Farbtiefe im UHD Modus"
+
+msgid "Recovery Mode"
+msgstr "Wartungsmodus"
+
+msgid "Your %s %s is rebooting into Recovery Mode"
+msgstr "Ihre %s %s startet in den Wartungsmodus"
+
+msgid "Really reboot into Recovery Mode?"
+msgstr "Wirklich einen Neustart in den Wartungsmodus durchführen?"
