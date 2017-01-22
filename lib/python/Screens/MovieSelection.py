@@ -368,7 +368,6 @@ class MovieContextMenu(Screen, ProtectedScreen):
 		self["key_red"] = StaticText(_("Cancel"))
 		self["key_green"] = StaticText(_("OK"))
 		menu = [(_("Settings") + "...", csel.configure),
-				(_("Device mounts") + "...", csel.showDeviceMounts),
 				(_("Network mounts") + "...", csel.showNetworkMounts),
 				(_("Add bookmark"), csel.do_addbookmark),
 				(_("Create directory"), csel.do_createdir),
@@ -2021,10 +2020,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, InfoBarBase, Pr
 	def showNetworkMounts(self):
 		import NetworkSetup
 		self.session.open(NetworkSetup.NetworkMountsMenu)
-
-	def showDeviceMounts(self):
-		from Plugins.Extensions.Infopanel.MountManager import HddMount
-		self.session.open(HddMount)
 
 	def showActionFeedback(self, text):
 		if self.feedbackTimer is None:
