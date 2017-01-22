@@ -23,7 +23,7 @@ from boxbranding import getBoxType, getMachineBrand, getMachineName, getDriverDa
 VERSION = "Version 5.1 openATV"
 
 HaveGZkernel = True
-if getMachineBuild() in ("vuuno4k", "vuultimo4k", "vusolo4k", "spark", "spark7162", "hd51", "hd52", "sf4008"):
+if getMachineBuild() in ("vuuno4k", "vuultimo4k", "vusolo4k", "spark", "spark7162", "hd51", "hd52", "sf4008", "dags7252", "gb7252", "vs1500"):
 	HaveGZkernel = False
 
 def Freespace(dev):
@@ -337,11 +337,18 @@ class ImageBackup(Screen):
 			cmdlist.append('parted -s %s unit KiB mkpart rootfs4 ext2 %s %s' % (EMMC_IMAGE, FOURTH_ROOTFS_PARTITION_OFFSET, PARTED_END_ROOTFS4 ))
 			cmdlist.append('dd if=/dev/zero of=%s/boot.img bs=1024 count=%s' % (self.WORKDIR, BOOT_PARTITION_SIZE ))
 			cmdlist.append('mkfs.msdos -S 512 %s/boot.img' %self.WORKDIR)
-			cmdlist.append("echo \"boot emmcflash0.kernel1 \'root=/dev/mmcblk0p3 rw rootwait hd51_4.boxmode=1\'\" > %s/STARTUP" %self.WORKDIR)
-			cmdlist.append("echo \"boot emmcflash0.kernel1 \'root=/dev/mmcblk0p3 rw rootwait hd51_4.boxmode=1\'\" > %s/STARTUP_1" %self.WORKDIR)
-			cmdlist.append("echo \"boot emmcflash0.kernel2 \'root=/dev/mmcblk0p5 rw rootwait hd51_4.boxmode=1\'\" > %s/STARTUP_2" %self.WORKDIR)
-			cmdlist.append("echo \"boot emmcflash0.kernel3 \'root=/dev/mmcblk0p7 rw rootwait hd51_4.boxmode=1\'\" > %s/STARTUP_3" %self.WORKDIR)
-			cmdlist.append("echo \"boot emmcflash0.kernel4 \'root=/dev/mmcblk0p9 rw rootwait hd51_4.boxmode=1\'\" > %s/STARTUP_4" %self.WORKDIR)
+			if getBoxType() in ("bre2ze4k"):
+				cmdlist.append("echo \"boot emmcflash0.kernel1 \'root=/dev/mmcblk0p3 rw rootwait usbcore.old_scheme_first=1 %s_4.boxmode=1\'\" > %s/STARTUP" % (getMachineBuild(), self.WORKDIR))
+				cmdlist.append("echo \"boot emmcflash0.kernel1 \'root=/dev/mmcblk0p3 rw rootwait usbcore.old_scheme_first=1 %s_4.boxmode=1\'\" > %s/STARTUP_1" % (getMachineBuild(), self.WORKDIR))
+				cmdlist.append("echo \"boot emmcflash0.kernel2 \'root=/dev/mmcblk0p5 rw rootwait usbcore.old_scheme_first=1 %s_4.boxmode=1\'\" > %s/STARTUP_2" % (getMachineBuild(), self.WORKDIR))
+				cmdlist.append("echo \"boot emmcflash0.kernel3 \'root=/dev/mmcblk0p7 rw rootwait usbcore.old_scheme_first=1 %s_4.boxmode=1\'\" > %s/STARTUP_3" % (getMachineBuild(), self.WORKDIR))
+				cmdlist.append("echo \"boot emmcflash0.kernel4 \'root=/dev/mmcblk0p9 rw rootwait usbcore.old_scheme_first=1 %s_4.boxmode=1\'\" > %s/STARTUP_4" % (getMachineBuild(), self.WORKDIR))
+			else:
+				cmdlist.append("echo \"boot emmcflash0.kernel1 \'root=/dev/mmcblk0p3 rw rootwait %s_4.boxmode=1\'\" > %s/STARTUP" % (getMachineBuild(), self.WORKDIR))
+				cmdlist.append("echo \"boot emmcflash0.kernel1 \'root=/dev/mmcblk0p3 rw rootwait %s_4.boxmode=1\'\" > %s/STARTUP_1" % (getMachineBuild(), self.WORKDIR))
+				cmdlist.append("echo \"boot emmcflash0.kernel2 \'root=/dev/mmcblk0p5 rw rootwait %s_4.boxmode=1\'\" > %s/STARTUP_2" % (getMachineBuild(), self.WORKDIR))
+				cmdlist.append("echo \"boot emmcflash0.kernel3 \'root=/dev/mmcblk0p7 rw rootwait %s_4.boxmode=1\'\" > %s/STARTUP_3" % (getMachineBuild(), self.WORKDIR))
+				cmdlist.append("echo \"boot emmcflash0.kernel4 \'root=/dev/mmcblk0p9 rw rootwait %s_4.boxmode=1\'\" > %s/STARTUP_4" % (getMachineBuild(), self.WORKDIR))
 			cmdlist.append('mcopy -i %s/boot.img -v %s/STARTUP ::' % (self.WORKDIR, self.WORKDIR))
 			cmdlist.append('mcopy -i %s/boot.img -v %s/STARTUP_1 ::' % (self.WORKDIR, self.WORKDIR))
 			cmdlist.append('mcopy -i %s/boot.img -v %s/STARTUP_2 ::' % (self.WORKDIR, self.WORKDIR))
@@ -403,7 +410,7 @@ class ImageBackup(Screen):
 		else:
 			cmdlist.append('echo "rename this file to "force" to force an update without confirmation" > %s/noforce' %self.MAINDEST)
 
-		if self.MODEL in ("gbquad", "gbquadplus", "gb800ue", "gb800ueplus", "gbultraue", "gbultraueh", "twinboxlcd", "twinboxlcdci", "singleboxlcd", "sf208", "sf228"):
+		if self.MODEL in ("gbuhdquad", "gbquad", "gbquadplus", "gb800ue", "gb800ueplus", "gbultraue", "gbultraueh", "twinboxlcd", "twinboxlcdci", "singleboxlcd", "sf208", "sf228"):
 			lcdwaitkey = '/usr/share/lcdwaitkey.bin'
 			lcdwarning = '/usr/share/lcdwarning.bin'
 			if path.exists(lcdwaitkey):

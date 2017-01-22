@@ -48,7 +48,8 @@ class AVSwitch:
 							"multi":	{ 50: "2160p50", 60: "2160p" } }
 							
 	rates["2160p30"] =	{ 	"25Hz":		{ 50: "2160p25" },
-							"30Hz":		{ 60: "2160p30"} }
+							"30Hz":		{ 60: "2160p30"} ,
+							"multi":	{ 50: "2160p25", 60: "2160p30" } }
 
 	rates["PC"] = {
 		"1024x768": { 60: "1024x768" }, # not possible on DM7025
@@ -97,9 +98,9 @@ class AVSwitch:
 	# if modes.has_key("DVI-PC") and not getModeList("DVI-PC"):
 	# 	print "remove DVI-PC because of not existing modes"
 	# 	del modes["DVI-PC"]
-	if modes.has_key("YPbPr") and getBoxType() in ('force2nano','evoslim','zgemmah5ac', 'zgemmah3ac', 'bre2zet2c', 'dm900', 'wetekplay', 'wetekplay2', 'bre2ze4k', 'vuuno4k', 'vuultimo4k', 'sf4008', 'e4hdcombo', 'ultrabox', 'osmega', 'tmnano3t', 'novaip', 'novacombo', 'novatwin', 'dm520', 'dm525', 'megaforce2', 'purehd', 'sf128', 'sf138', 'mutant11', 'xpeedlxpro', 'mbtwinplus', 'mutant51', 'ax51', 'twinboxlcdci5' , 'twinboxlcdci', 'singleboxlcd', 'formuler4', 'formuler4turbo', 'zgemmah5', 'zgemmah52s', 'zgemmai55', 'sf98', 'odinplus', 'zgemmaslc', '9900lx', '9910lx', '9911lx', 'vusolo4k', 'et7x00mini', 'evomini', 'evominiplus', 'zgemmahs', 'zgemmah2s', 'zgemmah2h', 't2cable', 'xpeedlxcs2', 'xpeedlxcc', 'osmini', 'osminiplus', 'gbx1', 'gbx2', 'gbx3', 'gbx3h', 'sf3038', 'spycat', 'bwidowx', 'bwidowx2', 'fegasusx3', 'fegasusx5s', 'fegasusx5t', 'force2', 'force2plus', 'force2plushv', 'optimussos', 'tmnanose', 'tmnanosem2', 'tmnanosem2plus', 'tmnanocombo', 'zgemmash1', 'zgemmash2', 'zgemmas2s', 'zgemmass', 'mago', 'enibox', 'sf108', 'x1plus', 'xcombo', 'mutant1100', 'mutant1200', 'mutant1265', 'mutant1500', 'mutant500c', 'mutant530c', 'et4x00', 'et7500', 'et7000', 'et7100', 'et8500', 'et8500s', 'xp1000mk', 'xp1000max', 'xp1000plus', 'sf8', 'tm2t', 'tmsingle', 'vusolo2', 'tmnano', 'iqonios300hd', 'iqonios300hdv2', 'classm', 'axodin', 'axodinc', 'genius', 'evo', 'galaxym6', 'geniuse3hd', 'evoe3hd', 'axase3', 'axase3c', 'dm500hdv2', 'dm500hd', 'dm800', 'mixosf7', 'mixoslumi', 'mixosf5mini', 'gi9196lite', 'ixusszero', 'optimussos1', 'enfinity', 'marvel1', 'bre2ze', 'sezam1000hd', 'mbmini', 'atemio5x00', 'xpeedlx1', 'xpeedlx2', 'vusolose', 'gbipbox', 'formuler3', 'optimussos3plus', 'force1plus', 'vuzero', 'vizyonvita') or (about.getModelString() == 'ini-3000'):
+	if modes.has_key("YPbPr") and getBoxType() in ('vimastec1000','vimastec1500', 'gbuhdquad','revo4k','force3uhdplus','force3uhd','force2nano','evoslim','zgemmah5ac', 'zgemmah3ac', 'bre2zet2c', 'dm900', 'wetekplay', 'wetekplay2', 'bre2ze4k', 'vuuno4k', 'vuultimo4k', 'sf4008', 'e4hdcombo', 'ultrabox', 'osmega', 'tmnano3t', 'novaip', 'novacombo', 'novatwin', 'dm520', 'dm525', 'megaforce2', 'purehd', 'sf128', 'sf138', 'mutant11', 'xpeedlxpro', 'mbtwinplus', 'mutant51', 'ax51', 'twinboxlcdci5' , 'twinboxlcdci', 'singleboxlcd', 'formuler4', 'formuler4turbo', 'zgemmah5', 'zgemmah52s', 'zgemmai55', 'sf98', 'odinplus', 'zgemmaslc', '9900lx', '9910lx', '9911lx', 'vusolo4k', 'et7x00mini', 'evomini', 'evominiplus', 'zgemmahs', 'zgemmah2s', 'zgemmah2h', 't2cable', 'xpeedlxcs2', 'xpeedlxcc', 'osmini', 'osminiplus', 'gbx1', 'gbx2', 'gbx3', 'gbx3h', 'sf3038', 'spycat', 'bwidowx', 'bwidowx2', 'fegasusx3', 'fegasusx5s', 'fegasusx5t', 'force2', 'force2plus', 'force2plushv', 'optimussos', 'tmnanose', 'tmnanosem2', 'tmnanosem2plus', 'tmnanocombo', 'zgemmash1', 'zgemmash2', 'zgemmas2s', 'zgemmass', 'mago', 'enibox', 'sf108', 'x1plus', 'xcombo', 'mutant1100', 'mutant1200', 'mutant1265', 'mutant1500', 'mutant500c', 'mutant530c', 'et4x00', 'et7500', 'et7000', 'et7100', 'et8500', 'et8500s', 'xp1000mk', 'xp1000max', 'xp1000plus', 'sf8', 'tm2t', 'tmsingle', 'vusolo2', 'tmnano', 'iqonios300hd', 'iqonios300hdv2', 'classm', 'axodin', 'axodinc', 'genius', 'evo', 'galaxym6', 'geniuse3hd', 'evoe3hd', 'axase3', 'axase3c', 'dm500hdv2', 'dm500hd', 'dm800', 'mixosf7', 'mixoslumi', 'mixosf5mini', 'gi9196lite', 'ixusszero', 'optimussos1', 'enfinity', 'marvel1', 'bre2ze', 'sezam1000hd', 'mbmini', 'atemio5x00', 'xpeedlx1', 'xpeedlx2', 'vusolose', 'gbipbox', 'formuler3', 'optimussos3plus', 'force1plus', 'vuzero', 'vizyonvita') or (about.getModelString() == 'ini-3000'):
 		del modes["YPbPr"]
-	if modes.has_key("Scart") and getBoxType() in ('force2nano','dm900', 'wetekplay', 'wetekplay2', 'bre2ze4k', 'vuuno4k', 'vuultimo4k', 'sf4008', 'novaip', 'dm520', 'dm525', 'purehd', 'vusolo4k', 'fusionhdse', 'fusionhd', 'force2', 'force2plus', 'force2plushv', 'optimussos', 'tmnanose', 'tmnanosecombo', 'gbx1', 'gbx2', 'gbx3', 'gbx3h', 'gbultraue', 'gbultraueh', 'zgemmai55', 'mutant1500'):
+	if modes.has_key("Scart") and getBoxType() in ('gbuhdquad','revo4k','force3uhd','force2nano','dm900', 'wetekplay', 'wetekplay2', 'bre2ze4k', 'vuuno4k', 'vuultimo4k', 'sf4008', 'novaip', 'dm520', 'dm525', 'purehd', 'vusolo4k', 'fusionhdse', 'fusionhd', 'force2', 'force2plus', 'force2plushv', 'optimussos', 'tmnanose', 'tmnanosecombo', 'gbx1', 'gbx2', 'gbx3', 'gbx3h', 'gbultraue', 'gbultraueh', 'zgemmai55', 'mutant1500'):
 		del modes["Scart"]
 		
 	if getBoxType() in ('mutant2400'):
@@ -605,6 +606,21 @@ def InitAVSwitch():
 					"422": _("YCbCr422"),
 					"420": _("YCbCr420")},
 					default = "Edid(Auto)")
+		elif getBoxType() in ('dm900'):
+			config.av.hdmicolorspace = ConfigSelection(choices={
+					"Edid(Auto)": _("Auto"),
+					"Hdmi_Rgb": _("RGB"),
+					"Itu_R_BT_709": _("BT709"),
+					"DVI_Full_Range_RGB": _("Full Range RGB"),
+					"FCC": _("FCC 1953"),
+					"Itu_R_BT_470_2_BG": _("BT470 BG"),
+					"Smpte_170M": _("Smpte 170M"),
+					"Smpte_240M": _("Smpte 240M"),
+					"Itu_R_BT_2020_NCL": _("BT2020 NCL"),
+					"Itu_R_BT_2020_CL": _("BT2020 CL"),
+					"XvYCC_709": _("BT709 XvYCC"),
+					"XvYCC_601": _("BT601 XvYCC")},
+					default = "Edid(Auto)")
 		else:
 			config.av.hdmicolorspace = ConfigSelection(choices={
 					"auto": _("auto"),
@@ -792,6 +808,24 @@ def InitAVSwitch():
 					config.av.pcm_multichannel.setValue(False)
 		config.av.downmix_ac3 = ConfigYesNo(default = True)
 		config.av.downmix_ac3.addNotifier(setAC3Downmix)
+
+	if os.path.exists("/proc/stb/audio/ac3plus_choices"):
+		f = open("/proc/stb/audio/ac3plus_choices", "r")
+		can_ac3plustranscode = f.read().strip().split(" ")
+		f.close()
+	else:
+		can_ac3plustranscode = False
+
+	SystemInfo["CanAC3plusTranscode"] = can_ac3plustranscode
+
+	if can_ac3plustranscode:
+		def setAC3plusTranscode(configElement):
+			f = open("/proc/stb/audio/ac3plus", "w")
+			f.write(configElement.value)
+			f.close()
+		choice_list = [("use_hdmi_caps", _("controlled by HDMI")), ("force_ac3", _("always"))]
+		config.av.transcodeac3plus = ConfigSelection(choices = choice_list, default = "use_hdmi_caps")
+		config.av.transcodeac3plus.addNotifier(setAC3plusTranscode)
 
 	try:
 		f = open("/proc/stb/audio/dts_choices", "r")

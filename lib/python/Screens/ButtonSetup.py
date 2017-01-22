@@ -82,9 +82,10 @@ def getButtonSetupKeys():
 		(_("Skip back"), "skip_back", ""),
 		(_("Skip forward"), "skip_forward", ""),
 		(_("activatePiP"), "activatePiP", ""),
-		(_("Timer"), "timer", ""),
 		(_("Playlist"), "playlist", ""),
 		(_("Playlist long"), "playlist_long", ""),
+		(_("Program"), "prog", ""),
+		(_("Program long"), "prog_long", ""),
 		(_("Timeshift"), "timeshift", ""),
 		(_("Homepage"), "homep", ""),
 		(_("Homepage long"), "homep_long", ""),
@@ -524,7 +525,7 @@ class InfoBarButtonSetup():
 				return self.execButtonSetup(selected[0])
 			else:
 				key = tuple(x[0] for x in self.ButtonSetupKeys if x[1] == key)[0]
-				self.session.openWithCallback(self.execButtonSetup, ChoiceBox, (_("Hotkey")) + "  " + key, selected)
+				self.session.openWithCallback(self.execButtonSetup, ChoiceBox, (_("Hotkey")) + ": " + key, selected)
 
 	def execButtonSetup(self, selected):
 		if selected:

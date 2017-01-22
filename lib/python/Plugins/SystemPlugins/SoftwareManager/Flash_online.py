@@ -34,7 +34,7 @@ elif distro.lower() == "openatv":
 feedurl_atv = 'http://images.mynonpublic.com/openatv/%s' %ImageVersion
 
 if ImageVersion == '5.3':
-	ImageVersion2= '5.4'
+	ImageVersion2= '6.0'
 else:
 	ImageVersion2= '5.3'
 feedurl_atv2= 'http://images.mynonpublic.com/openatv/%s' %ImageVersion2
@@ -87,7 +87,7 @@ class FlashOnline(Screen):
 			self["key_yellow"] = StaticText(_("STARTUP"))
 		else:
 			self["key_yellow"] = StaticText("")
-		self["key_green"] = StaticText("Online")
+		self["key_green"] = StaticText(_("Online"))
 		self["key_red"] = StaticText(_("Exit"))
 		self["key_blue"] = StaticText(_("Local"))
 		self["info-local"] = Label(_("Local = Flash a image from local path /hdd/images"))
@@ -582,7 +582,7 @@ class doFlashImage(Screen):
 		box = self.box()
 		self.imagelist = []
 		if self.Online:
-			self["key_yellow"].setText("Backup&Flash")
+			self["key_yellow"].setText(_("Backup&Flash"))
 			if image == 1:
 				if self.feed == "atv":
 					self.feedurl = feedurl_atv

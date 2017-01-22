@@ -4453,7 +4453,7 @@ msgstr "Gizlenmiş ağ"
 msgid "Hide known extensions"
 msgstr "Bilinen uzantıları gizle"
 
-msgid "Hide parentel locked services"
+msgid "Hide parental locked services"
 msgstr "Kilitli ebeveyn kanallarını gizle"
 
 #
@@ -9716,10 +9716,10 @@ msgstr ""
 
 msgid ""
 "The Filesystem on your Timeshift-Device does not support hardlinks.\n"
-"Make sure it is formatted in EXT2 or EXT3!"
+"Make sure it is formatted in EXT2, EXT3 or EXT4!"
 msgstr ""
 "Zamankaydırma aygıtınızın dosya sistemi sabit bağlantıyı desteklemiyor.\n"
-"EXT2 veya EXT3 formatlı olduğundan emin olun!"
+"EXT2, EXT3 veya EXT4 formatlı olduğundan emin olun!"
 
 msgid ""
 "The IMDb plugin is not installed!\n"

@@ -4427,7 +4427,7 @@ msgstr ""
 msgid "Hide known extensions"
 msgstr "veure extensions..."
 
-msgid "Hide parentel locked services"
+msgid "Hide parental locked services"
 msgstr ""
 
 #
@@ -9722,7 +9722,7 @@ msgstr ""
 
 msgid ""
 "The Filesystem on your Timeshift-Device does not support hardlinks.\n"
-"Make sure it is formatted in EXT2 or EXT3!"
+"Make sure it is formatted in EXT2, EXT3 or EXT4!"
 msgstr ""
 
 msgid ""

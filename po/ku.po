@@ -4217,7 +4217,7 @@ msgstr "Hidden network"
 msgid "Hide known extensions"
 msgstr "Diréji"
 
-msgid "Hide parentel locked services"
+msgid "Hide parental locked services"
 msgstr ""
 
 msgid "Hide player"
@@ -9135,7 +9135,7 @@ msgstr ""
 
 msgid ""
 "The Filesystem on your Timeshift-Device does not support hardlinks.\n"
-"Make sure it is formatted in EXT2 or EXT3!"
+"Make sure it is formatted in EXT2, EXT3 or EXT4!"
 msgstr ""
 
 #, fuzzy
