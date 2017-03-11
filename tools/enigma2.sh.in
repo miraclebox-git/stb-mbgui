@@ -93,7 +93,7 @@ if [ -e @libdir@/libpassthrough.so ]; then
 fi
 
 if [ ! -e /etc/enigma2/settings ]; then
-	touch /etc/enigma2/settings
+	cp /share/enigma2/defaults/settings /etc/enigma2/settings
 fi
 
 #check for default sat settings

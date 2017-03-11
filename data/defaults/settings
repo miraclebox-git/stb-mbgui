@@ -1,0 +1,12 @@
+config.plugins.iptvplayer.f4mdumppath=/usr/bin/f4mdump
+config.plugins.iptvplayer.gstplayerpath=/usr/bin/gstplayer
+config.plugins.iptvplayer.hostdrdk=true
+config.plugins.iptvplayer.hostmovie4kto=true
+config.plugins.iptvplayer.hostsvtplayse=true
+config.plugins.iptvplayer.hostvevo=true
+config.plugins.iptvplayer.hostyoutube=true
+config.plugins.iptvplayer.rtmpdumppath=/usr/bin/rtmpdump
+config.plugins.iptvplayer.uchardetpath=/usr/bin/uchardet
+config.plugins.iptvplayer.wgetpath=/usr/bin/fullwget 
+config.plugins.iptvplayer.numOfCol=6
+config.plugins.iptvplayer.numOfRow=1
