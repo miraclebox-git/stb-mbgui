@@ -1,4 +1,4 @@
-SUBDIRS = fonts keymaps mb_wizard
+SUBDIRS = fonts keymaps mb_wizard defaults
 
 dist_pkgdata_DATA = \
 	encoding.conf \
