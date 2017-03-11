@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxbox-enigma 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-22 00:59+0200\n"
-"PO-Revision-Date: 2017-01-22 01:07+0200\n"
+"POT-Creation-Date: 2017-02-26 21:40+0200\n"
+"PO-Revision-Date: 2017-02-26 21:45+0200\n"
 "Last-Translator: Audronis Grincevicius <adga45@gmail.com>\n"
 "Language-Team: adga (c) <adga45@gmail.com>\n"
 "Language: lt_LT\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 2.0beta2\n"
+"X-Generator: Poedit 2.0beta3\n"
 
 msgid "  REC  "
 msgstr "  ĮRAŠ.  "
@@ -566,6 +566,9 @@ msgstr "128"
 msgid "128 Mb"
 msgstr "128 Mb"
 
+msgid "12bit 4:2:0/4:2:2 no PIP"
+msgstr "12bitų 4:2:0/4:2:2 ne PIP"
+
 msgid "12V output"
 msgstr "12V išvestis"
 
@@ -907,6 +910,9 @@ msgstr "<nežinomas>"
 
 msgid "A"
 msgstr "A"
+
+msgid "AZPlay"
+msgstr "AZ atkūrimas"
 
 msgid ""
 "A background update check is in progress, please wait a few minutes and try "
@@ -1347,6 +1353,12 @@ msgstr ""
 "patenkinti rezultatu, spauskite OK, kad užvertumėte vaizdo tikslų "
 "suderinimą, ar pasinaudokite skaičių mygtukais, kad išrinktumėte kitus "
 "bandomuosius ekranus."
+
+msgid "Adjust the horizontal position of the letters used for teletext."
+msgstr "Pakoreguokite horizontalią raidžių poziciją, naudojamą teletekstui."
+
+msgid "Adjust the vertical position of the letters used for teletext."
+msgstr "Pakoreguokite vertikalią raidžių poziciją, naudojamą teletekstui."
 
 msgid "adult movie/drama"
 msgstr "suaugusių filmas/drama"
@@ -2556,6 +2568,10 @@ msgstr "KEISTI PAKETĄ"
 msgid "Change bouquets in quickzap"
 msgstr "Keisti paketus greitai perjungiant"
 
+msgid "Change Boxmode to control Hardware Chip Modes*"
+msgstr ""
+"Pakeiskite imtuvo režimą, kad kontroliuoti techninės įrangos lusto režimus*"
+
 msgid "Change next timer"
 msgstr "Keisti kitą laikmatį"
 
@@ -2612,8 +2628,14 @@ msgstr "Kanalas"
 msgid "Channel +/- button mode"
 msgstr "Kanalo +/-mygtukų režimas"
 
+msgid "Channel 1"
+msgstr "1 kanalas"
+
 msgid "Channel 1 at start"
 msgstr "Paleidžiant, atverti pirmąjį kanalą"
+
+msgid "Channel 1 with Primetime"
+msgstr "1 kanalas su žiūrimiausiu laiku"
 
 msgid "Channel down"
 msgstr "Kanalą žemyn"
@@ -3118,16 +3140,14 @@ msgstr ""
 "rodytas kanalas."
 
 msgid "Configure if and how service type icons will be shown."
-msgstr ""
-"Konfigūruokite, ar ir kaip bus rodomos kanalo tipo (satelitinis/kabelinis/"
-"antžeminis) logotipai."
+msgstr "Konfigūruoti kaip kanalų tipo logotipai bus rodomi."
 
 msgid ""
 "Configure if and how the record indicator will be shown in the channel "
 "selection list."
 msgstr ""
-"Konfigūruokite, ar ir kaip kanalų pasirinkimo sąrašo lange bus rodoma "
-"įrašymo pasirinkimo indikacija."
+"Nustatykite, ar ir kaip kanalų pasirinkimo sąrašo lange bus rodoma įrašymo "
+"pasirinkimo indikacija."
 
 msgid ""
 "Configure if and how wide the service name column will be shown in the "
@@ -3239,12 +3259,21 @@ msgstr ""
 msgid "Configure the DiSEqC mode for this LNB."
 msgstr "Konfigūruokite šio LNB DiSEqC režimą."
 
+msgid "Configure the display resolution and the font used for teletext."
+msgstr "Konfigūruokite ekrano rezoliuciją ir šriftą, naudojamą teletekstui."
+
 msgid "Configure the duration in minutes for the screensaver."
 msgstr "Konfigūruokite trukmę minutėmis, po kurios įsijungs ekrano užsklanda."
 
 msgid "Configure the duration in minutes for the sleep timer."
 msgstr ""
 "Konfigūruokite trukmę minutėmis, po kurios įsijungs budėjimo laikmatis."
+
+msgid "Configure the end coordinate in x of the teletext display area."
+msgstr "Konfigūruokite baigimo koordinates x teleteksto ekrano pločiui."
+
+msgid "Configure the end coordinate in y of the teletext display area."
+msgstr "Konfigūruokite baigimo koordinates y teleteksto ekrano pločiui."
 
 msgid "Configure the first audio language (highest priority)."
 msgstr "Konfigūruokite pagrindinę garso kalbą (didžiausias prioritetas)."
@@ -3292,6 +3321,9 @@ msgid ""
 msgstr ""
 "Konfigūruokite, kiek laiko lauks kietas diskas, kad pereiti į budėjimo "
 "režimą , jei jis nenaudojamas."
+
+msgid "Configure the height of the TrueType font letters used for teletext."
+msgstr "Konfigūruokite TrueType šrifto raidžių aukštį, naudojamą teletekstui."
 
 msgid "Configure the horizontal alignment of the subtitles."
 msgstr "Konfigūruokite subtitrų horizontalų lygiavimą."
@@ -3384,6 +3416,13 @@ msgstr "Konfigūruokite pagrindinę EPG kalbą."
 msgid "Configure the refresh rate of the screen."
 msgstr "Konfigūruokite ekrano skleistinės dažnį."
 
+msgid ""
+"Configure the screen resolution for teletext (Not all skins support full-HD "
+"teletext)."
+msgstr ""
+"Konfigūruokite ekrano rezoliuciją, naudojamą teletekstui (Ne visos temos "
+"palaiko full-HD teletekstą)."
+
 msgid "Configure the second audio language."
 msgstr "Konfigūruokite antrą garso kalbą."
 
@@ -3419,6 +3458,12 @@ msgstr ""
 "Konfigūruokite fono trynimo greitį. Mažesnis greitis mažiau įtakos HDD "
 "našumą, t.y. didelis greitis gali stabdyti sistemą."
 
+msgid "Configure the start coordinate in x of the teletext display area."
+msgstr "Konfigūruokite pradžios koordinates x teleteksto ekrano pločiui."
+
+msgid "Configure the start coordinate in y of the teletext display area."
+msgstr "Konfigūruokite pradžios koordinates y teleteksto ekrano pločiui."
+
 msgid "Configure the subtitle delay when timing information is not available."
 msgstr "Konfigūruokite subtitrų delsą, kai nėra laiko derinimo informacijos."
 
@@ -3452,9 +3497,39 @@ msgstr "Konfigūruokite plotį, skirtą logotipams."
 msgid "Configure the width allocated to the service name."
 msgstr "Konfigūruokite plotį, skirta kanalų pavadinimui."
 
+msgid "Configure the width of the TrueType font letters used for teletext."
+msgstr "Konfigūruokite TrueType šrifto raidžių plotį, naudojamą teletekstui."
+
 msgid "Configure to show the channel names, picons, or both in the EPG."
 msgstr ""
 "Konfigūruokite, EPG rodyti kanalų pavadinimus, logotipus, ar abu kartu."
+
+msgid "Configure whether a bold TrueType font is used for teletext."
+msgstr ""
+"Konfigūruokite ar paryškintas TrueType šriftas bus naudojamas teletekstui."
+
+msgid ""
+"Configure whether a fixed font or a scalable TrueType font is used for "
+"teletext."
+msgstr ""
+"Konfigūruokite ar naudoti fiksuotą šriftą ar keičiamo dydžio TrueType "
+"šriftą, naudojamą teletekstui."
+
+msgid ""
+"Configure whether another tuner from the preferred list is allocated for "
+"recordings instead of sharing a tuner that is already active receiving the "
+"same live TV channel."
+msgstr ""
+"Konfigūruokite ar kitas imtuvas, iš pageidaujamo sąrašo, yra skirtas "
+"įrašymui vietoj bendrinamo imtuvo, kuris jau aktyviai gauna vieną ir tą "
+"pačią transliaciją televizijos kanalu."
+
+msgid ""
+"Configure whether another tuner from the preferred list is allocated instead "
+"of sharing a tuner that is already active recording the same channel."
+msgstr ""
+"Konfigūruokite ar kitas imtuvas, iš pageidaujamo sąrašo, yra skirtas vietoj "
+"bendrinamo imtuvo, kuris jau aktyviai įrašinėja tą patį kanalą."
 
 msgid ""
 "Configure whether the 'recording' symbol (in the display skin and LCD skin) "
@@ -4899,6 +4974,9 @@ msgstr "Įjungti tinklo srauto patikrinimą"
 msgid "Enable panic button"
 msgstr "Įjungti panikos mygtuką"
 
+msgid "enable PIP no HDR"
+msgstr "įjungtii PIP be HDR"
+
 msgid "Enable preview"
 msgstr "Įjungti peržiūrą"
 
@@ -4991,6 +5069,9 @@ msgstr "Jungimo pabaiga"
 
 msgid "English"
 msgstr "Anglų"
+
+msgid "Enhanced Movie Center"
+msgstr "Pažangus filmų centras"
 
 msgid "enigma2 and network"
 msgstr "enigma2 ir tinklas"
@@ -5318,6 +5399,15 @@ msgstr "Užverti nustatymų vedlį"
 msgid "experimental film/video"
 msgstr "eksperimentinis filmas/vaidzas"
 
+msgid "Experimental: strict limitation to preferred tuners"
+msgstr "Eksperimentinis: griežtas pageidaujamų imtuvų apribojimas"
+
+msgid "Experimental: strict limitation to preferred tuners for recordings"
+msgstr "Eksperimentinis: griežtas, įrašams pageidaujamų imtuvų, apribojimas"
+
+msgid "Experimental mode"
+msgstr "Eksperimentinis režimas"
+
 msgid "Expert"
 msgstr "Ekspertinis"
 
@@ -5359,6 +5449,9 @@ msgstr "Išplėstinis programinės įrangos priedas"
 
 msgid "Extended System"
 msgstr "Išplėstinė sistema"
+
+msgid "Extension"
+msgstr "Papildymai"
 
 msgid "Extensions"
 msgstr "Išplėtimai"
@@ -5601,6 +5694,9 @@ msgstr "fitnesas ir sveikata"
 msgid "Fixed"
 msgstr "Fiksuota"
 
+msgid "Fixed X11 font (SD)"
+msgstr "Fiksuotas X11 šriftas (SD)"
+
 msgid "FLASH"
 msgstr "VIDINĖ ATMINTIS:"
 
@@ -5690,7 +5786,7 @@ msgid "forward to the next chapter"
 msgstr "pereiti į kitą skyrių"
 
 msgid "Forward volume keys"
-msgstr "Perduoti garso valdymą"
+msgstr "Perduoti garso reguliavimą"
 
 msgid "FP Upgrade"
 msgstr "Priekinio procesoriaus atnaujinimas"
@@ -6113,6 +6209,15 @@ msgid "Helps setting up your signal"
 msgstr "Padės suderinti jūsų signalą"
 
 msgid ""
+"Here can set the EPG will alway open at the current channel, the first "
+"channel or one of both with primetime. If no primetime selected, the current "
+"time is used."
+msgstr ""
+"Čia galite nustatyti, ar EPG visada bus atidarytas, esant dabartiniam "
+"kanalui, pirmojo kanalo ar vieno iš dviejų su žiūrimiausiu laiku. Jei "
+"pasirinktas ne žiūrimiausias laikas, tada bus naudojamas dabartinis laikas."
+
+msgid ""
 "Here you can browse (but not modify) the files that are added to the "
 "backupfile by default (E2-setup, channels, network)."
 msgstr ""
@@ -6471,6 +6576,20 @@ msgstr ""
 "Be to, šalia tikrinimo įvykio pradžioje, gali būti naudojamas pakartotinis "
 "patikrinimas, kad sąlygų \"kaupimo riba valandomis\", arba \"tikrinti laisvą "
 "vietą\" neatitikimas būtų aptiktas anksčiau."
+
+msgid ""
+"In expert mode, configure which tuners will be preferred, when more than one "
+"tuner is available."
+msgstr ""
+"Nustatykite, kuris imtuvas turės įrašymo pirmenybę, kai galimas daugiau, nei "
+"vienas imtuvas."
+
+msgid ""
+"In expert mode, configure which tuners will be preferred for recordings, "
+"when more than one tuner is available."
+msgstr ""
+"Eksperimentiniame režime nustatykite, kuris imtuvas turės įrašymo pirmenybę, "
+"kai galimas daugiau, nei vienas imtuvas."
 
 msgid ""
 "In order to record a timer, a tuner was freed successfully:\n"
@@ -7379,6 +7498,12 @@ msgstr "Medijos atkūrime liko/praėjo kaip"
 msgid "Media player"
 msgstr "Media grotuvas"
 
+msgid "Media Player"
+msgstr "Media grotuvas"
+
+msgid "Media Portal"
+msgstr "Atverti Medija Portalą"
+
 msgid "Media scanner"
 msgstr "Medijos skeneris"
 
@@ -7387,6 +7512,9 @@ msgstr "Medija grotuvas"
 
 msgid "MediaPlayerLCDScreen"
 msgstr "Medijos grotuvo LCD ekranas"
+
+msgid "MediaPortal"
+msgstr "Medija Portalas"
 
 msgid "medicine/physiology/psychology"
 msgstr "medicina/fiziologija/psichologija"
@@ -9516,6 +9644,12 @@ msgstr "Pageidautinas imtuvas"
 msgid "Preferred tuner for recordings"
 msgstr "Pageidautinas imtuvas įrašams"
 
+msgid "Preferred tuners, multiple selection allowed"
+msgstr "Pageidaujami imtuvai, galima pasirinkti keletą"
+
+msgid "Preferred tuners for recordings, multiple selection allowed"
+msgstr "Įrašams pageidaujami imtuvai, galima pasirinkti keletą"
+
 msgid "Prepare another USB stick for image flashing"
 msgstr "Paruoškite kitą USB laikmeną atvaizdo diegimui"
 
@@ -9608,6 +9742,9 @@ msgstr "Ankstesnis"
 
 msgid "Primary DNS"
 msgstr "Pirminis DNS"
+
+msgid "Primetime"
+msgstr "Žiūrimiausias laikas"
 
 msgid "PRIMETIME"
 msgstr "ŽIŪRIMIAUSIAS LAIKAS"
@@ -9967,7 +10104,7 @@ msgid "Recordable media toolbox"
 msgstr "Įrašomų medija priemonių rinkinys"
 
 msgid "Recording"
-msgstr "IPTV"
+msgstr "įrašymas"
 
 msgid "Recording in progress"
 msgstr "Vyksta įrašymas"
@@ -9982,13 +10119,13 @@ msgid "Recording type"
 msgstr "Įrašymo tipas"
 
 msgid "Recording(s) are in progress or coming up in few seconds!"
-msgstr "Įrašas (ai) yra vykdymas arba bus prieinamas po kelių sekundžių!"
+msgstr "Vyksta įrašymas, arba jis prasidės po kelių sekundžių!"
 
 msgid ""
 "Recording(s) are in progress or coming up in few seconds!\n"
 "Entering standby, after recording the box will shutdown."
 msgstr ""
-"Įrašymas(ai) vyksta, arba prasidės po kelių sekundžių!\n"
+"Vyksta įrašymas arba jis prasidės po kelių sekundžių!\n"
 "Perjungiama į budėjimo režimą, įrašymui pasibaigus, išsijungs pilnai."
 
 msgid "recording..."
@@ -10325,6 +10462,9 @@ msgid "resoring satellites.xml not posibel!"
 msgstr "atkurti satellites.xml neįmanoma!"
 
 msgid "Restart"
+msgstr "Paleisti iš naujo"
+
+msgid "ReStart"
 msgstr "Paleisti iš naujo"
 
 msgid "Restart %s %s."
@@ -11037,6 +11177,13 @@ msgstr ""
 "tarp sąrašų, naudokite kanalų '+/-' mygtukus. Pasirinkite priskirtą funkciją "
 "ir jai per-priskirti spauskite 'OK'. Pakeisti priskirtų funkcijų tvarkai, "
 "naudokite \"Kitas/Ankstesnis\" ."
+
+msgid ""
+"Select the method of restoring screen resolution and framebuffer when "
+"leaving teletext."
+msgstr ""
+"Pasirinkite ekrano rezoliucijos atkūrimo metodą ir kadrų buferizaciją "
+"išeinant iš teleteksto."
 
 msgid "Select the movie path"
 msgstr "Pasirinkite filmo kelią"
@@ -12596,7 +12743,7 @@ msgid "SoftwareManager information"
 msgstr "Programinės įrangos informacija"
 
 msgid "SoftwareManager setup"
-msgstr "Programinės įrangos valdymas"
+msgstr "Programinės įrangos tvarkyklės valdymas"
 
 msgid "Softwaremanager..."
 msgstr "Programinės įrangos tvarkyklė..."
@@ -12805,6 +12952,9 @@ msgstr "Pradžia nuo pradžios"
 msgid "Start instant recording"
 msgstr "Iškart pradėti įrašymą"
 
+msgid "Start mode"
+msgstr "Paleidimo režimas"
+
 msgid "Start Mode"
 msgstr "Paleidimo režimas"
 
@@ -12904,25 +13054,25 @@ msgid "Stop check when cam is running"
 msgstr "Stabdyti patikrinimą, kai veikia emuliatorius"
 
 msgid "Stop current event and disable coming events"
-msgstr "Sustabdyti dabartinę užduotį ir išjungti sekančią užduotį"
+msgstr "Stabdyti dabartinę užduotį ir išjungti sekančią užduotį"
 
 msgid "Stop current event but not coming events"
-msgstr "Sustabdyti dabartinę užduotį, nevykdant sekančių užduočių"
+msgstr "Stabdyti dabartinę užduotį, nevykdant sekančių užduočių"
 
 msgid "Stop entry"
-msgstr "Sustabdyti įrašą"
+msgstr "Stabdyti įrašą"
 
 msgid "Stop PiP"
 msgstr "Stabdyti PiP"
 
 msgid "Stop playing this movie?"
-msgstr "Sustabdyti šio filmo žiūrėjimą ?"
+msgstr "Stabdyti šio filmo žiūrėjimą ?"
 
 msgid "Stop previous broadcasted service on return to movielist."
-msgstr "Sustabdyti ankstesnį transliuojamą kanalą grįžus į filmų sąrašą."
+msgstr "Stabdyti ankstesnį transliuojamą kanalą grįžus į filmų sąrašą."
 
 msgid "Stop recording"
-msgstr "Sustabdyti įrašymą"
+msgstr "Stabdyti įrašymą"
 
 msgid "stop recording"
 msgstr "stabdyti įrašymą"
@@ -12946,7 +13096,7 @@ msgid "Stop testing plane after # successful transponders"
 msgstr "Stabdyti testą po # teisingų transponderių"
 
 msgid "Stop timer recording"
-msgstr "Sustabdyti įrašymą su laikmačiu"
+msgstr "Stabdyti įrašymą pagal laikmatį"
 
 msgid "Stop timeshift"
 msgstr "Stabdyti laiko poslinkį"
@@ -12963,7 +13113,7 @@ msgstr ""
 "pradėti dabartinio įvykio įrašymą"
 
 msgid "Stop timeshift while recording?"
-msgstr "Nutraukti laiko poslinkį įrašinėjant?"
+msgstr "Stabdyti laiko poslinkį įrašinėjant?"
 
 msgid "stop using as startup service"
 msgstr "nustoti naudoti, kaip pradinį kanalą"
@@ -13145,6 +13295,9 @@ msgstr ""
 msgid "Switch config"
 msgstr "Perjungti konfigūraciją"
 
+msgid "Switch Mode to enable HDR Modes or PIP Functions"
+msgstr "Perjungimo režimas, kad įjungti HDR režimus arba PIP funkcijas"
+
 msgid "Switch next channel"
 msgstr "Perjungti kitą kanalą"
 
@@ -13279,11 +13432,50 @@ msgstr "technologijos/gamtos mokslai"
 msgid "Teletext"
 msgstr "Teletekstas"
 
+msgid "Teletext CleanAlgo (resolution reset algorithm)"
+msgstr "Teleteksto CleanAlgo (rezoliucija perleidžia iš naujo algoritmą)"
+
 msgid "Teletext base visibility"
 msgstr "Teleteksto pradinis matomumas"
 
+msgid "Teletext EndX (right border)"
+msgstr "Teleteksto EndX (dešinė riba)"
+
+msgid "Teletext EndY (upper border)"
+msgstr "Teleteksto EndY (aukštutinė riba)"
+
+msgid "Teletext font and resolution"
+msgstr "Teleteksto šriftas ir rezoliucija"
+
+msgid "Teletext StartX (left border)"
+msgstr "Teleteksto StartX (kairė riba)"
+
+msgid "Teletext StartY (lower border)"
+msgstr "Teleteksto StartY (apatinė riba)"
+
 msgid "Teletext subtitle color"
 msgstr "Teleteksto subtitrų spalva"
+
+msgid "Teletext TTFBold (0=normal, 1=bold)"
+msgstr "Teleteksto TTFBold (0=normalus, 1=paryškintas)"
+
+msgid "Teletext TTFScreenResX (screen X resolution)"
+msgstr "Teleteksto TTFScreenResX (ekrano X raiška)"
+
+msgid "Teletext TTFShiftX (horizontal letter position)"
+msgstr "Teleteksto TTFShiftX (horizontali raidės pozicija)"
+
+msgid "Teletext TTFShiftY (vertical letter position)"
+msgstr "Teleteksto TTFShiftY (vertikali raidės pozicija)"
+
+msgid "Teletext TTFWidthFactor16 (TrueType letter width)"
+msgstr "Teleteksto TTFWidthFactor16 (TrueType raidės plotis)"
+
+msgid "Teletext TTFHeightFactor16 (TrueType letter height)"
+msgstr "Teleteksto TTFHeightFactor16 (TrueType raidės aukštis)"
+
+msgid "Teletext UseTTF (0=fixed font, 1=TrueType)"
+msgstr "Teleteksto UseTTF (0=fiksuotas šriftas, 1=TrueType)"
 
 msgid "Telnet"
 msgstr "Telnet"
@@ -13595,7 +13787,7 @@ msgid "The timer file (timers.xml) is corrupt and could not be loaded."
 msgstr "Laikmačio failas (timers.xml) sugadintas, įkelti nepavyko."
 
 msgid "The TV was switched to the recording service!\n"
-msgstr "TV buvo persijungtas į įrašomą kanalą!\n"
+msgstr "TV buvo perjungtas į įrašomą kanalą!\n"
 
 msgid ""
 "The unicable connection setting is wrong.\n"
@@ -14534,6 +14726,15 @@ msgstr "Liko bandymų:"
 
 msgid "true"
 msgstr "teisingas"
+
+msgid "TrueType font (full-HD)"
+msgstr "TrueType (pilnas HD)"
+
+msgid "TrueType font (HD)"
+msgstr "TrueType šriftas (HD)"
+
+msgid "TrueType font (SD)"
+msgstr "TrueType šriftas (SD)"
 
 msgid "Try to find used transponders in cable network.. please wait..."
 msgstr ""
@@ -15997,6 +16198,9 @@ msgstr "Kur norite išsaugoti laikinus laiko poslinkio įrašus?"
 msgid "Which event do you want to save permanently?"
 msgstr "Kurio įvykio įrašą norite išsaugoti visam laikui?"
 
+msgid "While available"
+msgstr "Kol galima"
+
 msgid "White"
 msgstr "Balta"
 
@@ -16894,8 +17098,59 @@ msgstr ""
 "\n"
 "[Mano - paketai (TV)]\n"
 
+#~ msgid "In the Standby blinking Clock on the LCD Display"
+#~ msgstr ""
+#~ "Čia galite nustatyti, ar budėjimo režime LCD ekrane rodyti mirksintį "
+#~ "laikrodį"
+
+#~ msgid "Default 'After event'"
+#~ msgstr "Numatytasis \"Po įvykio\""
+
+#~ msgid ""
+#~ "Configure default setting for new timers. Need a restart after changing."
+#~ msgstr ""
+#~ "Konfigūruoti numatytus nustatymus naujiems laikmačiams. Reikia paleisti "
+#~ "iš naujo po keitimo."
+
+#~ msgid "Default 'Timer type' *"
+#~ msgstr "Numatytasis 'Laikmačio tipas' *"
+
+#~ msgid ""
+#~ "Configure default setting for timer type. Need a restart after changing."
+#~ msgstr ""
+#~ "Konfigūruoti numatytus nustatymus laikmačių tipams. Reikia paleisti iš "
+#~ "naujo po keitimo."
+
+#~ msgid "This option allows you to hide and sorting of the menus"
+#~ msgstr "Ši parinktis leidžia jums paslėpti ir rūšiuoti meniu"
+
+#~ msgid "This option allows you to hide and sorting of the plugin browser."
+#~ msgstr "Ši parinktis leidžia jums paslėpti ir rūšiuoti naršyklės priedus."
+
+#~ msgid "Configure if service picons will be shown in quickzap."
+#~ msgstr "Nustatykite, ar kanalų logotipai bus rodomi greitame jungime."
+
+#~ msgid "Workaround for old tuner driver"
+#~ msgstr "Problemos dėl senų imtuvo tvarkyklių"
+
+#~ msgid "Sort order for menu entries"
+#~ msgstr "Meniu rūšiavimo tvarka"
+
+#~ msgid "Sort plug-in browser entries"
+#~ msgstr "Rūšiuoti priedus įrašų naršyklėje"
+
+#~ msgid "show picons in quickzap"
+#~ msgstr "Rodyti logotipus greitame jungime"
+
+#~ msgid "Delivery system workaround"
+#~ msgstr "Pristatymo sistemos problemos sprendimas"
+
+#~ msgid "Show blinking Clock in Standby on Display during recording"
+#~ msgstr ""
+#~ "Įrašymo metu ir budėjimo režime monitoriuje rodyti mirksintį laikrodį"
+
 #~ msgid "Softwaremanager"
-#~ msgstr "Programinės įrangos valdymas"
+#~ msgstr "Programinės įrangos tvarkyklė"
 
 #~ msgid "%d"
 #~ msgid_plural "%d"

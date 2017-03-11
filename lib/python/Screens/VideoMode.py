@@ -226,9 +226,11 @@ class VideoSetup(Screen, ConfigListScreen):
 		if SystemInfo["havehdmicolordepth"]:
 			self.list.append(getConfigListEntry(_("HDMI Colordepth"), config.av.hdmicolordepth,_("This option allows you can config the Colordepth for UHD")))
 
-
 		if SystemInfo["Canedidchecking"]:
 			self.list.append(getConfigListEntry(_("Bypass HDMI EDID Check"), config.av.bypass_edid_checking,_("This option allows you to bypass HDMI EDID check")))
+
+		if SystemInfo["haveboxmode"]:
+			self.list.append(getConfigListEntry(_("Change Boxmode to control Hardware Chip Modes*"), config.av.boxmode,_("Switch Mode to enable HDR Modes or PIP Functions")))
 
 		self["config"].list = self.list
 		self["config"].l.setList(self.list)
@@ -792,7 +794,7 @@ class AutoVideoMode(Screen):
 				new_rate = str(new_rate)
 
 				if new_mode[-1:] == 'p':
-					new_rate = setProgressiveRate((video_rate + 500) / 1000, new_rate, new_mode[:-1], config_res, config_rate)
+					new_rate = setProgressiveRate((video_rate + 500) / 1000 * (int(video_pol == 'i')+1), new_rate, new_mode[:-1], config_res, config_rate)
 
 				if new_mode+new_rate in iAVSwitch.modes_available:
 					write_mode = new_mode+new_rate
@@ -825,7 +827,7 @@ class AutoVideoMode(Screen):
 				new_rate = str(new_rate)
 
 				if new_pol == 'p':
-					new_rate = setProgressiveRate((video_rate + 500) / 1000, new_rate, new_res, config_res, config_rate)
+					new_rate = setProgressiveRate((video_rate + 500) / 1000 * (int(video_pol == 'i')+1), new_rate, new_res, config_res, config_rate)
 
 				if new_res+new_pol+new_rate in iAVSwitch.modes_available:
 					write_mode = new_res+new_pol+new_rate
@@ -848,7 +850,7 @@ class AutoVideoMode(Screen):
 					elif config.av.autores_unknownres.value == 'highest':
 						new_res = config_res
 					if new_pol == 'p':
-						new_rate = setProgressiveRate((video_rate + 500) / 1000, new_rate, new_res, config_res, config_rate)
+						new_rate = setProgressiveRate((video_rate + 500) / 1000 * (int(video_pol == 'i')+1), new_rate, new_res, config_res, config_rate)
 					if new_res+new_pol+new_rate in iAVSwitch.modes_available:
 						write_mode = new_res+new_pol+new_rate
 					elif new_res+new_pol in iAVSwitch.modes_available:
