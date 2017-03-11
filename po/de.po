@@ -20,10 +20,10 @@ msgid "Stop recording now"
 msgstr "Aufnahme stoppen"
 
 msgid "REC Symbol"
-msgstr "REC-Zeichen"
+msgstr "REC Zeichen"
 
 msgid "Blinking REC Symbol"
-msgstr "Blinkendes REC-Zeichen"
+msgstr "Blinkendes REC Zeichen"
 
 msgid "Channelname"
 msgstr "Kanalname"
@@ -704,10 +704,6 @@ msgstr "AB"
 msgid "AC3 downmix"
 msgstr "AC3-Downmix"
 
-#
-msgid "DTS downmix"
-msgstr "DTS-Downmix"
-
 msgid "AFP Setup"
 msgstr "AFP-Dateiserver"
 
@@ -991,10 +987,6 @@ msgstr "Tuner-Priorität bei alternativen Services"
 msgid "No priority"
 msgstr "Keine Priorität"
 
-# UsageConfig.py
-msgid "%2.1f sec"
-msgstr "%2.1f Sekunden"
-
 msgid "Always ask"
 msgstr "Immer nachfragen"
 
@@ -1126,7 +1118,7 @@ msgstr "Ton-Einstellungen"
 
 #: InfoBarGenerics.py
 msgid "Toggle Digital downmix..."
-msgstr "Dolby Digital Downmix An/Aus"
+msgstr "DD/DTS Downmix An/Aus"
 
 #
 msgid "Red button..."
@@ -1806,17 +1798,8 @@ msgstr "Wählen Sie, ob Mehrkanalton als PCM ausgegeben werden soll"
 msgid "Choose whether multi channel sound tracks should be downmixed to stereo."
 msgstr "Wählen Sie, ob Mehrkanalton zu Stereo heruntergerechnet werden soll."
 
-msgid "Choose whether AC3 sound tracks should be downmixed to stereo."
-msgstr "Wählen Sie, ob AC3-Tonspuren ( Dolby Digital ) zu Stereo heruntergerechnet werden soll."
-
-msgid "Choose whether DTS channel sound tracks should be downmixed to stereo."
-msgstr "Wählen Sie, ob DTS-Tonspuren zu Stereo heruntergerechnet werden soll."
-
 msgid "Choose whether AAC sound tracks should be transcoded."
 msgstr "Wählen Sie, ob AAC-Tonspuren transkodiert werden sollen."
-
-msgid "Choose whether AC3 Plus sound tracks should be transcoded to AC3."
-msgstr "Wählen Sie, ob AC3-Plus Tonspuren transkodiert werden sollen nach AC3"
 
 msgid "Choose whether or not to show an icon when a motorized dish is moving."
 msgstr "Anzeige eines Icons bei Rotorbewegung."
@@ -4873,11 +4856,11 @@ msgstr "www lang"
 
 #: ButtonSetup.py
 msgid "Enable digital downmix"
-msgstr "Dolby Digital Downmix aktivieren"
+msgstr "DD/DTS Downmix aktivieren"
 
 #: ButtonSetup.py
 msgid "Disable digital downmix"
-msgstr "Dolby Digital Downmix deaktivieren"
+msgstr "DD/DTS Downmix deaktivieren"
 
 msgid "Menu config"
 msgstr "Menü-Einstellungen"
@@ -6473,7 +6456,7 @@ msgstr "Could not record due to invalid service '%s'"
 
 #: InfoBarGenerics.py
 msgid "Dolby Digital downmix is now"
-msgstr "Dolby Digital Downmix ist jetzt"
+msgstr "DD/DTS Downmix ist jetzt"
 
 #
 msgid "Recorded files..."
@@ -7310,13 +7293,9 @@ msgstr "Kanalsuchlauf"
 msgid "Service searching"
 msgstr "Empfang"
 
-#: QuickMenu.py
-msgid "Automatic Service Searching"
-msgstr "Automatischer Kanalsuchlauf"
-
-#: QuickMenu.py
-msgid "Manual Service Searching"
-msgstr "Manueller Kanalsuchlauf"
+#
+msgid "Service Searching"
+msgstr "Kanalsuchlauf"
 
 #
 msgid "Service has been added to the favourites."
@@ -7701,11 +7680,11 @@ msgid "Show background in Radio Mode"
 msgstr "Hintergrund im Radio-Modus anzeigen"
 
 #
-msgid "Show blinking Clock in Standby on Display during recording"
-msgstr "Zeige im Standby blinkende Uhr im Display bei Aufnahmen"
+msgid "Show blinking Clock on Display during recording"
+msgstr "Blinkende Uhr im Display bei Aufnahmen"
 
-msgid "In the Standby blinking Clock on the LCD Display"
-msgstr "Im Standby blinkende Uhr im LCD-Display "
+msgid "Enable blinking Clock on the LCD Display"
+msgstr "Hier können Sie die blinkende Uhr in dem Display aktivieren."
 
 msgid "Show bouquet on launch"
 msgstr "Zeige Bouquet beim Start"
@@ -8416,10 +8395,10 @@ msgstr "Der DVD-Standard unterstützt keine H.264 (HDTV) Videos. Soll stattdesse
 
 msgid ""
 "The Filesystem on your Timeshift-Device does not support hardlinks.\n"
-"Make sure it is formatted in EXT2, EXT3 or EXT4!"
+"Make sure it is formatted in EXT2 or EXT3!"
 msgstr ""
 "Das Dateisystem auf dem Timeshift-Aufnahmegerät unterstützt keine Hardlinks.\n"
-"Formatierung in EXT2, EXT3 oder EXT4 sicherstellen!"
+"Formatierung in EXT2 oder EXT3 sicherstellen!"
 
 # InfoBar.py
 msgid ""
@@ -10812,10 +10791,6 @@ msgstr "Blau lang"
 msgid "Subtitle long"
 msgstr "Untertitel lang"
 
-#: ButtonSetup.py
-msgid "List/Fav long"
-msgstr "List/Fav lang"
-
 #
 #, python-format
 msgid "burn audio track (%s)"
@@ -12325,21 +12300,23 @@ msgstr ""
 "Auf dem USB-Stick muß eine Datei mit dem Namen\n"
 "backupstick oder backupstick.txt vorhanden sein."
 
-# ImageBackup.py
-msgid "No USB-Device found for fullbackup !!\n\n\n"
-msgstr "Kein USB-Stick für das Fullbackup gefunden!!\n\n\n"
-
-# ImageBackup.py
-msgid "To back-up directly to the USB-stick, the USB-stick MUST\n"
-msgstr "Für ein Backup auf dem USB-Stick,\n"
-
-# ImageBackup.py
-msgid "contain a file with the name: \n\n"
-msgstr "muss eine Datei mit dem Namen:\n\n"
-
-# ImageBackup.py
-msgid "backupstick or backupstick.txt"
-msgstr "backupstick oder backupstick.txt vorhanden sein."
+msgid ""
+"No USB-Device found for fullbackup !!\n"
+"\n"
+"\n"
+"To back-up directly to the USB-stick, the USB-stick MUST\n"
+"contain a file with the name: \n"
+"\n"
+"backupstick or backupstick.txt"
+msgstr ""
+"Kein USB-Stick für das Fullbackup gefunden!!\n"
+"\n"
+"\n"
+"Für ein Backup auf dem USB-Stick,\n"
+"\n"
+"muss eine Datei mit dem Namen:\n"
+"\n"
+"backupstick oder backupstick.txt vorhanden sein."
 
 msgid ""
 "Not enough free space on /hdd !!\n"
@@ -12836,7 +12813,7 @@ msgid "Toggle Sort"
 msgstr "Sortierung ändern"
 
 msgid "Channel list service mode*"
-msgstr "Servicemodus *"
+msgstr "Servicemodus*"
 
 msgid "Jump first press in channel selection"
 msgstr "Springe zuerst in Programmauswahl"
@@ -13359,9 +13336,6 @@ msgstr "Konfiguration der Netzwerklaufwerke."
 msgid "Setup Videomode"
 msgstr "Konfiguration Bild"
 
-msgid "Setup Video/Audio"
-msgstr "Konfiguration Bild/Ton"
-
 msgid "Setup your Video Mode, Video Output and other Video Settings"
 msgstr "Einstellungen Video Mode, Video Ausgang und andere Video-Einstellungen."
 
@@ -13370,9 +13344,6 @@ msgstr "Ton-Einstellungen"
 
 msgid "Setup Tuner"
 msgstr "Konfiguration Tuner"
-
-msgid "Setup Plugins"
-msgstr "Konfiguration Erweiterungen"
 
 msgid "Setup your Tuner and search for channels"
 msgstr "Einstellungen Tuner und Kanalsuche."
@@ -13726,7 +13697,7 @@ msgid ""
 "Ready to install %s ?"
 msgstr ""
 "Ihre %s %s wird nach der Installation des Services neu gestartet\n"
-" Wollen Sie - %s - installieren?"
+" Wollen Sie - %s - installieren."
 
 #: Download Netzwerk Dienste
 msgid "please wait..."
@@ -14704,10 +14675,6 @@ msgid "Customise enigma2 personal settings"
 msgstr "Stellen Sie Enigma2 auf Ihre persönlichen Bedürfnisse ein."
 
 # Quick Menue
-msgid "OSD Setup"
-msgstr "Bedienoberfläche anpassen"
-
-# Quick Menue
 msgid "Setup your OSD"
 msgstr "Stellen Sie die Bedienoberfläche auf Ihre persönlichen Bedürfnisse ein."
 
@@ -14841,14 +14808,6 @@ msgstr "Display-Skinauswahl"
 
 msgid "Skin setup"
 msgstr "LCD-Skinauswahl"
-
-#: QuickMenu.py
-msgid "Select LCD Skin"
-msgstr "LCD Skin auswählen"
-
-#: QuickMenu.py
-msgid "Select Enigma2 Skin"
-msgstr "Enigma2 Skin auswählen"
 
 msgid "LCD scroll speed"
 msgstr "LCD-Scrollgeschwindigkeit"
@@ -15392,14 +15351,6 @@ msgstr "MAC-Adresse"
 # NetworkSetup.py
 msgid "Press OK to set the MAC-address."
 msgstr "Drücken Sie OK um die MAC-Adresse zu setzen."
-
-# NetworkSetup.py
-msgid ""
-"Do you want to also install samba client ?\n"
-"This allows you to mount your windows shares on this device."
-msgstr ""
-"Möchten Sie den Samba Client installieren?\n"
-"Dies ermöglicht Ihnen, Ihre Windows-Freigaben auf diesem Gerät zu installieren."
 
 #
 msgid "Storage devices"
@@ -16014,14 +15965,6 @@ msgid "Playlist long"
 msgstr "Playliste lang"
 
 #: ButtonSetup.py
-msgid "Program"
-msgstr "Program"
-
-#: ButtonSetup.py
-msgid "Program long"
-msgstr "Program lang"
-
-#: ButtonSetup.py
 msgid "Homepage"
 msgstr "Homepage"
 
@@ -16318,10 +16261,6 @@ msgstr "EPG Einstellungen"
 # AudioSelection.py
 msgid "Switch between Audio-, Subtitlepage"
 msgstr "Umschalten zwischen Audio-, Untertitelauswahl, am Steuerkreuz"
-
-# AudioSelection.py
-msgid "Audio Channel"
-msgstr "Audio-Kanal"
 
 # InfoBar.py
 msgid "Yes, delete this movie and return to movie list"
@@ -16756,7 +16695,7 @@ msgstr "Wenn aktiviert, werden Streamings bei Aufnahmen beendet, falls kein frei
 
 # data/setup.xml
 msgid "Show recording symbol depending on recording type"
-msgstr "Zeige Aufnahmesymbol, wenn Aufnahmetyp"
+msgstr "Zeige Aufnahmesymbol, abhängig vom Aufnahmetyp"
 
 # data/setup.xml
 msgid "Configure whether the 'recording' symbol (in the display skin and LCD skin) is visible for real recordings only or also for streaming and pseuso recordings (e.g. EPGrefresh)."
@@ -16764,7 +16703,7 @@ msgstr "Legt fest, ob das Aufnahme-Symbol (auf Bildschirm und LCD Display) nur b
 
 # data/setup.xml
 msgid "Show warning before box restart based on recording type"
-msgstr "Zeige Warnung bei Neustart, wenn Aufnahmetyp"
+msgstr "Zeige Warnung bei Neustart, abhängig vom Aufnahmetyp"
 
 # data/setup.xml
 msgid "Configure for which types of recordings a warning about active recordings is shown when attempting to restart the box or the GUI."
@@ -16967,7 +16906,7 @@ msgid "Parental control editor"
 msgstr "Jugendschutz Editor"
 
 #: ParentalControlSetup.py:74
-msgid "Hide parental locked services"
+msgid "Hide parentel locked services"
 msgstr "Jugendschutz geschützte Kanäle verbergen"
 
 #: ParentalControlSetup.py:75
@@ -17918,75 +17857,17 @@ msgid "HDMI Colorimetry"
 msgstr "HDMI Farbprofile"
 
 #: VideoMode.py
-msgid "Change Boxmode to control Hardware Chip Modes*"
-msgstr "Boxmodus zur Hardwaresteuerung *"
-
-#: VideoMode.py
-msgid "Switch Mode to enable HDR Modes or PIP Functions"
-msgstr "Wechselt den Boxmodus zur Aktivierung des HDR-Modus oder für PIP-Funktionen"
-
-#: AVSwitch.py
-msgid "enable PIP no HDR"
-msgstr "aktiviere PIP ohne HDR"
-
-#: AVSwitch.py
-msgid "12bit 4:2:0/4:2:2 no PIP"
-msgstr "12bit 4:2:0/4:2:2 ohne PIP"
-
-#: VideoMode.py
 msgid "This option allows you can config the Colorimetry for HDR"
-msgstr "Diese Option erlaubt die Farbprofilsteuerung im HDR-Modus"
+msgstr "Diese Option erlaubt die Farbprofile Steuerung im HDR Modus"
 
 msgid "Choose the CI protocol operation mode for standard ci or ciplus."
-msgstr "Wähle das CI Protokoll für Standard-CI- oder CI-Plus-Module."
+msgstr "Wähle das CI Protokoll für CI Normal oder CIPlus Module."
 
 msgid "Your Hardware can detect ci mode self or work only in legacy mode."
-msgstr "Hardware erkennt das CI-Protokoll selber oder Hardware arbeitet nur im Legacy Mode."
+msgstr "Hardware erkennt das CI Protokoll selber oder Hardware arbeitet nur im Legacy Mode."
 
 msgid "HDMI Colordepth"
-msgstr "HDMI-Farbtiefe"
+msgstr "HDMI Farbtiefe"
 
 msgid "This option allows you can config the Colordepth for UHD"
 msgstr "Diese Option erlaubt die Umstellung der Farbtiefe im UHD Modus"
-
-msgid "Recovery Mode"
-msgstr "Wartungsmodus"
-
-msgid "Your %s %s is rebooting into Recovery Mode"
-msgstr "Ihre %s %s startet in den Wartungsmodus"
-
-msgid "Really reboot into Recovery Mode?"
-msgstr "Wirklich einen Neustart in den Wartungsmodus durchführen?"
-
-msgid "controlled by HDMI"
-msgstr "Steuerung über HDMI"
-
-msgid "always"
-msgstr "immer"
-
-msgid "Don't ask again!"
-msgstr "Nicht mehr nachfragen"
-
-msgid "DO NOT POWER OFF YOUR DEVICE WHILE UPDATING!\nUpdate now?"
-msgstr "Die Box nicht ausschalten beim Update!\nJetzt Updaten?"
-
-msgid "Bootloader update required!"
-msgstr "Bootloaderupdate erforderlich!"
-
-msgid "!! Bootloader Upgrade !!"
-msgstr "!! Bootloaderupdate !!"
-
-msgid "No update required!"
-msgstr "Kein Update erforderlich!"
-
-msgid "Update failed!"
-msgstr "Update fehlerhaft!"
-
-msgid "Don't worry your device is still ok! There are several safety mechanisms in place!\nYour device is still as fine as it was before this procedure!"
-msgstr "Keine Sorge, das Gerät ist weiterhin betriebsbereit! Es gibt diverse Sicherheitsfunktionen!\nDas Gerät arbeitet wie vor dem Update!"
-
-msgid "Update finished!"
-msgstr "Update abgeschlossen!"
-
-msgid "Update succeeded!\nYour Bootloader is now up-to-date!"
-msgstr "Update erfolgreich!\nDer Bootloader ist nun aktuell!"
