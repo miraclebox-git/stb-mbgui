@@ -215,7 +215,7 @@ class MBSoftCam(Screen):
 	def keyBlue(self):
 		if self.downloading == True:
 			#try:
-			self.session.openWithCallback(self.populate_List, DownloadSoftCams, self.xmlparse, " Cams - BlackHole 2.x.x ")
+			self.session.openWithCallback(self.populate_List, DownloadSoftCams, self.xmlparse, " Black Hole Softcams")
 			#except:
 			#	self.close()
 		#from Plugins.Extensions.MBPanel.addon_manager import MB_PrzegladaczAddonow
@@ -243,7 +243,7 @@ class MBSoftCam(Screen):
 
 	def downloadxmlpage(self):
 		from twisted.web.client import getPage
-		url = 'http://panel.vuplus-images.co.uk/addonslist1.6.xml'
+		url = 'http://panel.vuplus-images.co.uk/VuPlus-Images-Panel/Softcams.xml'
 		getPage(url).addCallback(self._gotPageLoad).addErrback(self.errorLoad)
 
 	def errorLoad(self, error):
@@ -332,6 +332,7 @@ class DownloadSoftCams(Screen):
 		self.selection = selection
 		list = []
 		for plugins in self.xmlparse.getElementsByTagName('plugins'):
+			#print ">"+str(plugins.getAttribute('cont').encode('utf8')) +"<"
 			if str(plugins.getAttribute('cont').encode('utf8')) == self.selection:
 				for plugin in plugins.getElementsByTagName('plugin'):
 					list.append(plugin.getAttribute('name').encode('utf8'))
