@@ -3,6 +3,7 @@ SUBDIRS = fonts keymaps mb_wizard defaults
 dist_pkgdata_DATA = \
 	encoding.conf \
 	keymap.xml \
+	keytranslation.xml \
 	keymap.ntr \
 	keymap.u80 \
 	menu.xml \
@@ -54,6 +55,10 @@ endif
 
 if HAVE_COLORLCD720
 SUBDIRS += display720
+endif
+
+if HAVE_COLORLCD800
+SUBDIRS += display800
 endif
 
 if HAVE_BWLCD255

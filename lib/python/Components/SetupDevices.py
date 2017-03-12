@@ -1,5 +1,5 @@
 from config import config, ConfigSelection, ConfigSubsection, ConfigOnOff, ConfigText
-from boxbranding import getMachineBrand
+from boxbranding import getBrandOEM, getMachineBrand
 from Components.Timezones import timezones
 from Components.Language import language
 from Components.Keyboard import keyboard
@@ -27,7 +27,7 @@ def InitSetupDevices():
 
 	if getMachineBrand() in ('Vimastec'):
 		config.osd.language = ConfigText(default = "fr_FR")
-	elif getMachineBrand() in ('Zgemma'):
+	elif getMachineBrand() in ('Zgemma') or getBrandOEM() in ('airdigital'):
 		config.osd.language = ConfigText(default = "en_US")
 	else:
 		config.osd.language = ConfigText(default = "en_GB")

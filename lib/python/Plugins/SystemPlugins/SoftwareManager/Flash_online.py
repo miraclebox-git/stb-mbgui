@@ -158,7 +158,7 @@ class FlashOnline(Screen):
 			self.multi = self.read_startup("/boot/" + self.list[self.selection]).split(".",1)[1].split(" ",1)[0]
 			self.multi = self.multi[-1:]
 			print "[Flash Online] MULTI:",self.multi
-			cmdline = self.read_startup("/boot/" + self.list[self.selection]).split("=",1)[1].split(" ",1)[0]
+			cmdline = self.read_startup("/boot/" + self.list[self.selection]).split("=",3)[3].split(" ",1)[0]
 			self.devrootfs = cmdline
 			print "[Flash Online] MULTI rootfs ", self.devrootfs
 
@@ -176,10 +176,10 @@ class FlashOnline(Screen):
 			for name in os.listdir(path):
 				if name != 'bootname' and os.path.isfile(os.path.join(path, name)):
 					try:
-						cmdline = self.read_startup("/boot/" + name).split("=",1)[1].split(" ",1)[0]
+						cmdline = self.read_startup("/boot/" + name).split("=",3)[3].split(" ",1)[0]
 					except IndexError:
 						continue
-					cmdline_startup = self.read_startup("/boot/STARTUP").split("=",1)[1].split(" ",1)[0]
+					cmdline_startup = self.read_startup("/boot/STARTUP").split("=",3)[3].split(" ",1)[0]
 					if (cmdline != cmdline_startup) and (name != "STARTUP"):
 						files.append(name)
 			files.insert(0,"STARTUP")
@@ -295,55 +295,67 @@ class doFlashImage(Screen):
 			box = 'maram9'
 		return box
 
-	def green(self, ret = None):
-		sel = self["imageList"].l.getCurrentSelection()
-		if sel == None:
+	def getSel(self):
+		self.sel = self["imageList"].l.getCurrentSelection()
+		if self.sel == None:
 			print"Nothing to select !!"
-			return
-		file_name = self.imagePath + "/" + sel
-		self.filename = file_name
-		self.sel = sel
-		box = self.box()
-		self.hide()
+			return False
+		self.filename = self.imagePath + "/" + self.sel
+		return True
+
+	def greenCB(self, ret = None):
 		if self.Online:
-			url = self.feedurl + "/" + box + "/" + sel
-			print "[Flash Online] Download image: >%s<" % url
-			if self.newfeed:
-				self.feedurl = self.newfeed[0][:-1]
-				url = self.feedurl + "/" + box + "/" + sel
-				authinfo = urllib2.HTTPPasswordMgrWithDefaultRealm()
-				authinfo.add_password(None, self.feedurl, self.newfeed[1][:-1], self.newfeed[2][:-1])
-				handler = urllib2.HTTPBasicAuthHandler(authinfo)
-				myopener = urllib2.build_opener(handler)
-				opened = urllib2.install_opener(myopener)
-				u = urllib2.urlopen(url)
-				total_size = int(u.info().getheaders("Content-Length")[0])
-				downloaded = 0
-				CHUNK = 256 * 1024
-				with open(file_name, 'wb') as fp:
-					while True:
-						chunk = u.read(CHUNK)
-						downloaded += len(chunk)
-						print "Downloading: %s Bytes of %s" % (downloaded, total_size)
-						if not chunk: break
-						fp.write(chunk)
-				self.ImageDownloadCB(False)
+			if ret:
+				from Plugins.SystemPlugins.SoftwareManager.BackupRestore import BackupScreen
+				self.session.openWithCallback(self.startInstallOnline,BackupScreen, runBackup = True)
 			else:
-				try:
-					u = urllib2.urlopen(url)
-					f = open(file_name, 'wb')
-					f.close()
-					job = ImageDownloadJob(url, file_name, sel)
-					job.afterEvent = "close"
-					job_manager.AddJob(job)
-					job_manager.failed_jobs = []
-					self.session.openWithCallback(self.ImageDownloadCB, JobView, job, backgroundable = False, afterEventChangeable = False)
-				except urllib2.URLError as e:
-					print "[Flash Online] Download failed !!\n%s" % e
-					self.session.openWithCallback(self.ImageDownloadCB, MessageBox, _("Download Failed !!" + "\n%s" % e), type = MessageBox.TYPE_ERROR)
-					self.close()
+				self.startInstallOnline()
 		else:
-			self.session.openWithCallback(self.startInstallLocal, MessageBox, _("Do you want to backup your settings now?"), default=False)
+			self.startInstallLocal(ret)
+
+	def green(self):
+		if self.getSel():
+			self.hide()
+			self.session.openWithCallback(self.greenCB, MessageBox, _("Do you want to backup your settings now?"), default=False)
+
+	def startInstallOnline(self, ret = None):
+		box = self.box()
+		url = self.feedurl + "/" + box + "/" + self.sel
+		print "[Flash Online] Download image: >%s<" % url
+		if self.newfeed:
+			self.feedurl = self.newfeed[0][:-1]
+			url = self.feedurl + "/" + box + "/" + self.sel
+			authinfo = urllib2.HTTPPasswordMgrWithDefaultRealm()
+			authinfo.add_password(None, self.feedurl, self.newfeed[1][:-1], self.newfeed[2][:-1])
+			handler = urllib2.HTTPBasicAuthHandler(authinfo)
+			myopener = urllib2.build_opener(handler)
+			opened = urllib2.install_opener(myopener)
+			u = urllib2.urlopen(url)
+			total_size = int(u.info().getheaders("Content-Length")[0])
+			downloaded = 0
+			CHUNK = 256 * 1024
+			with open(self.filename, 'wb') as fp:
+				while True:
+					chunk = u.read(CHUNK)
+					downloaded += len(chunk)
+					print "Downloading: %s Bytes of %s" % (downloaded, total_size)
+					if not chunk: break
+					fp.write(chunk)
+			self.ImageDownloadCB(False)
+		else:
+			try:
+				u = urllib2.urlopen(url)
+				f = open(self.filename, 'wb')
+				f.close()
+				job = ImageDownloadJob(url, self.filename, self.sel)
+				job.afterEvent = "close"
+				job_manager.AddJob(job)
+				job_manager.failed_jobs = []
+				self.session.openWithCallback(self.ImageDownloadCB, JobView, job, backgroundable = False, afterEventChangeable = False)
+			except urllib2.URLError as e:
+				print "[Flash Online] Download failed !!\n%s" % e
+				self.session.openWithCallback(self.ImageDownloadCB, MessageBox, _("Download Failed !!" + "\n%s" % e), type = MessageBox.TYPE_ERROR)
+				self.close()
 
 	def ImageDownloadCB(self, ret):
 		if ret:
@@ -535,9 +547,8 @@ class doFlashImage(Screen):
 	def yellow(self):
 		if not self.Online:
 			self.session.openWithCallback(self.DeviceBrowserClosed, DeviceBrowser, None, matchingPattern="^.*\.(zip|bin|jffs2|img)", showDirectories=True, showMountpoints=True, inhibitMounts=["/autofs/sr0/"])
-		else:
-			from Plugins.SystemPlugins.SoftwareManager.BackupRestore import BackupScreen
-			self.session.openWithCallback(self.green,BackupScreen, runBackup = True)
+		elif self.getSel():
+			self.greenCB(True)
 
 	def startInstallLocal(self, ret = None):
 		if ret:

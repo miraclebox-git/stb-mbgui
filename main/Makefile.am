@@ -48,7 +48,6 @@ enigma2_LDADD = \
 	@LIBVUGLES2_LIBS@ \
 	@LIBSDL_LIBS@ \
 	@LIBXINE_LIBS@ \
-	@LIBXMLCCWRAP_LIBS@ \
 	@PTHREAD_LIBS@ \
 	@PYTHON_LDFLAGS@ \
 	@LIBDDVD_LIBS@ \
@@ -56,6 +55,7 @@ enigma2_LDADD = \
 	@AMCODEC_LIBS@ \
 	@AMADEC_LIBS@ \
 	@DVBCSA_LIBS@ \
+	@AVAHI_LIBS@ \
 	-ltuxtxt -ltuxtxt32bpp -lcrypt -lrt -ldl
 
 enigma2_LDFLAGS = -Wl,--export-dynamic

@@ -22,6 +22,11 @@ if os.path.isfile("/usr/lib/enigma2/python/Plugins/Extensions/MediaPortal/plugin
 	import pyo_patcher
 
 from traceback import print_exc
+
+profile("SetupDevices")
+import Components.SetupDevices
+Components.SetupDevices.InitSetupDevices()
+
 profile("SimpleSummary")
 from Screens import InfoBar
 from Screens.SimpleSummary import SimpleSummary
@@ -408,6 +413,16 @@ class PowerKey:
 						menu_screen.setTitle(_("Standby / restart"))
 						return
 		elif action == "standby":
+			try:
+				config.hdmicec.control_tv_standby_skipnow.setValue(False)
+			except:
+				pass # no HdmiCec
+			self.standby()
+		elif action == "standby_noTVshutdown":
+			try:
+				config.hdmicec.control_tv_standby_skipnow.setValue(True)
+			except:
+				pass # no HdmiCec
 			self.standby()
 		elif action == "powertimerStandby":
 			val = 3
@@ -566,7 +581,7 @@ def runScreenTest():
 	profile("Init:PowerKey")
 	power = PowerKey(session)
 	
-	if boxtype in ('spycat4kmini','tmtwin4k','mbmicrov2','revo4k','force3uhd','wetekplay', 'wetekplay2', 'dm7020hd', 'dm7020hdv2', 'osminiplus', 'osmega', 'sf3038', 'spycat', 'e4hd', 'e4hdhybrid', 'mbmicro', 'et7500', 'mixosf5', 'mixosf7', 'mixoslumi', 'gi9196m', 'maram9', 'ixussone', 'ixusszero', 'uniboxhd1', 'uniboxhd2', 'uniboxhd3', 'sezam5000hd', 'mbtwin', 'sezam1000hd', 'mbmini', 'atemio5x00', 'beyonwizt3', '9910lx', '9911lx') or getBrandOEM() in ('fulan') or getMachineBuild() in ('dags7362' , 'dags73625', 'dags5'):
+	if boxtype in ('alphatriple','spycat4kmini','tmtwin4k','mbmicrov2','revo4k','force3uhd','wetekplay', 'wetekplay2', 'wetekhub', 'dm7020hd', 'dm7020hdv2', 'osminiplus', 'osmega', 'sf3038', 'spycat', 'e4hd', 'e4hdhybrid', 'mbmicro', 'et7500', 'mixosf5', 'mixosf7', 'mixoslumi', 'gi9196m', 'maram9', 'ixussone', 'ixusszero', 'uniboxhd1', 'uniboxhd2', 'uniboxhd3', 'sezam5000hd', 'mbtwin', 'sezam1000hd', 'mbmini', 'atemio5x00', 'beyonwizt3', '9910lx', '9911lx') or getBrandOEM() in ('fulan') or getMachineBuild() in ('dags7362' , 'dags73625', 'dags5'):
 		profile("VFDSYMBOLS")
 		import Components.VfdSymbols
 		Components.VfdSymbols.SymbolsCheck(session)
@@ -602,6 +617,9 @@ def runScreenTest():
 	config.usage.shutdownOK.save()
 	if not RestoreSettings:
 		configfile.save()
+
+	# kill showiframe if it is running (sh4 hack...)
+	os.system("killall -9 showiframe")
 
 	runReactor()
 
@@ -734,10 +752,6 @@ import Components.InputDevice
 Components.InputDevice.InitInputDevices()
 import Components.InputHotplug
 
-profile("SetupDevices")
-import Components.SetupDevices
-Components.SetupDevices.InitSetupDevices()
-
 profile("AVSwitch")
 import Components.AVSwitch
 Components.AVSwitch.InitAVSwitch()
@@ -766,6 +780,7 @@ Components.NetworkTime.AutoNTPSync()
 profile("keymapparser")
 import keymapparser
 keymapparser.readKeymap(config.usage.keymap.value)
+keymapparser.readKeymap(config.usage.keytrans.value)
 
 profile("Network")
 import Components.Network

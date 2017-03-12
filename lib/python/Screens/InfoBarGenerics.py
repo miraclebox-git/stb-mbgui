@@ -6,6 +6,7 @@ from Components.Label import Label
 from Components.MovieList import AUDIO_EXTENSIONS, MOVIE_EXTENSIONS, DVD_EXTENSIONS
 from Components.PluginComponent import plugins
 from Components.ServiceEventTracker import ServiceEventTracker
+from Components.Sources.ServiceEvent import ServiceEvent
 from Components.Sources.Boolean import Boolean
 from Components.Sources.List import List
 from Components.config import config, configfile, ConfigBoolean, ConfigClock
@@ -429,7 +430,7 @@ class SecondInfoBar(Screen):
 				self.session.openWithCallback(cb_func, MessageBox, _("Do you really want to delete %s?") % event.getEventName())
 				break
 		else:
-			newEntry = RecordTimerEntry(self.currentService, checkOldTimers = True, dirname = preferredTimerPath(), *parseEvent(self.event))
+			newEntry = RecordTimerEntry(self.currentService, afterEvent = AFTEREVENT.AUTO, justplay = False, always_zap = False, checkOldTimers = True, dirname = preferredTimerPath(), *parseEvent(self.event))
 			self.session.openWithCallback(self.finishedAdd, TimerEntry, newEntry)
 
 	def finishedAdd(self, answer):
@@ -550,6 +551,8 @@ class InfoBarShowHide(InfoBarScreenSaver):
 		self.__state = self.STATE_SHOWN
 		self.__locked = 0
 
+		self.DimmingTimer = eTimer()
+		self.DimmingTimer.callback.append(self.doDimming)
 		self.hideTimer = eTimer()
 		self.hideTimer.callback.append(self.doTimerHide)
 		self.hideTimer.start(5000, True)
@@ -615,6 +618,7 @@ class InfoBarShowHide(InfoBarScreenSaver):
 		for x in self.onShowHideNotifiers:
 			x(True)
 		self.startHideTimer()
+		VolumeControl.instance and VolumeControl.instance.showMute()
 
 	def doDimming(self):
 		if config.usage.show_infobar_do_dimming.value:
@@ -710,12 +714,12 @@ class InfoBarShowHide(InfoBarScreenSaver):
 
 	def doShow(self):
 		self.show()
+		self.hideTimer.stop()
+		self.DimmingTimer.stop()
 		self.startHideTimer()
 
 	def doTimerHide(self):
 		self.hideTimer.stop()
-		self.DimmingTimer = eTimer()
-		self.DimmingTimer.callback.append(self.doDimming)
 		self.DimmingTimer.start(300, True)
 		self.dimmed = config.usage.show_infobar_dimming_speed.value
 
@@ -1008,17 +1012,28 @@ class NumberZap(Screen):
 				self.Timer.start(config.usage.numzaptimeout2.value, True)
 		self.numberString += str(number)
 		self["number"].setText(self.numberString)
+		self["servicenumber"].setText(self.numberString)
 		self["number_summary"].setText(self.numberString)
 		self.field = self.numberString
 
 		self.handleServiceName()
 		self["service_summary"].setText(self["servicename"].getText())
+		if config.usage.numzappicon.value:
+			self.showPicon()
 
 		if len(self.numberString) >= int(config.usage.maxchannelnumlen.value):
 			self.keyOK()
 
+	def showPicon(self):
+		self["Service"].newService(self.service)
+
 	def __init__(self, session, number, searchNumberFunction = None):
 		Screen.__init__(self, session)
+
+		if config.usage.numzappicon.value:
+			self.onLayoutFinish.append(self.showPicon)
+			self.skinName = ["NumberZapPicon", "NumberZapWithName"]
+
 		self.onChangedEntry = [ ]
 		self.numberString = str(number)
 		self.field = str(number)
@@ -1029,10 +1044,11 @@ class NumberZap(Screen):
 		self["channel_summary"] = StaticText(_("Channel:"))
 
 		self["number"] = Label(self.numberString)
+		self["servicenumber"] = Label(self.numberString)
 		self["number_summary"] = StaticText(self.numberString)
 		self["servicename"] = Label()
 		self["service_summary"] = StaticText("")
-
+		self["Service"] = ServiceEvent()
 		self.handleServiceName()
 		self["service_summary"].setText(self["servicename"].getText())
 
@@ -2844,66 +2860,67 @@ class InfoBarPVRState:
 	def __playStateChanged(self, state):
 		playstateString = state[3]
 		state_summary = playstateString
-		self.pvrStateDialog["state"].setText(playstateString)
-		if playstateString == '>':
-			self.pvrStateDialog["statusicon"].setPixmapNum(0)
-			self.pvrStateDialog["speed"].setText("")
-			speed_summary = self.pvrStateDialog["speed"].text
-			statusicon_summary = 0
-			if self.has_key("state") and config.usage.movieplayer_pvrstate.value:
-				self["state"].setText(playstateString)
-				self["statusicon"].setPixmapNum(0)
-				self["speed"].setText("")
-		elif playstateString == '||':
-			self.pvrStateDialog["statusicon"].setPixmapNum(1)
-			self.pvrStateDialog["speed"].setText("")
-			speed_summary = self.pvrStateDialog["speed"].text
-			statusicon_summary = 1
-			if self.has_key("state") and config.usage.movieplayer_pvrstate.value:
-				self["state"].setText(playstateString)
-				self["statusicon"].setPixmapNum(1)
-				self["speed"].setText("")
-		elif playstateString == 'END':
-			self.pvrStateDialog["statusicon"].setPixmapNum(2)
-			self.pvrStateDialog["speed"].setText("")
-			speed_summary = self.pvrStateDialog["speed"].text
-			statusicon_summary = 2
-			if self.has_key("state") and config.usage.movieplayer_pvrstate.value:
-				self["state"].setText(playstateString)
-				self["statusicon"].setPixmapNum(2)
-				self["speed"].setText("")
-		elif playstateString.startswith('>>'):
-			speed = state[3].split()
-			self.pvrStateDialog["statusicon"].setPixmapNum(3)
-			self.pvrStateDialog["speed"].setText(speed[1])
-			speed_summary = self.pvrStateDialog["speed"].text
-			statusicon_summary = 3
-			if self.has_key("state") and config.usage.movieplayer_pvrstate.value:
-				self["state"].setText(playstateString)
-				self["statusicon"].setPixmapNum(3)
-				self["speed"].setText(speed[1])
-		elif playstateString.startswith('<<'):
-			speed = state[3].split()
-			self.pvrStateDialog["statusicon"].setPixmapNum(4)
-			self.pvrStateDialog["speed"].setText(speed[1])
-			speed_summary = self.pvrStateDialog["speed"].text
-			statusicon_summary = 4
-			if self.has_key("state") and config.usage.movieplayer_pvrstate.value:
-				self["state"].setText(playstateString)
-				self["statusicon"].setPixmapNum(4)
-				self["speed"].setText(speed[1])
-		elif playstateString.startswith('/'):
-			self.pvrStateDialog["statusicon"].setPixmapNum(5)
-			self.pvrStateDialog["speed"].setText(playstateString)
-			speed_summary = self.pvrStateDialog["speed"].text
-			statusicon_summary = 5
-			if self.has_key("state") and config.usage.movieplayer_pvrstate.value:
-				self["state"].setText(playstateString)
-				self["statusicon"].setPixmapNum(5)
-				self["speed"].setText(playstateString)
+		if self.pvrStateDialog.has_key("statusicon"):
+			self.pvrStateDialog["state"].setText(playstateString)
+			if playstateString == '>':
+				self.pvrStateDialog["statusicon"].setPixmapNum(0)
+				self.pvrStateDialog["speed"].setText("")
+				speed_summary = self.pvrStateDialog["speed"].text
+				statusicon_summary = 0
+				if self.has_key("state") and config.usage.movieplayer_pvrstate.value:
+					self["state"].setText(playstateString)
+					self["statusicon"].setPixmapNum(0)
+					self["speed"].setText("")
+			elif playstateString == '||':
+				self.pvrStateDialog["statusicon"].setPixmapNum(1)
+				self.pvrStateDialog["speed"].setText("")
+				speed_summary = self.pvrStateDialog["speed"].text
+				statusicon_summary = 1
+				if self.has_key("state") and config.usage.movieplayer_pvrstate.value:
+					self["state"].setText(playstateString)
+					self["statusicon"].setPixmapNum(1)
+					self["speed"].setText("")
+			elif playstateString == 'END':
+				self.pvrStateDialog["statusicon"].setPixmapNum(2)
+				self.pvrStateDialog["speed"].setText("")
+				speed_summary = self.pvrStateDialog["speed"].text
+				statusicon_summary = 2
+				if self.has_key("state") and config.usage.movieplayer_pvrstate.value:
+					self["state"].setText(playstateString)
+					self["statusicon"].setPixmapNum(2)
+					self["speed"].setText("")
+			elif playstateString.startswith('>>'):
+				speed = state[3].split()
+				self.pvrStateDialog["statusicon"].setPixmapNum(3)
+				self.pvrStateDialog["speed"].setText(speed[1])
+				speed_summary = self.pvrStateDialog["speed"].text
+				statusicon_summary = 3
+				if self.has_key("state") and config.usage.movieplayer_pvrstate.value:
+					self["state"].setText(playstateString)
+					self["statusicon"].setPixmapNum(3)
+					self["speed"].setText(speed[1])
+			elif playstateString.startswith('<<'):
+				speed = state[3].split()
+				self.pvrStateDialog["statusicon"].setPixmapNum(4)
+				self.pvrStateDialog["speed"].setText(speed[1])
+				speed_summary = self.pvrStateDialog["speed"].text
+				statusicon_summary = 4
+				if self.has_key("state") and config.usage.movieplayer_pvrstate.value:
+					self["state"].setText(playstateString)
+					self["statusicon"].setPixmapNum(4)
+					self["speed"].setText(speed[1])
+			elif playstateString.startswith('/'):
+				self.pvrStateDialog["statusicon"].setPixmapNum(5)
+				self.pvrStateDialog["speed"].setText(playstateString)
+				speed_summary = self.pvrStateDialog["speed"].text
+				statusicon_summary = 5
+				if self.has_key("state") and config.usage.movieplayer_pvrstate.value:
+					self["state"].setText(playstateString)
+					self["statusicon"].setPixmapNum(5)
+					self["speed"].setText(playstateString)
 
-		for cb in self.onChangedEntry:
-			cb(state_summary, speed_summary, statusicon_summary)
+			for cb in self.onChangedEntry:
+				cb(state_summary, speed_summary, statusicon_summary)
 
 		# if we return into "PLAY" state, ensure that the dialog gets hidden if there will be no infobar displayed
 		if not config.usage.show_infobar_on_skip.value and self.seekstate == self.SEEK_STATE_PLAY and not self.force_show:
@@ -3731,7 +3748,7 @@ class InfoBarInstantRecord:
 		if isinstance(serviceref, eServiceReference):
 			serviceref = ServiceReference(serviceref)
 
-		recording = RecordTimerEntry(serviceref, begin, end, info["name"], info["description"], info["eventid"], dirname = preferredInstantRecordPath())
+		recording = RecordTimerEntry(serviceref, begin, end, info["name"], info["description"], info["eventid"], afterEvent = AFTEREVENT.AUTO, justplay = False, always_zap = False, dirname = preferredInstantRecordPath())
 		recording.dontSave = True
 
 		if event is None or limitEvent == False:
@@ -4173,14 +4190,51 @@ class InfoBarSubserviceSelection:
 	def openTimerList(self):
 		self.session.open(TimerEditList)
 
+from Components.Sources.HbbtvApplication import HbbtvApplication
+gHbbtvApplication = HbbtvApplication()
 class InfoBarRedButton:
 	def __init__(self):
 		self["RedButtonActions"] = HelpableActionMap(self, "InfobarRedButtonActions",
 			{
 				"activateRedButton": (self.activateRedButton, _("Red button...")),
 			})
+		self["HbbtvApplication"] = gHbbtvApplication
 		self.onHBBTVActivation = [ ]
 		self.onRedButtonActivation = [ ]
+		self.onReadyForAIT = [ ]
+		self.__et = ServiceEventTracker(screen=self, eventmap=
+			{
+				iPlayableService.evHBBTVInfo: self.detectedHbbtvApplication,
+				iPlayableService.evUpdatedInfo: self.updateInfomation
+			})
+
+	def updateAIT(self, orgId=0):
+		for x in self.onReadyForAIT:
+			try:
+				x(orgId)
+			except Exception, ErrMsg:
+				print ErrMsg
+				#self.onReadyForAIT.remove(x)
+
+	def updateInfomation(self):
+		try:
+			self["HbbtvApplication"].setApplicationName("")
+			self.updateAIT()
+		except Exception, ErrMsg:
+			pass
+
+	def detectedHbbtvApplication(self):
+		service = self.session.nav.getCurrentService()
+		info = service and service.info()
+		try:
+			for x in info.getInfoObject(iServiceInformation.sHBBTVUrl):
+				print x
+				if x[0] in (-1, 1):
+					self.updateAIT(x[3])
+					self["HbbtvApplication"].setApplicationName(x[1])
+					break
+		except Exception, ErrMsg:
+			pass
 
 	def activateRedButton(self):
 		service = self.session.nav.getCurrentService()
@@ -4925,7 +4979,7 @@ class InfoBarHdmi:
 		self.hdmi_enabled_full = False
 		self.hdmi_enabled_pip = False
 
-		if getMachineBuild() in ('inihdp', 'hd2400', 'dm7080', 'dm820', 'dm900', 'gb7252'):
+		if getMachineBuild() in ('inihdp', 'hd2400', 'dm7080', 'dm820', 'dm900', 'gb7252', 'vuultimo4k'):
 			if not self.hdmi_enabled_full:
 				self.addExtension((self.getHDMIInFullScreen, self.HDMIInFull, lambda: True), "blue")
 			if not self.hdmi_enabled_pip:
