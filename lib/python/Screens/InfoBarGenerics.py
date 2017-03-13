@@ -2241,7 +2241,7 @@ class InfoBarSeek:
 
 		self["SeekActions"] = InfoBarSeekActionMap(self, actionmap,
 			{
-				"playpauseService": (self.playpauseService, _("Pauze/Continue playback")),
+				"playpauseService": (self.playpauseService, _("Pause/Continue playback")),
 				"pauseService": (self.pauseService, _("Pause playback")),
 				"pauseServiceYellow": (self.pauseServiceYellow, _("Pause playback")),
 				"unPauseService": (self.unPauseService, _("Continue playback")),
@@ -2509,9 +2509,7 @@ class InfoBarSeek:
 		elif config.plugins.infopanel_yellowkey.list.value == '2':
 			ToggleVideo()
 		else:
-			if self.seekstate != self.SEEK_STATE_EOF:
-				self.lastseekstate = self.seekstate
-				self.setSeekState(self.SEEK_STATE_PAUSE) 
+			self.playpauseService()
 
 	def unPauseService(self):
 		if self.seekstate == self.SEEK_STATE_PLAY:
@@ -2580,7 +2578,7 @@ class InfoBarSeek:
 			return
 		prevstate = self.seekstate
 
-		setpause = getMachineBuild() in ('hd51','vs1500') and 1 # 0/1 enable workaround for some boxes these in pause mode not seek to new position
+		setpause = getMachineBuild() in ('vs1500',) and 1 # 0/1 enable workaround for some boxes these in pause mode not seek to new position
 		if self.seekstate == self.SEEK_STATE_EOF:
 			if prevstate == self.SEEK_STATE_PAUSE:
 				self.setSeekState(self.SEEK_STATE_PAUSE)
