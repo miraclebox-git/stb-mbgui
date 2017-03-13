@@ -950,10 +950,9 @@ static const char *tuner_source[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I"
 
 int eDVBCIInterfaces::setInputSource(int tuner_no, data_source source)
 {
-	int numCISlots = getNumOfSlots();
 //	eDebug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 //	eDebug("eDVBCIInterfaces::setInputSource(%d %d)", tuner_no, (int)source);
-	if (numCISlots > 1) // FIXME .. we force DM8000 when more than one CI Slot is avail
+	if (getNumOfSlots() > 1) // FIXME .. we force DM8000 when more than one CI Slot is avail
 	{
 		char buf[64];
 		snprintf(buf, 64, "/proc/stb/tsmux/input%d", tuner_no);
@@ -965,8 +964,8 @@ int eDVBCIInterfaces::setInputSource(int tuner_no, data_source source)
 			return 0;
 		}
 
-		if (tuner_no >= numCISlots)
-			eDebug("setInputSource(%d, %d) failed... receiver just have %d inputs", tuner_no, (int)source, numCISlots);
+		if (tuner_no >= getNumOfSlots())
+			eDebug("setInputSource(%d, %d) failed... receiver just have %d inputs", tuner_no, (int)source, getNumOfSlots());
 
 		switch(source)
 		{
@@ -1034,8 +1033,8 @@ int eDVBCIInterfaces::setInputSource(int tuner_no, data_source source)
 		char buf[64];
 		snprintf(buf, 64, "/proc/stb/tsmux/input%d", tuner_no);
 
-		if (tuner_no >= numCISlots)
-			eDebug("setInputSource(%d, %d) failed... receiver just have %d inputs", tuner_no, (int)source, numCISlots);
+		if (tuner_no >= getNumOfSlots())
+			eDebug("setInputSource(%d, %d) failed... receiver just have %d inputs", tuner_no, (int)source, getNumOfSlots());
 
 		FILE *input=0;
 		if((input = fopen(buf, "wb")) == NULL) {
